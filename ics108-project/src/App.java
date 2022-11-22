@@ -12,6 +12,8 @@ public class App extends Application {
     primaryStage.setTitle("MyJavaFX"); // Set the stage title
     primaryStage.setScene(scene); // Place the scene in the stage
     primaryStage.show(); // Display the stage
+
+    //bla
   }
 
   public static void main(String[] args) {
