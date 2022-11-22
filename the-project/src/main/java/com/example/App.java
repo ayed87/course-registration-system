@@ -26,6 +26,7 @@ public class App extends Application {
     }
 
     // hello
+    // hello twice
 
     static void setRoot(String fxml) throws IOException {
         scene.setRoot(loadFXML(fxml));
