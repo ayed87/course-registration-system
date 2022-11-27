@@ -1,7 +1,11 @@
 import javafx.application.Application;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.css.Size;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
 import javafx.stage.Stage;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
@@ -22,48 +26,46 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import java.io.IOException;
+import java.time.temporal.WeekFields;
+
 import javafx.util.Duration;
 
 public class PlanStage extends Application {
-  @Override // Override the start method in the Application class
   public void start(Stage primaryStage) {
 
+
+    // buttons
     Button saveScheduleButton = new Button("Save Schedule");
     Button backButton = new Button("go back");
 
-    GridPane weekDays = new GridPane();
-    weekDays.setPadding(new Insets(20,40,20,40));
-    weekDays.setStyle("-fx-background-color: pink;");
-    weekDays.setMinSize(0, 0);
-    weekDays.setAlignment(Pos.TOP_CENTER);
+    GridPane weekDaysArea = new GridPane();
+    weekDaysArea.setPadding(new Insets(20,20,20,20));
+    weekDaysArea.setStyle(Styles.TextStyle2());
+    weekDaysArea.setMinSize(0, 0);
+    weekDaysArea.setAlignment(Pos.TOP_CENTER);
+    weekDaysArea.setGridLinesVisible(false);
 
 
-    weekDays.setMinSize(0, 0);
-    weekDays.setGridLinesVisible(false);
+    weekDaysArea.setHgap(8);
+    weekDaysArea.setVgap(10);
 
+    // first Row
 
-
-    weekDays.setHgap(5);
-    weekDays.setVgap(10);
-    Label label = new Label("Sun");
-    label.setPrefSize(40,40);
-    label.setFont(Font.font(15));  
-    weekDays.addRow(
+    weekDaysArea.addRow(
       0,
       createTimeLabel("")
 
-      , createLabel("Sun ")
-      , createLabel("Mon")
-      , createLabel("Tus")
-      , createLabel("wns")
-      , createLabel("thurs")
-      , createLabel("Fri")
-      , createLabel("Sat")
+      , createLabel("Sun ",Styles.TextStyle1(),15)
+      , createLabel("Mom",Styles.TextStyle1(),15)
+      , createLabel("Tue",Styles.TextStyle1(),15)
+      , createLabel("Wed",Styles.TextStyle1(),15)
+      , createLabel("Fri",Styles.TextStyle1(),15)
+      , createLabel("Sat",Styles.TextStyle1(),15)
 
     );
+    // First column
 
-
-    weekDays.addColumn(
+    weekDaysArea.addColumn(
       0,
       createTimeLabel("7:00 AM"),
       createTimeLabel(" 8:00 AM"),
@@ -79,33 +81,41 @@ public class PlanStage extends Application {
       
 
     );
+    weekDaysArea.add(createTimeLabel("ics 104"), 1, 1);
+    weekDaysArea.add(createTimeLabel(""), 1, 2);
     
 
+    // choused coruses side
     
+    VBox selectedCoursesArea = new VBox();
+    selectedCoursesArea.setPadding(new Insets(15));
+    selectedCoursesArea.setPrefWidth(250);
+    selectedCoursesArea.setStyle("-fx-background-color: white;");
+    Label selectedCoursesText = createLabel("Selected Courses", Styles.TextStyle1(),15);
+    ObservableList<String> selectedCourses = FXCollections.observableArrayList(
+      "ics 104 ","phys 102","chem 101");
+    ListView<String> listView = new ListView<String>(selectedCourses);
     
-    VBox chosedCoursed = new VBox();
-    chosedCoursed.setPadding(new Insets(15));
-    chosedCoursed.setPrefWidth(200);
-    chosedCoursed.setStyle("-fx-background-color: white;");
-    Label coursesChosedText = createLabel("chosed courses");
 
 
-    chosedCoursed.getChildren().addAll(coursesChosedText);
+
+    selectedCoursesArea.getChildren().addAll(selectedCoursesText,listView);
+    
     //adding the buttons at the bottom
 
     HBox bottomButtonArea  = new HBox();
     bottomButtonArea.setSpacing(15);
+    bottomButtonArea.setAlignment(Pos.CENTER);
     bottomButtonArea.getChildren().addAll(saveScheduleButton,backButton);
     
     
     
     BorderPane borderPane = new BorderPane();
-
     borderPane.setStyle("-fx-background-color: lightblue;");
     borderPane.setPadding(new Insets(15));
 
-    borderPane.setCenter(weekDays);
-    borderPane.setRight(chosedCoursed);
+    borderPane.setCenter(weekDaysArea);
+    borderPane.setRight(selectedCoursesArea);
     borderPane.setBottom(bottomButtonArea);
 
 
@@ -125,11 +135,11 @@ public class PlanStage extends Application {
     launch(args);
   }
 
-  public static Label createLabel(String text){
+  public static Label createLabel(String text, String style,double size){
     Label theLable = new Label(text);
-    theLable.setStyle("-fx-background-color: violet;");
+    theLable.setStyle(style);
     theLable.setPrefSize(700,50);
-    theLable.setFont(new Font("Arial", 20));
+    theLable.setFont(new Font("Arial", size));
 
     theLable.setAlignment(Pos.TOP_CENTER);
 
@@ -138,9 +148,9 @@ public class PlanStage extends Application {
   }
   public static Label createTimeLabel(String text){
     Label theLable = new Label(text);
-    theLable.setStyle("-fx-background-color: lightyellow;");
+    theLable.setStyle("-fx-background-color: #F0F1F3;");
     theLable.setPrefSize(700,50);
-    theLable.setFont(new Font("Arial", 20));
+    theLable.setFont(new Font("Arial", 17));
     theLable.setAlignment(Pos.TOP_CENTER);
 
     return theLable;
