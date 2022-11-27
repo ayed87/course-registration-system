@@ -3,7 +3,7 @@ public class Styles {
         return "-fx-background-color: #4CAF50; -fx-text-fill: white; ";
     }
     public static String green(){
-        return "-fx-background-color: #F9F4F4;";
+        return "-fx-background-color: green;";
     }
     public static String pink(){
         return "-fx-background-color: pink;";

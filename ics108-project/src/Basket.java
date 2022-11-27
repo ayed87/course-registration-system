@@ -80,6 +80,8 @@ public class Basket extends Application {
         
         header.setFont(new Font("Arial", 30));
 
+        header.setStyle(Styles.green());
+
        
 
         
