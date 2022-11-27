@@ -40,7 +40,7 @@ public class PlanStage extends Application {
 
     GridPane weekDaysArea = new GridPane();
     weekDaysArea.setPadding(new Insets(20,20,20,20));
-    weekDaysArea.setStyle(Styles.TextStyle2());
+    weekDaysArea.setStyle(Styles.green());
     weekDaysArea.setMinSize(0, 0);
     weekDaysArea.setAlignment(Pos.TOP_CENTER);
     weekDaysArea.setGridLinesVisible(false);
@@ -55,12 +55,12 @@ public class PlanStage extends Application {
       0,
       createTimeLabel("")
 
-      , createLabel("Sun ",Styles.TextStyle1(),15)
-      , createLabel("Mom",Styles.TextStyle1(),15)
-      , createLabel("Tue",Styles.TextStyle1(),15)
-      , createLabel("Wed",Styles.TextStyle1(),15)
-      , createLabel("Fri",Styles.TextStyle1(),15)
-      , createLabel("Sat",Styles.TextStyle1(),15)
+      , createLabel("Sun ",Styles.white(),15)
+      , createLabel("Mom",Styles.white(),15)
+      , createLabel("Tue",Styles.white(),15)
+      , createLabel("Wed",Styles.white(),15)
+      , createLabel("Fri",Styles.white(),15)
+      , createLabel("Sat",Styles.white(),15)
 
     );
     // First column
@@ -91,7 +91,7 @@ public class PlanStage extends Application {
     selectedCoursesArea.setPadding(new Insets(15));
     selectedCoursesArea.setPrefWidth(250);
     selectedCoursesArea.setStyle("-fx-background-color: white;");
-    Label selectedCoursesText = createLabel("Selected Courses", Styles.TextStyle1(),15);
+    Label selectedCoursesText = createLabel("Selected Courses", Styles.white(),15);
     ObservableList<String> selectedCourses = FXCollections.observableArrayList(
       "ics 104 ","phys 102","chem 101");
     ListView<String> listView = new ListView<String>(selectedCourses);

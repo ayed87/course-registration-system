@@ -1,14 +1,14 @@
 public class Styles {
-    public static String TextStyle1(){
+    public static String white(){
         return "-fx-background-color: #4CAF50; -fx-text-fill: white; ";
     }
-    public static String TextStyle2(){
+    public static String green(){
         return "-fx-background-color: #F9F4F4;";
     }
-    public static String TextStyle3(){
+    public static String pink(){
         return "-fx-background-color: pink;";
     }
-    public static String TextStyle4(){
-        return "-fx-background-color: pink;";
+    public static String blue(){
+        return "-fx-background-color: blue;";
     }
 }
