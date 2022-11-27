@@ -1,3 +1,4 @@
+package Layout;
 public class Styles {
     public static String white(){
         return "-fx-background-color: #4CAF50; -fx-text-fill: white; ";
