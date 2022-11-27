@@ -27,7 +27,6 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import java.io.IOException;
 import java.time.temporal.WeekFields;
-
 import javafx.util.Duration;
 
 public class PlanStage extends Application {
