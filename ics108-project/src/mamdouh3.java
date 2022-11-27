@@ -25,9 +25,9 @@
 //     @Override
 //     public void start(Stage primaryStage)  {
 //         Degree degree = new Degree();
-//         //degree.setTitle("COE flowchart");
-//         //Image image= new Image("COE-Summer-New.png");
-//         //degree.setImageView(new ImageView(image));
+//         degree.setTitle("COE flowchart");
+//         Image image= new Image("COE-Summer-New.png");
+//         degree.setImageView(new ImageView(image));
 //         Scene scene = new Scene(degree,600,600);
 //         primaryStage.setScene(scene);
      
