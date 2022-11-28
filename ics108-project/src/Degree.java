@@ -22,13 +22,13 @@ import javafx.scene.layout.VBox;
 import javafx.scene.Parent;
 
 
-public class Degree  extends BorderPane{
+public class Degree  extends Application{
     public Label label =new Label();
     public GridPane gride=new GridPane();
     public CheckBox box=new CheckBox();
     public String[] grade= {"+A","A","+B","B","+C","C","+D","D","F"};
     public ComboBox<String> combo=new ComboBox<>();
-    public Degree(){
+    public void start(Stage primaryStage) 
         label.setContentDisplay(ContentDisplay.TOP);
         label.setPrefSize(200,100 );
         
@@ -238,6 +238,17 @@ public class Degree  extends BorderPane{
         //gride.add(new CheckBox(),3,44);
         //gride.add(new CheckBox(),3,45);
         setRight(gride);
+        
+
+
+        degree.setTitle("COE flowchart");
+        Image image= new Image("COE-Summer-New.png");
+        degree.setImageView(new ImageView(image));
+        Scene scene = new Scene(degree,600,600);
+        primaryStage.setScene(scene);
+     
+        primaryStage.setTitle("Degree plan");
+        primaryStage.show();
 
 
         

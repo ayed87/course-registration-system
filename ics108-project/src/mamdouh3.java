@@ -21,9 +21,7 @@ import javafx.scene.Parent;
 
 
 public class mamdouh3 extends Application {
-
-    @Override
-    public void start(Stage primaryStage) throws Exceptiong {
+    public void start(Stage primaryStage)  {
         Degree degree = new Degree();
         degree.setTitle("COE flowchart");
         Image image= new Image("COE-Summer-New.png");
