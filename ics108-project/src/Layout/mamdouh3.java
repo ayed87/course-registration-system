@@ -21,7 +21,11 @@
 
 // //HI
 
+<<<<<<< HEAD
 // // public class mamdouh3 extends Application {
+=======
+//public class mamdouh3 extends Application {
+>>>>>>> 25ad95acced77bd02eb8c94ba8f4e06da22715a9
 
 // //     @Override
 // //     public void start(Stage primaryStage)  {
