@@ -53,6 +53,7 @@ public class Degree extends Application{
         Image flowChartImage = new Image("http://www.kfupm.edu.sa/departments/ics/PublishingImages/Pages/Forms/AllItems/BS_CS_summerTraining.JPG");
 
         imageView.setImage(flowChartImage);
+        
         vBox.getChildren().addAll(label2,imageView);
 
   

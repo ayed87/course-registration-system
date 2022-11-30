@@ -21,7 +21,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
-public class Basket extends Application {
+public class BasketStage extends Application {
     
     public void start(Stage primaryStage) {
 

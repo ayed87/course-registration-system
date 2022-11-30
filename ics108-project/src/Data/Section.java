@@ -1,8 +1,11 @@
 package Data;
 
-public class Section extends Course {
+public class Section  {
 
-    private Course course; 
+    private String sectionCode;  // course code and section number
+    private String courseName; 
+    private String department ;
+    private String instructor; 
     private String day; 
     private String time; 
     private String location; 

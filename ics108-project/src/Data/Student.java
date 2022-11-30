@@ -4,8 +4,11 @@ import java.util.ArrayList;
 
 public class Student {
 
-    private ArrayList<Course> finishedCourses;
-
+    private ArrayList<Course> courses;
     private int finishedCredits;
+
+
+
+    
     
 }
