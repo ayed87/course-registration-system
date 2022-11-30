@@ -1,5 +1,13 @@
 package Layout;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.Scanner;
+
+import Data.Student;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -25,10 +33,28 @@ public class BasketStage extends Application {
     
     public void start(Stage primaryStage) {
 
+        // reading files 
+
+        
+
+        try{ 
+            FileReader courseOffering = new FileReader("CourseOffering.csv");
+
+            BufferedReader courseOfferingScanner = new BufferedReader(courseOffering);
+
+            Student student = new Student(); 
+
+            student.readAllSections(courseOfferingScanner);
+
+            System.out.println(student.getNumberOfSections());
+        }
+
+        catch(FileNotFoundException e){System.out.println(e);}
+        
+        
         // Pane used 
         BorderPane borderPane = new BorderPane();
 
-      
 
         // Buttons to move between scenes
         Button previous = new Button("Previous");
@@ -36,22 +62,21 @@ public class BasketStage extends Application {
 
         previous.setMinSize(100, 20);
         next.setMinSize(100, 20);
-
         HBox hBox = new HBox(); 
-
         hBox.getChildren().addAll(previous,next); 
-
         hBox.setSpacing(100);
-
         hBox.setAlignment(Pos.CENTER);
-
         borderPane.setBottom(hBox);
+
+        // button functionality
 
 
         // Choice boxes to select department and courses
 
         Label department = new Label("Select Department: "); 
         Label courses = new Label("Select Course: ");
+
+        // choice box adjustment 
         ChoiceBox departmentChoice = new ChoiceBox<>();
         ChoiceBox coursesChoice = new ChoiceBox<>(); 
 
@@ -73,13 +98,12 @@ public class BasketStage extends Application {
         HBox coursesSelectionBox = new HBox(); 
 
         coursesSelectionBox.getChildren().addAll(departmentBox,courseBox);
-        
+
+
+        // title
         coursesSelectionBox.setSpacing(100);
-
         Label header = new Label("Sections' Basket"); 
-        
         header.setFont(new Font("Arial", 30));
-
         header.setStyle(Styles.green());
 
        
@@ -88,28 +112,15 @@ public class BasketStage extends Application {
 
         
 
-        
-
+        // title 
         VBox topPart = new VBox(); 
-
-        
-
         topPart.getChildren().addAll(header,coursesSelectionBox);
-
         topPart.setAlignment(Pos.CENTER);
-
         topPart.setSpacing(40);
-
-        
-
-      
-
-        
-
         borderPane.setTop(topPart);
 
-        // courses select list, need more improvement
 
+        // courses select list, need more improvement
         ScrollPane listScroll = new ScrollPane();
         listScroll.setVbarPolicy(ScrollBarPolicy.ALWAYS);
 
@@ -138,6 +149,10 @@ public class BasketStage extends Application {
 
         primaryStage.setScene(scene1);
         primaryStage.show();
+
+
+
+        
     }
 
     public static void main(String[] args) {
