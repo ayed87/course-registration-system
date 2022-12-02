@@ -42,9 +42,9 @@ public class Degree extends Application{
         CheckBox box=new CheckBox();
 
         // Image flowChartImage = new Image("COE-Summer-New.png");
-        VBox vBox = new VBox();
-        vBox.setSpacing(10);
-        vBox.setAlignment(Pos.CENTER);
+        VBox vBox1 = new VBox();
+        vBox1.setSpacing(10);
+        vBox1.setAlignment(Pos.CENTER);
         Label label2 = new Label("course offring");
 
         label2.setFont(new Font("Arial", 30));
@@ -54,9 +54,22 @@ public class Degree extends Application{
 
         imageView.setImage(flowChartImage);
         
-        vBox.getChildren().addAll(label2,imageView);
+        vBox1.getChildren().addAll(label2,imageView);
 
   
+        
+
+
+
+        // k 
+        HBox hbox2= new HBox();
+        hbox2.setSpacing(10);
+        hbox2.setPadding(new Insets(5,5,5,5));
+        hbox2.setAlignment(Pos.CENTER);
+        //hbox2.getChildren().add();
+        //hbox2.getChildren().add(b4);
+
+
 
         HBox courseDiscribtBox = new HBox();
         
@@ -67,7 +80,7 @@ public class Degree extends Application{
         
         mainArea.setSpacing(30);
 
-        mainArea.getChildren().addAll(vBox,courseDiscribtBox);
+        mainArea.getChildren().addAll(vBox1,courseDiscribtBox);
         Scene scene = new Scene(mainArea);
 
         
@@ -75,12 +88,13 @@ public class Degree extends Application{
         
         String[] grade= {"+A","A","+B","B","+C","C","+D","D","F"};
 
+        BorderPane paneDegree= new  BorderPane();
+
         
-        
 
 
 
-        primaryStage.setTitle("COE flowchart");
+        primaryStage.setTitle("Degree Plan");
         primaryStage.setScene(scene);
         primaryStage.show();
 

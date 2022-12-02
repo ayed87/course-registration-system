@@ -131,6 +131,7 @@ public class BasketStage extends Application {
 
        
         listScroll.setFitToWidth(true);
+       
 
         
 
