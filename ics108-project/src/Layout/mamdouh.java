@@ -31,8 +31,13 @@ public class mamdouh extends Application {
     Button b2 = new Button("Saved Schedule");
     Button b3 = new Button("New Schedule");
     Button b4= new Button("Exist");
+    
+    
+
+
      
     public void start(Stage primaryStage) {
+
        b1.setTextFill(Color.WHITE);
        b2.setTextFill(Color.WHITE);
        b3.setTextFill(Color.WHITE);
@@ -98,15 +103,15 @@ public class mamdouh extends Application {
 
         BorderPane.setAlignment(text, Pos.CENTER);
         
-        mamdouh2 mam=new mamdouh2();
 
-        Scene scene = new Scene(pane ,300,200);
-        primaryStage.setScene(scene);
-        Scene settingScene = new Scene(mam.getNewSchedule());  
+        Scene scene1 = new Scene(pane ,300,200);
+  
 
-        b3.setOnAction(e -> {
-            primaryStage.setScene(settingScene);
-        });
+        primaryStage.setScene(scene1);
+        
+         
+
+       
 
         primaryStage.show();
         
@@ -117,7 +122,9 @@ public class mamdouh extends Application {
         
     }
     
-      
+    
+            
+    
       
     public static void main(String[] args) {
         launch(args);
