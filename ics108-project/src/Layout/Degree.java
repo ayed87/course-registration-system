@@ -113,15 +113,30 @@ public class Degree extends Application{
         //Scene scene = new Scene(mainArea);
 
         
-
+      
         
         //String[] grade= {"+A","A","+B","B","+C","C","+D","D","F"};   
-        BorderPane paneDegree= new  BorderPane();
-        paneDegree.setLeft(vBox1);   
-        paneDegree.setRight(Rightpart);  
-        paneDegree.setBottom(buttonClick); 
+        //BorderPane paneDegree= new  BorderPane();
+        //paneDegree.setLeft(vBox1);   
+        //paneDegree.setRight(Rightpart);  
+        //paneDegree.setBottom(buttonClick); 
+
+        // the main hbox 
+        HBox mainhbox=new HBox();
+        mainhbox.setSpacing(10);
+        mainhbox.setPadding(new Insets(5,5,5,5));
+        mainhbox.setAlignment(Pos.CENTER);
+        mainhbox.getChildren().addAll(vBox1,Rightpart);
+
+
+        //  the vbox the main bigger than hbox 
+        VBox mainhBoxStage=new VBox();
+        mainhbox.setSpacing(10);
+        mainhbox.setPadding(new Insets(5,5,5,5));
+        mainhbox.setAlignment(Pos.CENTER);
+        mainhbox.getChildren().addAll(mainhbox, buttonClick);
         
-        Scene scene2=new Scene(paneDegree,900,900);
+        Scene scene2=new Scene(mainhBoxStage,1000,1000);
 
 
 
