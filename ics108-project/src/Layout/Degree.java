@@ -50,8 +50,9 @@ public class Degree extends Application{
 
 
 
-
-     Student student1 = new Student(); 
+   
+   
+    Student student1 = new Student(); 
         
 
      try{ 
@@ -187,8 +188,13 @@ public class Degree extends Application{
 
         ScrollPane  scrollPane= new ScrollPane(parts);
         
-         
-       
+    grades.setDisable(true) ;
+    terms.setDisable(true);
+    
+    // event for checkbox taken
+    taken.setOnAction(e ->{ grades.setDisable(false) ;terms.setDisable(false);
+
+    });
 
         // hbox for button
         HBox buttonClick= new HBox();
