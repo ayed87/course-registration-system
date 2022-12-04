@@ -32,16 +32,51 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import java.io.IOException;
+import java.nio.file.FileStore;
 import java.time.temporal.WeekFields;
 import java.util.ArrayList;
+import java.util.Random;
 
 import Data.Schedule;
+import Data.Section;
+import Data.Student;
 import javafx.util.Duration;
 
 public class PlanStage extends Application {
+  // Section[] sections = new Section[2];
+  static Pane newPane;
   int x = 0;
   int y = 0;
   public void start(Stage primaryStage) {
+
+    //Student  list  have to be here 
+    Student student = new Student();
+    String[] info5 = {"PHYS101-70","LAB","22041","General Physics I","None","W","0800-1040","None","Closed","Closed"};
+
+    String[] info3 = {"ICS 108-06","LAB","22867","Object-Oriented Programming","RASHAD OTHMAN","MW","1530-1645","22-335","Closed","Open"
+
+  };
+
+    String[] info1 = {"ICS 104-04","LEC","22795","Introduction to Programming in Python and C","S ARAFAT","MW","0900-0950","24-120","Closed","Closed"
+    };
+    String[] info2 = {"PHYS102-01","REC","20086","General Physics II","RADITYA BOMANTARA","W","0800-0850","59-1005","Open","Closed"
+    };
+    String[] info4 = {"ICS 104-01","LEC","22785","Introduction to Programming in Python and C","M BALAH","UT","0800-0850","24-120","Closed","Open"
+    };
+
+
+  
+    Section sections1 = new Section(info1);
+    Section sections2 = new Section(info2);
+    Section sections3 = new Section(info3);
+    Section section4 = new Section(info4);
+    Section section5 = new Section(info5);
+    student.addCourse(sections1);
+    student.addCourse(sections2);
+    student.addCourse(sections3);
+    student.addCourse(section5);
+    student.addCourse(section4);
+    
     // Schedule schedule = new Schedule();
     // buttons
     
@@ -87,13 +122,19 @@ public class PlanStage extends Application {
 
     );
     scheduleArea.setLeft(left);
-    Pane newPane = new Pane();
-    Label aLabel = new Label();
-    aLabel.setStyle(Styles.green());
-    aLabel.setPrefSize(160, 100);
-    aLabel.setLayoutX(0);
+    newPane = new Pane();
+    Label aLabel = new Label("ics lab");
+    Label asecondLabel = new Label("ics lab");
+
+    aLabel.setStyle(Styles.pink());
+    aLabel.setPrefSize(160, 176);
+    aLabel.setLayoutX(170+170+170);
     aLabel.setLayoutY(55);
-    newPane.getChildren().addAll(aLabel);
+    asecondLabel.setStyle(Styles.green());
+    asecondLabel.setPrefSize(160,50);
+    asecondLabel.setLayoutX(170);
+    asecondLabel.setLayoutY(55+55);
+    // newPane.getChildren().addAll(aLabel,asecondLabel);
     // newPane.getChildren().add(createCourseLabel());
 
     // newPane.getChildren().addAll(aLabel);
@@ -101,55 +142,6 @@ public class PlanStage extends Application {
 
 
 
-    GridPane weekDaysArea = new GridPane();
-    weekDaysArea.setPadding(new Insets(20,20,20,20));
-    weekDaysArea.setStyle(Styles.green());
-    weekDaysArea.setMinSize(0, 0);
-    // weekDaysArea.setAlignment(Pos.TOP_CENTER);
-    weekDaysArea.setGridLinesVisible(false);
-
-
-    // weekDaysArea.setHgap(8);
-    // weekDaysArea.setVgap(10);
-
-    // first Row
-
-    // weekDaysArea.addRow(
-    //   0,
-    //   createTimeLabel("")
-
-    //   , createLabel("Sun ",Styles.white(),15)
-    //   , createLabel("Mom",Styles.white(),15)
-    //   , createLabel("Tue",Styles.white(),15)
-    //   , createLabel("Wed",Styles.white(),15)
-    //   , createLabel("Fri",Styles.white(),15)
-    //   , createLabel("Sat",Styles.white(),15)
-
-    // );
-    // First column
-
-    // weekDaysArea.addColumn(
-    //   0,
-    //   createTimeLabel("7:00 AM"),
-    //   createTimeLabel(" 8:00 AM"),
-    //   createTimeLabel("9:00 AM"),
-    //   createTimeLabel("10:00 AM"),
-    //   createTimeLabel("11:00 AM"),
-    //   createTimeLabel("12:00 PM"),
-    //   createTimeLabel("1:00 PM"),
-    //   createTimeLabel("2:00 PM"),
-    //   createTimeLabel("3:00 PM"),
-    //   createTimeLabel("4:00 PM"),
-    //   createTimeLabel("5:00 PM")
-      
-
-    // );
-    // weekDaysArea.add(createTimeLabel(""), 1, 2);
-
-    // weekDaysArea.add(createCourseLabel(), 2, 3);
-    
-
-    // choused coruses side
 
     scheduleArea.setCenter(newPane);
     
@@ -160,8 +152,8 @@ public class PlanStage extends Application {
     Label selectedCoursesText = createLabel("Selected Courses", Styles.white(),15);
 
     ArrayList<VBox> arrayList = new ArrayList<VBox>();
-    for(int i =0; i<5; i++){
-      arrayList.add(i, createCourseLabel());
+    for(int i =0; i<student.getBasket().size(); i++){
+      arrayList.add(i,createCourseLabel(student.getBasket().get(i)));
     }
     ObservableList<VBox> selectedCourses = FXCollections.observableArrayList(arrayList);
 
@@ -171,21 +163,24 @@ public class PlanStage extends Application {
     listView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
     
     Button confirmButton = new Button("confirm");
+    // if
+
     confirmButton.setOnAction(e -> {
       System.out.println("pressed");
       int selctedCourseIndix = listView.getSelectionModel().getSelectedIndex();
       VBox selectedCourse = arrayList.get(selctedCourseIndix);
       // schedule.addSecion(selectedCourse);
-      arrayList.remove(selctedCourseIndix);
-      HBox slected = createRigestedCourseLabel();
+      // arrayList.remove(selctedCourseIndix);
+      VBox slected = createRigestedCoursePane(student.getBasket().get(selctedCourseIndix));
+      addCourseToPane(student.getBasket().get(selctedCourseIndix));
 
-      slected.setLayoutX(x);
-      slected.setLayoutY(y);
+      // slected.setLayoutX(x);
+      // slected.setLayoutY(y);
 
       // 170 for each day
       // 55 for each hour
 
-      newPane.getChildren().add(slected);
+      // newPane.getChildren().add(slected);
       x += 170;
       y += 55;
       listView.getItems().removeAll(listView.getSelectionModel().getSelectedItem
@@ -269,38 +264,88 @@ public class PlanStage extends Application {
     return theLable;
 
   }
-  public static VBox createCourseLabel(){
+  public static VBox createCourseLabel(Section section){
     VBox theLable = new VBox();
 
     theLable.setStyle("-fx-background-color: lightgreen;");
-    Text courseNameAndSection = new Text("ics108-section1");
-    Text time = new Text("7:00");
-    Text day = new Text("to day");
+    Text courseNameAndSection = new Text(section.getCourseName()+"@");
+    Text locationText = new Text(section.getLocation());
+    Text timeText = new Text(section.getTime());
+    Text dayText = new Text(section.getDay());
     // theLable.setTextFill(Paint.valueOf("black"));
     theLable.setPrefSize(150,90);
     // theLable.setFont(new Font("Arial", 17));
     // theLable.setAlignment(Pos.TOP_CENTER);
-    theLable.getChildren().addAll(courseNameAndSection,time,day);
+    theLable.getChildren().addAll(courseNameAndSection,locationText,timeText,dayText);
 
     return theLable;
 
   }
-  public static HBox createRigestedCourseLabel(){
-    HBox theLable = new HBox();
 
-    theLable.setStyle("-fx-background-color: lightpink;");
-    Text courseNameAndSection = new Text("ics108-section1");
-    Text time = new Text("7:00");
-    Text day = new Text("Sunday");
-    // theLable.setTextFill(Paint.valueOf("black"));
-    theLable.setPrefSize(160,50);
+  public static VBox createRigestedCoursePane(Section section){
+    VBox theLable = new VBox();
+    // adding random color
+    String[] colors = {"#ed9121","blue","#702963","#7fff00","#ff7f50"};
+    Random random = new Random();
+    int pickColor = random.nextInt(colors.length);
+    theLable.setStyle("-fx-background-color: "+colors[pickColor]+";");
+
+    Text courseNameAndSection = new Text(section.getCourseName());
+    courseNameAndSection.setFont(new Font(1));
+    Text time = new Text(section.getTime());
+    time.setFont(new Font(1));
+
+    // Text day = new Text(section.getDay());
+    Button removButton = new Button("remove");
+
+    removButton.setAlignment(Pos.BOTTOM_LEFT);
+    removButton.setOnAction(e -> {
+      System.out.println("got pressed form ayed");
+      newPane.getChildren().remove(theLable);
+      
+    });
+
+
     // theLable.setFont(new Font("Arial", 17));
     // theLable.setAlignment(Pos.TOP_CENTER);
-    theLable.getChildren().addAll(courseNameAndSection,time,day);
+    theLable.getChildren().addAll(courseNameAndSection,time,removButton);
 
+    int hight = (Schedule.readTime(section)*55)/50;
+    theLable.setPrefSize(160,hight);
+    
+    // theLable.setMaxSize(160, hight);
+    theLable.setLayoutY(Schedule.readStartTime(section));
     return theLable;
 
   }
+
+  public static void addCourseToPane(Section section){
+    // here we want to check what should we 
+
+    if (section.getDay().equals("MW")){
+      VBox first = createRigestedCoursePane(section);  
+      first.setLayoutX(170);      
+      VBox second = createRigestedCoursePane(section);
+      second.setLayoutX(170+170+170);
+      newPane.getChildren().addAll(first,second);
+
+
+    }
+    if( section.getDay().equals("W")){
+      VBox first = createRigestedCoursePane(section);
+      first.setLayoutX(170*3);
+      newPane.getChildren().addAll(first);
+    }
+    if(section.getDay().equals("UT")){
+      VBox first  = createRigestedCoursePane(section);
+
+      VBox second = createRigestedCoursePane(section);
+      second.setLayoutX(170*2);
+      newPane.getChildren().addAll(first,second);
+    }
+  }
+
+  
 
 
   

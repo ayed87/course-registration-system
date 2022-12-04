@@ -61,6 +61,20 @@ public class Section  {
         return department;
     }
 
+    //ayed: i added other geters
+    public String getCourseName() {
+        return courseName;
+    }
+    public String getDay() {
+        return day;
+    }
+    public String getTime() {
+        return time;
+    }
+    public String getLocation() {
+        return location;
+    }
+
     
 
 

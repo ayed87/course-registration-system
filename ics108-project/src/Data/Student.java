@@ -47,6 +47,11 @@ public class Student {
     catch(IOException e){System.out.println(e);}
 
     }
+    // ayed's temporary method
+    public void addCourse(Section section){
+        basket.add(section);
+
+    } 
 
     public void readAllCourse(BufferedReader buff){ 
 
