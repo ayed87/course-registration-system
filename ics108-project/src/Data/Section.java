@@ -13,8 +13,10 @@ public class Section  {
     private String status; 
     private String waitlist;
     private String department ;
+    private String courseCode;
 
 
+   // zyad
     public Section(String[] sectionInformation){
 
         this.sectionCode = sectionInformation[0]; 
@@ -25,13 +27,55 @@ public class Section  {
         this.day =  sectionInformation[5]; 
         this.time =  sectionInformation[6]; 
         this.location =  sectionInformation[7]; 
-        //this.status = sectionInformation[8] ; 
-        //this.waitlist =  sectionInformation[9] ; 
+        this.status = sectionInformation[8] ; 
+        this.waitlist =  sectionInformation[9] ; 
 
-        this.department = this.sectionCode.substring(0, 5).trim(); // take the first 4 litters, then ommit space if any
+        this.department = this.sectionCode.substring(0, 4).trim(); // take the first 4 litters, then ommit space if any
+
+        String[] courseCodeParts = this.sectionCode.split("-")[0].split(" ");
+        
+            this.courseCode= "";
+            
+            for(int i=0 ; i< courseCodeParts.length ; i++){ 
+
+                this.courseCode = this.courseCode + courseCodeParts[i];
+            }
+
+        
+
+     
         
     }
 
+    public String toString(){ 
+
+        return sectionCode +"   "+ type +"   "+ crn +"   "+ courseName +"   " +instructor +"   "+ day +"   "+ time +"   " + location+"   "+ 
+        status +"   "+ waitlist ;
+    }
+
+    public String getCourseCode(){ 
+        return courseCode ;
+    }
+
+    public String getDepartment(){ 
+        return department;
+    }
+
+    //ayed: i added other geters
+    public String getCourseName() {
+        return courseName;
+    }
+    public String getDay() {
+        return day;
+    }
+    public String getTime() {
+        return time;
+    }
+    public String getLocation() {
+        return location;
+    }
+
+    
 
 
      

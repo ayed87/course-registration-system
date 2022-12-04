@@ -5,21 +5,25 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Scanner;
 
+import Data.Section;
 import Data.Student;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Slider;
 import javafx.scene.control.ScrollPane.ScrollBarPolicy;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -35,23 +39,37 @@ public class BasketStage extends Application {
 
         // reading files 
 
+        Student student = new Student(); 
         
 
         try{ 
+
+            // reading files and creating objects for sections, courses in degree plan, finished courses
             FileReader courseOffering = new FileReader("CourseOffering.csv");
+            FileReader degreePlan = new FileReader("DegreePlan.csv");
+            FileReader finishedCourses = new FileReader("FinishedCourses.csv");
+            
 
-            BufferedReader courseOfferingScanner = new BufferedReader(courseOffering);
+            BufferedReader courseOfferingReader = new BufferedReader(courseOffering);
+            BufferedReader degreePlanReader = new BufferedReader(degreePlan); 
+            BufferedReader finishedCoursesReader = new BufferedReader(finishedCourses);
 
-            Student student = new Student(); 
+           
 
-            student.readAllSections(courseOfferingScanner);
+            student.readAllSections(courseOfferingReader);
+            student.readAllCourse(degreePlanReader);
+            student.readAllFinishedCourses(finishedCoursesReader);
 
-            System.out.println(student.getNumberOfSections());
         }
 
         catch(FileNotFoundException e){System.out.println(e);}
-        
-        
+
+       
+      student.findCanBeTakenCourses();
+      student.findCanBeTakenSections();
+      
+     
+ 
         // Pane used 
         BorderPane borderPane = new BorderPane();
 
@@ -77,11 +95,80 @@ public class BasketStage extends Application {
         Label courses = new Label("Select Course: ");
 
         // choice box adjustment 
-        ChoiceBox departmentChoice = new ChoiceBox<>();
-        ChoiceBox coursesChoice = new ChoiceBox<>(); 
+       ComboBox<String> departmentChoice = new ComboBox<>();
+       ComboBox<String> coursesChoice = new ComboBox<>();
+
+      
+      // events for comboBox
+       departmentChoice.getItems().addAll(student.getDepartments());
+       
+
+       departmentChoice.setOnAction(e-> {
+
+    coursesChoice.getItems().removeAll(coursesChoice.getItems());
+    coursesChoice.getItems().addAll(student.getCoursesForDepartment(departmentChoice.getValue()));
+       });
+
+        
+
+        
+    
+        
+       
+      
+    
+       
+       // actions for basket
+       coursesChoice.setOnAction(e-> {
+
+
+        student.findShownSections(departmentChoice.getValue(),coursesChoice.getValue());
+        ListView<Section> sectionListView = new ListView<Section>(student.getShownSections());
+        ListView<Section> basketListView = new ListView<Section>(student.getBasket()) ;
+
+        sectionListView.setOnMouseClicked( new EventHandler<MouseEvent>() {
+
+            public void handle(MouseEvent e){ 
+
+                student.clickOnSectionList(sectionListView);
+            }
+            
+        });
+
+        basketListView.setOnMouseClicked(new EventHandler<MouseEvent>() {
+
+            public void handle(MouseEvent e){ 
+
+                student.clickOnBasketList(basketListView);
+            }
+            
+        });
+        VBox sectionAndBasket = new VBox(); 
+         sectionAndBasket.getChildren().addAll(sectionListView,basketListView); 
+         sectionAndBasket.setSpacing(10);
+ 
+        borderPane.setCenter(sectionAndBasket);
+
+        
+       });
+
+      
+      
+
+       
+        
+
+       
+
+
+
+
+
 
         departmentChoice.setPrefSize(100,10);
         coursesChoice.setPrefSize(100, 10);
+
+
 
         HBox departmentBox = new HBox(); 
 
@@ -121,6 +208,7 @@ public class BasketStage extends Application {
 
 
         // courses select list, need more improvement
+<<<<<<< HEAD
         ScrollPane listScroll = new ScrollPane();
         listScroll.setVbarPolicy(ScrollBarPolicy.ALWAYS);
 
@@ -133,13 +221,12 @@ public class BasketStage extends Application {
         listScroll.setFitToWidth(true);
        
 
+=======
+>>>>>>> a3d1edf21424b34df4335cba00fedb9c10f7f707
         
 
-       
-
-        borderPane.setCenter(listScroll);
-
-
+        
+        
 
 
 
