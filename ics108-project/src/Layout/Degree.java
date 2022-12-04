@@ -10,12 +10,18 @@ import javafx.scene.control.ContentDisplay;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
+import javafx.scene.control.ScrollPane.ScrollBarPolicy;
 import javafx.stage.Stage;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
 import java.net.URI;
 
+import Data.Student;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -23,54 +29,65 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
+import javafx.scene.text.Text;
 import javafx.scene.Parent;
 
 
 public class Degree extends Application{
     Button b6 = new Button("Next");
     Button b7 = new Button("Back");
-    Button b8 = new Button("Save the changes");
-    public void start(Stage primaryStage) throws Exception {
-        Label label =new Label();
+    Button b8 = new Button("Show the flowchart");
+    public void start(Stage primaryStage)  {
+        
+        b6.setMinSize(100, 20);
+        b7.setMinSize(100, 20);
+        b8.setMinSize(100, 20);
+        Text label =new Text("Degree plan");
+        label.setFont(new Font("Arial", 50));
         CheckBox taken= new CheckBox("Taken");
-        // GridPane gride=new GridPane();
-        // ScrollPane scrollPane = new ScrollPane(gride);
-                // gride.setAlignment(Pos.CENTER);
-        // gride.setPadding(new Insets(11.5,12.5,13.5,14.5));
-        // gride.setHgap(5.5);
-        // gride.setVgap(5.5);
-        // ComboBox<String> combo=new ComboBox<>();
 
+     //Reading file 
+
+
+
+
+     Student student1 = new Student(); 
+        
+
+     try{ 
+
+       
+
+        FileReader degreePlan = new FileReader("DegreePlan.csv");
+        BufferedReader degreePlanReader = new BufferedReader(degreePlan);
 
         
 
-        // Image flowChartImage = new Image("COE-Summer-New.png");
-        //vbox for the left side which have flowchart and a title
-        VBox vBox1 = new VBox();
-        vBox1.setSpacing(10);
-        vBox1.setAlignment(Pos.CENTER);
-        Label label2 = new Label("ICS flowchart");
+         
+        student1.readAllCourse(degreePlanReader);
+         
 
-        label2.setFont(new Font("Arial", 30));
-        label2.setAlignment(Pos.CENTER);
-        ImageView imageView = new ImageView();
-        Image flowChartImage = new Image("http://www.kfupm.edu.sa/departments/ics/PublishingImages/Pages/Forms/AllItems/BS_CS_summerTraining.JPG");
+     }
 
-        imageView.setImage(flowChartImage);
-        
-        vBox1.getChildren().addAll(label2,imageView);
+     catch(FileNotFoundException e){System.out.println(e);}
 
-  
-        
 
-        // My goal to make vboxs inside a single hbox in right side
+
+
+
+
+
+
+       
+
+
 
         // vbox for class
         VBox vbox2= new VBox();
         vbox2.setSpacing(10);
         vbox2.setPadding(new Insets(5,5,5,5));
         vbox2.setAlignment(Pos.CENTER);
-        vbox2.getChildren().addAll(new Label("ics104"),new Label("ics108"));
+        vbox2.getChildren().addAll(new Label("Courses"),new Label("ics108"));
         
 
         // credit 
@@ -78,65 +95,124 @@ public class Degree extends Application{
         vbox3.setSpacing(10);
         vbox3.setPadding(new Insets(5,5,5,5));
         vbox3.setAlignment(Pos.CENTER);
-        vbox3.getChildren().addAll(new Label("3"),new Label("4"));
+        vbox3.getChildren().addAll(new Label("Credit"),new Label("4"));
+         
         
-        //checkbox
+        // corequisite
+         VBox vbox5= new VBox();
+         vbox5.setSpacing(10);
+         vbox5.setPadding(new Insets(5,5,5,5));
+         vbox5.setAlignment(Pos.CENTER);
+         vbox5.getChildren().addAll(new Label("corequisite"),new Label("n"));
+ 
+        
+
+        //prerequisite 
         VBox vbox4= new VBox();
         vbox4.setSpacing(10);
         vbox4.setPadding(new Insets(5,5,5,5));
         vbox4.setAlignment(Pos.CENTER);
-        vbox4.getChildren().add(taken);
+        vbox4.getChildren().addAll(new Label("prerequisite "),new Label("c "));
 
 
 
-        HBox Rightpart= new HBox();
-        vbox4.setSpacing(10);
-        vbox4.setPadding(new Insets(5,5,5,5));
-        vbox4.setAlignment(Pos.CENTER);
-        vbox4.getChildren().addAll(vbox2,vbox3,vbox4);
+
+
+         //checkbox
+         VBox vbox6= new VBox();
+         vbox6.setSpacing(10);
+         vbox6.setPadding(new Insets(5,5,5,5));
+         vbox6.setAlignment(Pos.CENTER);
+         vbox6.getChildren().addAll(new Label("Taken Courses"),taken);
+         
+
+        // Grades for the course 
+         String[] grade= {"+A","A","+B","B","+C","C","+D","D","F"}; 
+         ComboBox<String> grades = new ComboBox<>();
+
+
+         grades.getItems().addAll(grade);
+
+         grades.setOnAction(e-> {}
+         );
+
+         //checkbox grades
+         VBox vbox7= new VBox();
+         vbox7.setSpacing(10);
+         vbox7.setPadding(new Insets(5,5,5,5));
+         vbox7.setAlignment(Pos.CENTER);
+         vbox7.getChildren().addAll(new Label("Grades"),grades);
+         
+
+      
+         // events for comboBox
+          
+   
+        
+   
+        //// Grades for the course 
+         String[] years= {"222","221","213","212","211","203","202","201"}; 
+         ComboBox<String> terms = new ComboBox<>();
+
+      
+        
+         terms.getItems().addAll(years);
+
+         //checkbox grades
+         VBox vbox8= new VBox();
+         vbox8.setSpacing(10);
+         vbox8.setPadding(new Insets(5,5,5,5));
+         vbox8.setAlignment(Pos.CENTER);
+         vbox8.getChildren().addAll(new Label("Term"),terms);
+        
+        
+        
+        
+         // events for comboBox
+          terms.getItems().addAll(years);
+          
+   
+          grades.setOnAction(e-> {}
+          );
+   
+        //
+
+
+        HBox parts= new HBox();
+        parts.setSpacing(200);
+        parts.setPadding(new Insets(5,5,5,5));
+        parts.setAlignment(Pos.CENTER);
+        parts.getChildren().addAll(vbox2,vbox3,vbox4,vbox5,vbox6,vbox7,vbox8);
+
+
+        ScrollPane  scrollPane= new ScrollPane(parts);
+        
+         
+       
 
         // hbox for button
         HBox buttonClick= new HBox();
-        vbox4.setSpacing(10);
-        vbox4.setPadding(new Insets(5,5,5,5));
-        vbox4.setAlignment(Pos.CENTER);
-        vbox4.getChildren().addAll(b6,b7,b8);
+        buttonClick.setSpacing(100);
+        buttonClick.setPadding(new Insets(5,5,5,5));
+        buttonClick.setAlignment(Pos.CENTER);
+        buttonClick.getChildren().addAll(b6,b7,b8);
         
-        //courseDiscribtBox.setStyle(Styles.blue());
-
-
-        //HBox mainArea = new HBox();
-        
-        //mainArea.setSpacing(30);
-
-        //mainArea.getChildren().addAll(vBox1,courseDiscribtBox);
-        //Scene scene = new Scene(mainArea);
 
         
       
         
-        //String[] grade= {"+A","A","+B","B","+C","C","+D","D","F"};   
-        //BorderPane paneDegree= new  BorderPane();
-        //paneDegree.setLeft(vBox1);   
-        //paneDegree.setRight(Rightpart);  
-        //paneDegree.setBottom(buttonClick); 
-
-        // the main hbox 
-        HBox mainhbox=new HBox();
-        mainhbox.setSpacing(10);
-        mainhbox.setPadding(new Insets(5,5,5,5));
-        mainhbox.setAlignment(Pos.CENTER);
-        mainhbox.getChildren().addAll(vBox1,Rightpart);
-
-
-        //  the vbox the main bigger than hbox 
-        VBox mainhBoxStage=new VBox();
-        mainhbox.setSpacing(10);
-        mainhbox.setPadding(new Insets(5,5,5,5));
-        mainhbox.setAlignment(Pos.CENTER);
-        mainhbox.getChildren().addAll(mainhbox, buttonClick);
+        //String[] grade= {"+A","A","+B","B","+C","C","+D","D","F"}; 
         
-        Scene scene2=new Scene(mainhBoxStage,1000,1000);
+        
+        
+        VBox main= new  VBox();
+        main.setSpacing(300);
+        main.setPadding(new Insets(5,5,5,5));
+        main.setAlignment(Pos.CENTER);
+        main.getChildren().addAll(label,scrollPane,buttonClick);
+
+        BorderPane.setAlignment(label, Pos.CENTER);
+        Scene scene2=new Scene(main,300,500);
 
 
 
