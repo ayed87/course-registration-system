@@ -208,7 +208,6 @@ public class BasketStage extends Application {
 
 
         // courses select list, need more improvement
-<<<<<<< HEAD
         ScrollPane listScroll = new ScrollPane();
         listScroll.setVbarPolicy(ScrollBarPolicy.ALWAYS);
 
@@ -221,8 +220,6 @@ public class BasketStage extends Application {
         listScroll.setFitToWidth(true);
        
 
-=======
->>>>>>> a3d1edf21424b34df4335cba00fedb9c10f7f707
         
 
         
