@@ -27,6 +27,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.Background;
 import javafx.scene.layout.Border;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
@@ -51,6 +52,8 @@ public class PlanStage extends Application {
 
     //Student  list  have to be here 
     Student student = new Student();
+    
+    String[] info6 = {"ICS 202-01","LEC","20502","Data Structures and Algorithms","HUSNI AL-MUHTASEB","UTR","0800-0850","22-125","Open","Closed"};
     String[] info5 = {"PHYS101-70","LAB","22041","General Physics I","None","W","0800-1040","None","Closed","Closed"};
 
     String[] info3 = {"ICS 108-06","LAB","22867","Object-Oriented Programming","RASHAD OTHMAN","MW","1530-1645","22-335","Closed","Open"
@@ -71,11 +74,13 @@ public class PlanStage extends Application {
     Section sections3 = new Section(info3);
     Section section4 = new Section(info4);
     Section section5 = new Section(info5);
+    Section section6 = new Section(info6);
     student.addCourse(sections1);
     student.addCourse(sections2);
     student.addCourse(sections3);
     student.addCourse(section5);
     student.addCourse(section4);
+    student.addCourse(section6);
     
     // Schedule schedule = new Schedule();
     // buttons
@@ -284,33 +289,32 @@ public class PlanStage extends Application {
 
   public static VBox createRigestedCoursePane(Section section){
     VBox theLable = new VBox();
+    HBox top = new HBox();
+
+    // {"#ed9121","blue","#702963","#7fff00","#ff7f50"}
     // adding random color
-    String[] colors = {"#ed9121","blue","#702963","#7fff00","#ff7f50"};
+    String[] colors = {"white","white","white","white","white"};
     Random random = new Random();
     int pickColor = random.nextInt(colors.length);
     theLable.setStyle("-fx-background-color: "+colors[pickColor]+";");
 
-    Text courseNameAndSection = new Text(section.getCourseName());
-    courseNameAndSection.setFont(new Font(1));
-    Text time = new Text(section.getTime());
-    time.setFont(new Font(1));
+    
+
+    Text courseNameAndSection = new Text(section.getCourseCode()+"@"+section.getLocation());
+    // courseNameAndSection.setFont(new Font(1));
+    Text instructorText = new Text(section.getInstructor());
+    // time.setFont(new Font(1));
 
     // Text day = new Text(section.getDay());
-    Button removButton = new Button("remove");
+    // removButton.getStyleClass().add("exit-button");
 
-    removButton.setAlignment(Pos.BOTTOM_LEFT);
-    removButton.setOnAction(e -> {
-      System.out.println("got pressed form ayed");
-      newPane.getChildren().remove(theLable);
-      
-    });
 
 
     // theLable.setFont(new Font("Arial", 17));
     // theLable.setAlignment(Pos.TOP_CENTER);
-    theLable.getChildren().addAll(courseNameAndSection,time,removButton);
+    theLable.getChildren().addAll(courseNameAndSection,instructorText);
 
-    int hight = (Schedule.readTime(section)*55)/50;
+    int hight = (Schedule.readTime(section)*50)/55;
     theLable.setPrefSize(160,hight);
     
     // theLable.setMaxSize(160, hight);
@@ -321,28 +325,189 @@ public class PlanStage extends Application {
 
   public static void addCourseToPane(Section section){
     // here we want to check what should we 
+    // if the type of day was UTR
+    if(section.getDay().equals("UTR")){
+      VBox first,second,third;
+      first = createRigestedCoursePane(section);
+      second = createRigestedCoursePane(section);
+      third = createRigestedCoursePane(section);
+      // the function of buttons.. 
+      Button removeButton1 = createRemoveButton(e->{
+        newPane.getChildren().removeAll(first,second,third);
+      });
+      first.getChildren().add(removeButton1);
 
-    if (section.getDay().equals("MW")){
-      VBox first = createRigestedCoursePane(section);  
+      Button removeButton2 = createRemoveButton(e->{
+        newPane.getChildren().removeAll(first,second,third);
+      });
+
+      second.getChildren().add(removeButton2);
+      second.setLayoutX(2*170);
+
+      Button removeButton3 = createRemoveButton(e->{
+        newPane.getChildren().addAll(first,second,third);
+      });
+
+      third.getChildren().add(removeButton3);
+      third.setLayoutX(4*170);
+
+      
+
+      newPane.getChildren().addAll(first,second,third);
+    }
+
+
+
+
+
+
+    // if the day was MW we have to care about 2 Vbox
+    else if (section.getDay().equals("MW")){
+      VBox first, second;
+      first = createRigestedCoursePane(section);  
       first.setLayoutX(170);      
-      VBox second = createRigestedCoursePane(section);
+      second = createRigestedCoursePane(section);
       second.setLayoutX(170+170+170);
+      Button removeButton1 = createRemoveButton(e -> {
+        System.out.println("got pressed form ayed");
+        newPane.getChildren().removeAll(first,second);
+        
+      });
+
+      Button removeButton2 = createRemoveButton(e -> {
+        System.out.println("got pressed form ayed");
+        newPane.getChildren().removeAll(first,second);
+        
+      });
+
+  
+
+
+      first.getChildren().add(removeButton1);
+      second.getChildren().add(removeButton2);
+
       newPane.getChildren().addAll(first,second);
 
 
-    }
-    if( section.getDay().equals("W")){
-      VBox first = createRigestedCoursePane(section);
-      first.setLayoutX(170*3);
-      newPane.getChildren().addAll(first);
-    }
-    if(section.getDay().equals("UT")){
-      VBox first  = createRigestedCoursePane(section);
 
+
+    }
+    else if(section.getDay().equals("UT")){
+      VBox first  = createRigestedCoursePane(section);
       VBox second = createRigestedCoursePane(section);
+      Button removeButton1 = createRemoveButton(e->{
+
+        newPane.getChildren().removeAll(first,second);
+      });
+      first.getChildren().add(removeButton1);
+
+      Button removeButton2 = createRemoveButton(e->{
+        newPane.getChildren().removeAll(first,second);
+      });
+      second.getChildren().add(removeButton2);
+
+
       second.setLayoutX(170*2);
       newPane.getChildren().addAll(first,second);
     }
+
+
+
+
+    else if( section.getDay().equals("U")){
+      VBox first = createRigestedCoursePane(section);
+      Button removButton = createRemoveButton(e-> {
+        System.out.println("got pressed form ayed");
+        newPane.getChildren().removeAll(first);
+      });
+
+      first.getChildren().add(removButton);
+
+      
+      newPane.getChildren().addAll(first);
+
+      
+    }
+    else if( section.getDay().equals("M")){
+      VBox first = createRigestedCoursePane(section);
+      Button removButton = createRemoveButton(e-> {
+        System.out.println("got pressed form ayed");
+        newPane.getChildren().removeAll(first);
+      });
+      first.getChildren().add(removButton);
+
+      
+      first.setLayoutX(170);
+
+      newPane.getChildren().addAll(first);
+
+      
+    }
+    else if( section.getDay().equals("T")){
+      VBox first = createRigestedCoursePane(section);
+      Button removButton = createRemoveButton(e-> {
+        System.out.println("got pressed form ayed");
+        newPane.getChildren().removeAll(first);
+        section.toString();
+      });
+      first.getChildren().add(removButton);
+
+      
+      first.setLayoutX(170*2);
+      newPane.getChildren().addAll(first);
+
+      
+    }
+    else if( section.getDay().equals("W")){
+      VBox first = createRigestedCoursePane(section);
+      Button removButton = createRemoveButton(e-> {
+        System.out.println("got pressed form ayed");
+        newPane.getChildren().removeAll(first);
+        section.toString();
+      });
+      first.getChildren().add(removButton);
+
+      
+      first.setLayoutX(170*3);
+      newPane.getChildren().addAll(first);
+
+      
+    }
+    else if( section.getDay().equals("R")){
+      VBox first = createRigestedCoursePane(section);
+      Button removButton = createRemoveButton(e-> {
+        System.out.println("got pressed form ayed");
+        newPane.getChildren().removeAll(first);
+        section.toString();
+      });
+      first.getChildren().add(removButton);
+
+      
+      first.setLayoutX(170*4);
+      newPane.getChildren().addAll(first);
+
+      
+    }
+    
+
+
+  }
+  
+  
+  
+  
+  
+  public static Button createRemoveButton(EventHandler<ActionEvent> onPress){
+    Button removButton = new Button();
+    removButton.setGraphic(new ImageView(new Image("/resources/deleteButton.png", 10, 10, true, true)));
+    removButton.setBackground(null);
+    removButton.setMinSize(15, 7);
+    removButton.setMaxSize(15, 7);
+
+    removButton.setOnAction(onPress); 
+
+    return removButton;
+    
   }
 
   

@@ -74,6 +74,9 @@ public class Section  {
     public String getLocation() {
         return location;
     }
+    public String getInstructor() {
+        return instructor;
+    }
 
     
 
