@@ -188,8 +188,8 @@ public class Degree extends Application{
 
         ScrollPane  scrollPane= new ScrollPane(parts);
         
-    grades.setDisable(true) ;
-    terms.setDisable(true);
+   grades.setDisable(true) ;
+   terms.setDisable(true);
     
     // event for checkbox taken
     taken.setOnAction(e ->{ grades.setDisable(false) ;terms.setDisable(false);
