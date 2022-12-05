@@ -45,9 +45,8 @@ import javafx.util.Duration;
 
 public class PlanStage extends Application {
   // Section[] sections = new Section[2];
-  static Pane newPane;
-  int x = 0;
-  int y = 0;
+  static Pane weekDaysPane;
+
   public void start(Stage primaryStage) {
 
     //Student  list  have to be here 
@@ -127,28 +126,10 @@ public class PlanStage extends Application {
 
     );
     scheduleArea.setLeft(left);
-    newPane = new Pane();
-    Label aLabel = new Label("ics lab");
-    Label asecondLabel = new Label("ics lab");
-
-    aLabel.setStyle(Styles.pink());
-    aLabel.setPrefSize(160, 176);
-    aLabel.setLayoutX(170+170+170);
-    aLabel.setLayoutY(55);
-    asecondLabel.setStyle(Styles.green());
-    asecondLabel.setPrefSize(160,50);
-    asecondLabel.setLayoutX(170);
-    asecondLabel.setLayoutY(55+55);
-    // newPane.getChildren().addAll(aLabel,asecondLabel);
-    // newPane.getChildren().add(createCourseLabel());
-
-    // newPane.getChildren().addAll(aLabel);
+    weekDaysPane = new Pane();
 
 
-
-
-
-    scheduleArea.setCenter(newPane);
+    scheduleArea.setCenter(weekDaysPane);
     
     VBox selectedCoursesArea = new VBox(5);
     selectedCoursesArea.setPadding(new Insets(15));
@@ -160,6 +141,7 @@ public class PlanStage extends Application {
     for(int i =0; i<student.getBasket().size(); i++){
       arrayList.add(i,createCourseLabel(student.getBasket().get(i)));
     }
+    
     ObservableList<VBox> selectedCourses = FXCollections.observableArrayList(arrayList);
 
 
@@ -186,8 +168,7 @@ public class PlanStage extends Application {
       // 55 for each hour
 
       // newPane.getChildren().add(slected);
-      x += 170;
-      y += 55;
+
       listView.getItems().removeAll(listView.getSelectionModel().getSelectedItem
       ());
 
@@ -289,7 +270,6 @@ public class PlanStage extends Application {
 
   public static VBox createRigestedCoursePane(Section section){
     VBox theLable = new VBox();
-    HBox top = new HBox();
 
     // {"#ed9121","blue","#702963","#7fff00","#ff7f50"}
     // adding random color
@@ -301,24 +281,14 @@ public class PlanStage extends Application {
     
 
     Text courseNameAndSection = new Text(section.getCourseCode()+"@"+section.getLocation());
-    // courseNameAndSection.setFont(new Font(1));
     Text instructorText = new Text(section.getInstructor());
-    // time.setFont(new Font(1));
 
-    // Text day = new Text(section.getDay());
-    // removButton.getStyleClass().add("exit-button");
-
-
-
-    // theLable.setFont(new Font("Arial", 17));
-    // theLable.setAlignment(Pos.TOP_CENTER);
     theLable.getChildren().addAll(courseNameAndSection,instructorText);
 
-    int hight = (Schedule.readTime(section)*50)/55;
+    int hight = (section.getLectureDuration()*50)/55;
     theLable.setPrefSize(160,hight);
     
-    // theLable.setMaxSize(160, hight);
-    theLable.setLayoutY(Schedule.readStartTime(section));
+    theLable.setLayoutY(section.setStartPostion());
     return theLable;
 
   }
@@ -333,19 +303,19 @@ public class PlanStage extends Application {
       third = createRigestedCoursePane(section);
       // the function of buttons.. 
       Button removeButton1 = createRemoveButton(e->{
-        newPane.getChildren().removeAll(first,second,third);
+        weekDaysPane.getChildren().removeAll(first,second,third);
       });
       first.getChildren().add(removeButton1);
 
       Button removeButton2 = createRemoveButton(e->{
-        newPane.getChildren().removeAll(first,second,third);
+        weekDaysPane.getChildren().removeAll(first,second,third);
       });
 
       second.getChildren().add(removeButton2);
       second.setLayoutX(2*170);
 
       Button removeButton3 = createRemoveButton(e->{
-        newPane.getChildren().addAll(first,second,third);
+        weekDaysPane.getChildren().addAll(first,second,third);
       });
 
       third.getChildren().add(removeButton3);
@@ -353,7 +323,7 @@ public class PlanStage extends Application {
 
       
 
-      newPane.getChildren().addAll(first,second,third);
+      weekDaysPane.getChildren().addAll(first,second,third);
     }
 
 
@@ -370,13 +340,13 @@ public class PlanStage extends Application {
       second.setLayoutX(170+170+170);
       Button removeButton1 = createRemoveButton(e -> {
         System.out.println("got pressed form ayed");
-        newPane.getChildren().removeAll(first,second);
+        weekDaysPane.getChildren().removeAll(first,second);
         
       });
 
       Button removeButton2 = createRemoveButton(e -> {
         System.out.println("got pressed form ayed");
-        newPane.getChildren().removeAll(first,second);
+        weekDaysPane.getChildren().removeAll(first,second);
         
       });
 
@@ -386,7 +356,7 @@ public class PlanStage extends Application {
       first.getChildren().add(removeButton1);
       second.getChildren().add(removeButton2);
 
-      newPane.getChildren().addAll(first,second);
+      weekDaysPane.getChildren().addAll(first,second);
 
 
 
@@ -397,18 +367,18 @@ public class PlanStage extends Application {
       VBox second = createRigestedCoursePane(section);
       Button removeButton1 = createRemoveButton(e->{
 
-        newPane.getChildren().removeAll(first,second);
+        weekDaysPane.getChildren().removeAll(first,second);
       });
       first.getChildren().add(removeButton1);
 
       Button removeButton2 = createRemoveButton(e->{
-        newPane.getChildren().removeAll(first,second);
+        weekDaysPane.getChildren().removeAll(first,second);
       });
       second.getChildren().add(removeButton2);
 
 
       second.setLayoutX(170*2);
-      newPane.getChildren().addAll(first,second);
+      weekDaysPane.getChildren().addAll(first,second);
     }
 
 
@@ -418,13 +388,13 @@ public class PlanStage extends Application {
       VBox first = createRigestedCoursePane(section);
       Button removButton = createRemoveButton(e-> {
         System.out.println("got pressed form ayed");
-        newPane.getChildren().removeAll(first);
+        weekDaysPane.getChildren().removeAll(first);
       });
 
       first.getChildren().add(removButton);
 
       
-      newPane.getChildren().addAll(first);
+      weekDaysPane.getChildren().addAll(first);
 
       
     }
@@ -432,14 +402,14 @@ public class PlanStage extends Application {
       VBox first = createRigestedCoursePane(section);
       Button removButton = createRemoveButton(e-> {
         System.out.println("got pressed form ayed");
-        newPane.getChildren().removeAll(first);
+        weekDaysPane.getChildren().removeAll(first);
       });
       first.getChildren().add(removButton);
 
       
       first.setLayoutX(170);
 
-      newPane.getChildren().addAll(first);
+      weekDaysPane.getChildren().addAll(first);
 
       
     }
@@ -447,14 +417,14 @@ public class PlanStage extends Application {
       VBox first = createRigestedCoursePane(section);
       Button removButton = createRemoveButton(e-> {
         System.out.println("got pressed form ayed");
-        newPane.getChildren().removeAll(first);
+        weekDaysPane.getChildren().removeAll(first);
         section.toString();
       });
       first.getChildren().add(removButton);
 
       
       first.setLayoutX(170*2);
-      newPane.getChildren().addAll(first);
+      weekDaysPane.getChildren().addAll(first);
 
       
     }
@@ -462,14 +432,14 @@ public class PlanStage extends Application {
       VBox first = createRigestedCoursePane(section);
       Button removButton = createRemoveButton(e-> {
         System.out.println("got pressed form ayed");
-        newPane.getChildren().removeAll(first);
+        weekDaysPane.getChildren().removeAll(first);
         section.toString();
       });
       first.getChildren().add(removButton);
 
       
       first.setLayoutX(170*3);
-      newPane.getChildren().addAll(first);
+      weekDaysPane.getChildren().addAll(first);
 
       
     }
@@ -477,14 +447,14 @@ public class PlanStage extends Application {
       VBox first = createRigestedCoursePane(section);
       Button removButton = createRemoveButton(e-> {
         System.out.println("got pressed form ayed");
-        newPane.getChildren().removeAll(first);
+        weekDaysPane.getChildren().removeAll(first);
         section.toString();
       });
       first.getChildren().add(removButton);
 
       
       first.setLayoutX(170*4);
-      newPane.getChildren().addAll(first);
+      weekDaysPane.getChildren().addAll(first);
 
       
     }
