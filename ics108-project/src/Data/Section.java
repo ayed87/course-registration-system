@@ -1,6 +1,6 @@
 package Data;
 
-public class Section  {
+public class Section implements Comparable<Section> {
 
     private String sectionCode;  // course code and section number
     private String type;
@@ -46,6 +46,123 @@ public class Section  {
      
         
     }
+    @Override
+    public int compareTo(Section theOtherSection) {
+        if(readStartTime()<theOtherSection.readStartTime()){
+            return -1;
+        }
+        else if(readStartTime()>theOtherSection.readStartTime()){
+            return 1;
+        }
+        else{
+            return 0;
+        }
+    }
+
+    //ayed's updates: i moved 2 methods form Schedule class to Section class to be more clear
+
+    public int getLectureDuration(){
+
+        String timeString = getTime();
+        String[] timeList = timeString.split("-");
+        String time1 = timeList[0]; 
+        String time2 = timeList[1]; 
+
+        if(time1.charAt(0) == '0'){
+
+            time1 = time1.substring(1);
+        }
+        if(time2.charAt(0) == '0'){
+            time2 = time2.substring(1);
+        }
+
+        int number1 = Integer.parseInt(time1);
+        int number2 = Integer.parseInt(time2);
+
+        int hourAndMinute = number2-number1;
+        // as far as i know the least time is 50 minute
+        if(hourAndMinute>50){
+            String StringResult = Integer.toString(hourAndMinute);
+            int hour = Integer.parseInt(StringResult.substring(0,1));
+            int minutes = Integer.parseInt(StringResult.substring(1));
+            int hourToMinutes = hour*60;
+            return minutes+hourToMinutes;
+
+
+        }
+        else{
+            return hourAndMinute;
+
+        }    
+    
+    }
+
+    // it will set section in the rihgt place in weekPane
+    public int setStartPostion(){
+        
+        String array = getTime();
+        String[] timeList = array.split("-");
+        String timeString = timeList[0]; 
+        
+        if(timeString.charAt(0) == '0'){
+            timeString = timeString.substring(1);
+            int hour = Integer.parseInt(timeString.substring(0,1));
+            int minutes = Integer.parseInt(timeString.substring(2));
+            int finalResult = (minutes+hour*60)-425;
+            if(finalResult==0){
+                return 0;
+            }
+            else{
+                return finalResult;
+            }
+        }
+        else{
+            int hour = Integer.parseInt(timeString.substring(0,2));
+            int minutes = Integer.parseInt(timeString.substring(2));
+            return (minutes+ hour*60)-425;
+        }
+    }
+
+    //ayed's update: i added here new methods
+
+    public int readStartTime(){
+        String timeString = getTime();
+        String[] timeArray = timeString.split("-");
+        String StartTimeString = timeArray[0];
+        if(StartTimeString.charAt(0)=='0'){
+            StartTimeString = StartTimeString.substring(1);
+            int hour = Integer.parseInt(StartTimeString.substring(0,1));
+            int minutes = Integer.parseInt(StartTimeString.substring(2));
+            return hour+minutes;
+        }
+        else{
+            int hour = Integer.parseInt(StartTimeString.substring(0,2));
+            int minutes = Integer.parseInt(StartTimeString.substring(2));
+            return hour+minutes;
+        }
+
+
+    }
+
+    public int readEndTime(){
+        String timeString = getTime();
+        String[] timeArray = timeString.split("-");
+        String endTimeString = timeArray[1];
+        if(endTimeString.charAt(0)=='0'){
+            endTimeString = endTimeString.substring(1);
+            int hour = Integer.parseInt(endTimeString.substring(0,1));
+            int minutes = Integer.parseInt(endTimeString.substring(2));
+            return hour+minutes;
+        }
+        else{
+            int hour = Integer.parseInt(endTimeString.substring(0,2));
+            int minutes = Integer.parseInt(endTimeString.substring(2));
+            return hour+minutes;
+        }
+
+
+    }
+    
 
     public String toString(){ 
 
@@ -60,6 +177,7 @@ public class Section  {
     public String getDepartment(){ 
         return department;
     }
+
 
     //ayed: i added other geters
     public String getCourseName() {
@@ -76,6 +194,19 @@ public class Section  {
     }
     public String getInstructor() {
         return instructor;
+    }
+    public static void main(String[] args) {
+        String[] info1 = {"ICS 104-04","LEC","22795","Introduction to Programming in Python and C","S ARAFAT","MW","0900-0950","24-120","Closed","Closed"
+    };
+    String[] info2 = {"PHYS101-70","LAB","22041","General Physics I","None","W","0800-1040","None","Closed","Closed"};
+    String[] info3 = {"ICS 108-01","LEC","22849","Object-Oriented Programming","MUSTAFA ALTURKI","MW","0800-0915","22-339","Closed","Closed"
+    };
+    Schedule schedule = new Schedule();
+
+    Section sections1 = new Section(info1);
+    Section sections2 = new Section(info2);
+    Section sections3 = new Section(info3);
+    System.out.println(sections3.compareTo(sections1));
     }
 
     
