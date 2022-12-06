@@ -50,8 +50,11 @@ public class Course {
     public String getDepartment(){ 
         return department;
     }
-  
-    
+    //mamdouh
+    public int getCredit(){ 
+        return credits;
+    }
+
     
 
      

@@ -20,7 +20,11 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.net.URI;
+import java.util.Arrays;
+import java.util.List;
 
+import Data.Course;
+import Data.FinishedCourse;
 import Data.Student;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
@@ -30,11 +34,12 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 
 
 public class Degree extends Application{
-    Button b6 = new Button("Next");
+    Button b6 = new Button("Save");
     Button b7 = new Button("Back");
     Button b8 = new Button("Show the flowchart");
     public void start(Stage primaryStage)  {
@@ -52,7 +57,7 @@ public class Degree extends Application{
 
    
    
-    Student student1 = new Student(); 
+     Student student1 = new Student(); 
         
 
      try{ 
@@ -88,7 +93,11 @@ public class Degree extends Application{
         vbox2.setSpacing(10);
         vbox2.setPadding(new Insets(5,5,5,5));
         vbox2.setAlignment(Pos.CENTER);
-        vbox2.getChildren().addAll(new Label("Courses"),new Label("ics108"));
+        vbox2.getChildren().addAll(new Label("Courses"));
+        for(int i=0;i<student1.getNumberOfCourses();i++){
+            vbox2.getChildren().add(new Label (student1.getCourseArray().get(i).getCourseCode()));
+        }
+       
         
 
         // credit 
@@ -96,16 +105,22 @@ public class Degree extends Application{
         vbox3.setSpacing(10);
         vbox3.setPadding(new Insets(5,5,5,5));
         vbox3.setAlignment(Pos.CENTER);
-        vbox3.getChildren().addAll(new Label("Credit"),new Label("4"));
-         
+        vbox3.getChildren().addAll(new Label("Credit"));
+        for(int i=0;i<student1.getNumberOfCourses();i++){
+            int number= student1.getCourseArray().get(i).getCredit();
+            String string=Integer.toString(number);
+            vbox3.getChildren().add(new Label(string));
+        }
         
         // corequisite
          VBox vbox5= new VBox();
          vbox5.setSpacing(10);
          vbox5.setPadding(new Insets(5,5,5,5));
          vbox5.setAlignment(Pos.CENTER);
-         vbox5.getChildren().addAll(new Label("corequisite"),new Label("n"));
- 
+         vbox5.getChildren().addAll(new Label("Corequisite"));
+         for(int i=0;i<student1.getNumberOfCourses();i++){
+            vbox5.getChildren().add(new Label (Arrays.toString(student1.getCourseArray().get(i).getCorequisite())));
+       }
         
 
         //prerequisite 
@@ -113,19 +128,33 @@ public class Degree extends Application{
         vbox4.setSpacing(10);
         vbox4.setPadding(new Insets(5,5,5,5));
         vbox4.setAlignment(Pos.CENTER);
-        vbox4.getChildren().addAll(new Label("prerequisite "),new Label("c "));
-
+        vbox4.getChildren().addAll(new Label("Prerequisite "));
+        for(int i=0;i<student1.getNumberOfCourses();i++){
+            vbox4.getChildren().add(new Label (Arrays.toString(student1.getCourseArray().get(i).getPrerequisite())));
+       }
 
 
 
 
          //checkbox
-         VBox vbox6= new VBox();
-         vbox6.setSpacing(10);
-         vbox6.setPadding(new Insets(5,5,5,5));
-         vbox6.setAlignment(Pos.CENTER);
-         vbox6.getChildren().addAll(new Label("Taken Courses"),taken);
-         
+        VBox vbox6= new VBox();
+        vbox6.setSpacing(10);
+        vbox6.setPadding(new Insets(5,5,5,5));
+        vbox6.setAlignment(Pos.CENTER);
+        vbox6.getChildren().add(new Label("Taken Courses"));
+        //int f =student1.getNumberOfCourses();
+       // System.out.print(f);
+       // for(int i=0;i<44;i++){
+        vbox6.getChildren().add(taken);
+        
+        
+        //}
+        //int number1=0;
+       // while(number1<student1.getNumberOfCourses()){
+          // number1++;
+        //}
+       // for(int i=0;i<number1;i++){ vbox6.getChildren().add(taken);}
+
 
         // Grades for the course 
          String[] grade= {"+A","A","+B","B","+C","C","+D","D","F"}; 
@@ -134,8 +163,8 @@ public class Degree extends Application{
 
          grades.getItems().addAll(grade);
 
-         grades.setOnAction(e-> {}
-         );
+        // grades.setOnAction(e-> {}
+        // );
 
          //checkbox grades
          VBox vbox7= new VBox();
@@ -143,7 +172,9 @@ public class Degree extends Application{
          vbox7.setPadding(new Insets(5,5,5,5));
          vbox7.setAlignment(Pos.CENTER);
          vbox7.getChildren().addAll(new Label("Grades"),grades);
-         
+         //for(int i=0;i<student1.getNumberOfCourses();i++){
+           // vbox7.getChildren().add(grades);
+       //}
 
       
          // events for comboBox
@@ -165,16 +196,19 @@ public class Degree extends Application{
          vbox8.setPadding(new Insets(5,5,5,5));
          vbox8.setAlignment(Pos.CENTER);
          vbox8.getChildren().addAll(new Label("Term"),terms);
+        // for(int i=0;i<student1.getNumberOfCourses();i++){
+         //   vbox8.getChildren().add(terms);
+       // }
         
         
         
         
          // events for comboBox
-          terms.getItems().addAll(years);
+          //terms.getItems().addAll(years);
           
    
-          grades.setOnAction(e-> {}
-          );
+          //grades.setOnAction(e-> {}
+         // );
    
         //
 
@@ -193,6 +227,9 @@ public class Degree extends Application{
     
     // event for checkbox taken
     taken.setOnAction(e ->{ grades.setDisable(false) ;terms.setDisable(false);
+        
+        FinishedCourse course1=new FinishedCourse("mamdouh","211","a");  
+        //course1.getFinishedCourse.add(course1.toString());
 
     });
 
@@ -202,14 +239,7 @@ public class Degree extends Application{
         buttonClick.setPadding(new Insets(5,5,5,5));
         buttonClick.setAlignment(Pos.CENTER);
         buttonClick.getChildren().addAll(b6,b7,b8);
-        
-
-        
-      
-        
-        //String[] grade= {"+A","A","+B","B","+C","C","+D","D","F"}; 
-        
-        
+    
         
         VBox main= new  VBox();
         main.setSpacing(300);

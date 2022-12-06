@@ -1,7 +1,10 @@
 package Data;
 
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedList;
@@ -12,6 +15,7 @@ import org.w3c.dom.events.Event;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
+import javafx.print.Printer;
 import javafx.scene.control.ListView;
 
 
@@ -27,6 +31,7 @@ public class Student {
     private ObservableList<Section> shownSections ;
     private ObservableList<Section> basket = FXCollections.observableArrayList();
     private int finishedCredits; // fot ayed
+    
     
 
 
@@ -402,6 +407,11 @@ public void clickOnBasketList(ListView<Section> listView){
     shownSections.add(listView.getSelectionModel().getSelectedItem());
     basket.remove(listView.getSelectionModel().getSelectedItem());
 }
+// Mamdouh only  downward :)
+public ArrayList<Course> getCourseArray(){
+    return allCourses;
+}
+
 }
 
 
