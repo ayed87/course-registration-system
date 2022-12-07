@@ -5,6 +5,8 @@ import java.util.Arrays;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 
 public class Schedule {
 
@@ -15,22 +17,47 @@ public class Schedule {
     
     
     
+    // public Schedule(ObservableList<Section> basketSections){
 
+    //   this.basketSections = basketSections;
+
+    // }
+    public void setBasketSections(ObservableList<Section> basketSections) {
+        this.basketSections = basketSections;
+    }
+
+    
       public void addCourse(Section section){
         registeredSections.add(section);
       }
 
-      // we need a method to check the conflict and the similirty ..
+      public void removeCourse(Section section){
+        registeredSections.remove(registeredSections.indexOf(section));
+      }
+      public void retrunToBasket(Section section){
+        basketSections.add(section);
+      }
 
+      // we need a method to check the conflict and the similirty ..
+      public boolean checkExistence(Section section){
+        for(Section eachSection : registeredSections){
+          if(eachSection.getCourseCode().equals(section.getCourseCode()) && eachSection.getType().equals(section.getType())){
+              return true;
+          }
+        }
+
+        return false;
+
+      }
       public boolean checkConflict(Section section){
         // frist chck the similarity
-        for(Section eachSection : registeredSections){
-            if(eachSection.getCourseCode().equals(section.getCourseCode())){
-                return false;
-            }
-        }
+        // for(Section eachSection : registeredSections){
+        //     if(eachSection.getCourseCode().equals(section.getCourseCode())){
+        //         return false;
+        //     }
+        // }
         for(Section eachSection: registeredSections){
-            if(eachSection.getDay().equals(section.getDay())){
+            if(eachSection.getDay().equals(section.getDay())|| section.getDay().contains(eachSection.getDay()) || eachSection.getDay().contains(section.getDay())){
                 Section[] sections = new Section[2];
                 sections[0] = eachSection;
                 sections[1] = section;
@@ -43,25 +70,78 @@ public class Schedule {
         }
         return true;
       }
+      public ObservableList<VBox> createVboxSections(){
+        ObservableList<VBox> arrayList = FXCollections.observableArrayList();
+        for(int i =0; i<basketSections.size(); i++){
+          arrayList.add(createCourseLabel(basketSections.get(i)));
+        }
+        
+        return arrayList;
+      }
+      
+      public static VBox createCourseLabel(Section section){
+        VBox theLable = new VBox();
+    
+        theLable.setStyle("-fx-background-color: lightgreen;");
+        Text courseNameAndSection = new Text(section.getCourseName()+"@");
+        Text codText = new Text(section.getSectionCode());
+    
+        Text locationText = new Text(section.getLocation());
+        Text timeText = new Text(section.getTime());
+        Text dayText = new Text(section.getDay());
+        // theLable.setTextFill(Paint.valueOf("black"));
+        theLable.setPrefSize(150,90);
+        // theLable.setFont(new Font("Arial", 17));
+        // theLable.setAlignment(Pos.TOP_CENTER);
+        theLable.getChildren().addAll(courseNameAndSection,codText,locationText,timeText,dayText);
+    
+        return theLable;
+    
+      }
+      
 
 
 
       public static void main(String[] args) {
-        // String n = "0800-0850";
-        // System.out.println(readStartTime(n));
-        String[] info1 = {"ICS 104-04","LEC","22795","Introduction to Programming in Python and C","S ARAFAT","MW","0900-0950","24-120","Closed","Closed"
-    };
-    String[] info2 = {"PHYS101-70","LAB","22041","General Physics I","None","W","0800-1040","None","Closed","Closed"};
-    String[] info3 = {"ICS 108-01","LEC","22849","Object-Oriented Programming","MUSTAFA ALTURKI","MW","0800-0915","22-339","Closed","Closed"
-    };
-    Schedule schedule = new Schedule();
+        ObservableList<Integer> numbers =  FXCollections.observableArrayList();
 
-    Section sections1 = new Section(info1);
-    Section sections2 = new Section(info2);
-    Section sections3 = new Section(info3);
-    schedule.addCourse(sections3);
+        for(int n: numbers){System.out.println(n);}
+    //     // String n = "0800-0850";
+    //     // System.out.println(readStartTime(n));
+    String[] s1 = {"ICS 202-01","LEC","20502","Data Structures and Algorithms","HUSNI AL-MUHTASEB","UTR","0800-0850","22-125","Open","Closed"};
+    String[] s2 = {"PHYS101-70","LAB","22041","General Physics I","None","W","0800-1040","None","Closed","Closed"};
 
-    System.out.println(schedule.checkConflict(sections1));
+    String[] s3 = {"ICS 108-06","LAB","22867","Object-Oriented Programming","RASHAD OTHMAN","MW","1530-1645","22-335","Closed","Open"
+
+  };
+
+    String[] s4 = {"ICS 104-04","LEC","22795","Introduction to Programming in Python and C","S ARAFAT","MW","0900-0950","24-120","Closed","Closed"
+    };
+    String[] s5 = {"PHYS102-01","REC","20086","General Physics II","RADITYA BOMANTARA","W","0800-0850","59-1005","Open","Closed"
+    };
+    String[] s6 = {"ICS 104-01","LEC","22785","Introduction to Programming in Python and C","M BALAH","UT","0800-0850","24-120","Closed","Open"
+    };
+    // Schedule schedule = new Schedule();
+
+    Section sec1 = new Section(s1);
+    Section sec2 = new Section(s2);
+    Section sec3 = new Section(s3);
+    Section sec4 = new Section(s4);
+    Section sec5 = new Section(s5);
+    Section sec6 = new Section(s6);
+    // schedule.addCourse(sec6);
+    // schedule.addCourse(sec5);
+    // schedule.addCourse(sections3);
+    // schedule.addCourse();
+    System.out.println(sec6);
+    System.out.println(sec5);
+    System.out.println(sec1);
+    System.out.println(sec1.readEndTime());
+    System.out.println(sec1.readStartTime());
+    // System.out.println(schedule.checkConflict(sec1));
+    // System.out.println("UTR".contains("U"));
+
+  
 
 
 

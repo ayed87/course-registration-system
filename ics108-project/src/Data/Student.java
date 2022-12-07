@@ -57,6 +57,9 @@ public class Student {
         basket.add(section);
 
     } 
+    public void removeCourse(Section section){
+        basket.remove(section);
+    }
 
     public void readAllCourse(BufferedReader buff){ 
 

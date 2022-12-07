@@ -107,7 +107,7 @@ public class Section implements Comparable<Section> {
         if(timeString.charAt(0) == '0'){
             timeString = timeString.substring(1);
             int hour = Integer.parseInt(timeString.substring(0,1));
-            int minutes = Integer.parseInt(timeString.substring(2));
+            int minutes = Integer.parseInt(timeString.substring(1));
             int finalResult = (minutes+hour*60)-425;
             if(finalResult==0){
                 return 0;
@@ -132,13 +132,13 @@ public class Section implements Comparable<Section> {
         if(StartTimeString.charAt(0)=='0'){
             StartTimeString = StartTimeString.substring(1);
             int hour = Integer.parseInt(StartTimeString.substring(0,1));
-            int minutes = Integer.parseInt(StartTimeString.substring(2));
-            return hour+minutes;
+            int minutes = Integer.parseInt(StartTimeString.substring(1));
+            return hour*60+minutes;
         }
         else{
             int hour = Integer.parseInt(StartTimeString.substring(0,2));
             int minutes = Integer.parseInt(StartTimeString.substring(2));
-            return hour+minutes;
+            return hour*60+minutes;
         }
 
 
@@ -151,13 +151,13 @@ public class Section implements Comparable<Section> {
         if(endTimeString.charAt(0)=='0'){
             endTimeString = endTimeString.substring(1);
             int hour = Integer.parseInt(endTimeString.substring(0,1));
-            int minutes = Integer.parseInt(endTimeString.substring(2));
-            return hour+minutes;
+            int minutes = Integer.parseInt(endTimeString.substring(1));
+            return hour*60+minutes;
         }
         else{
             int hour = Integer.parseInt(endTimeString.substring(0,2));
             int minutes = Integer.parseInt(endTimeString.substring(2));
-            return hour+minutes;
+            return hour*60+minutes;
         }
 
 
@@ -195,18 +195,24 @@ public class Section implements Comparable<Section> {
     public String getInstructor() {
         return instructor;
     }
+    public String getSectionCode() {
+        return sectionCode;
+    }
+    public String getType() {
+        return type;
+    }
     public static void main(String[] args) {
-        String[] info1 = {"ICS 104-04","LEC","22795","Introduction to Programming in Python and C","S ARAFAT","MW","0900-0950","24-120","Closed","Closed"
-    };
+        String[] info1 = {"ICS 104-01","LEC","22785","Introduction to Programming in Python and C","M BALAH","UT","0800-0850","24-120","Closed","Open"};
     String[] info2 = {"PHYS101-70","LAB","22041","General Physics I","None","W","0800-1040","None","Closed","Closed"};
     String[] info3 = {"ICS 108-01","LEC","22849","Object-Oriented Programming","MUSTAFA ALTURKI","MW","0800-0915","22-339","Closed","Closed"
     };
-    Schedule schedule = new Schedule();
+    // Schedule schedule = new Schedule();
 
     Section sections1 = new Section(info1);
     Section sections2 = new Section(info2);
     Section sections3 = new Section(info3);
-    System.out.println(sections3.compareTo(sections1));
+    System.out.println(sections1.readEndTime());
+    System.out.println(sections1.readStartTime());
     }
 
     
