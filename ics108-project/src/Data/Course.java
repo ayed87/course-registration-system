@@ -13,7 +13,9 @@ public class Course {
     private String department;
    
 
-
+    public Course(){
+        courseCode="Ics";
+    }
     public Course(String[] courseInformation){
 
         this.courseCode = courseInformation[0];
