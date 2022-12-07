@@ -38,7 +38,7 @@ import javafx.scene.text.Text;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 
-
+//sorry it is hard to read but you can do it
 public class Degree extends Application{
     Button b6 = new Button("Save");
     Button b7 = new Button("Back");
