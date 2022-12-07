@@ -7,6 +7,8 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.Writer;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 import javax.lang.model.util.ElementScanner14;
 
@@ -16,7 +18,9 @@ public class FinishedCourse extends Course {
 
     private String takenSemester; 
     private String grade ;
-    public Object getFinishedCourse; 
+    private Object getFinishedCourse;
+    private String statement="";
+
 
     public FinishedCourse(){
         grade="A";
@@ -47,26 +51,28 @@ public class FinishedCourse extends Course {
         return getCourseCode() +","+ takenSemester +","+ grade;
 
     }
+    //public String addStatement(String word){
+       // if(word.contains(";"))
+           //statement=statement+word;
+          // return getFinishedCourse (word);
 
-    public static void  getFinishedCourse (String l) {
+        //if(statement.substring(statement.length()-1)!=";") 
+        //   return getFinishedCourse (statement);
+       // return statement;  
+   // }
+
+    public static void getFinishedCourse (String l) {
         try{
          File file =new File("FinishedCourses.csv");
          PrintWriter output=new PrintWriter(file);
-         if(l.length()>3){
-            output.print(l);
-            output.print(",");
-        if(l.length()==3){
-            output.print(l);
-            output.print(",");}
-        else
-            output.print(l);}
-         
-         //output.print(l.toString());
-         output.close();
+            output.println(l);
+            output.close();
+      
      }
      catch(FileNotFoundException e){
          System.out.print(e);
      }
+   
          
      }
     

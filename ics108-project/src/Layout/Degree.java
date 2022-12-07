@@ -43,6 +43,12 @@ public class Degree extends Application{
     Button b6 = new Button("Save");
     Button b7 = new Button("Back");
     Button b8 = new Button("Show the flowchart");
+    String name="";
+   
+
+   
+
+    String title="Course,Term,Grade";
     public void start(Stage primaryStage)  {
         
         b6.setMinSize(100, 20);
@@ -328,7 +334,7 @@ public class Degree extends Application{
 
         // vbox for class
         VBox vbox2= new VBox();
-        vbox2.setSpacing(15);
+        vbox2.setSpacing(29.2);
         vbox2.setPadding(new Insets(5,5,5,5));
         vbox2.setAlignment(Pos.CENTER);
         vbox2.getChildren().addAll(new Label("Courses"));
@@ -340,7 +346,7 @@ public class Degree extends Application{
 
         // credit 
         VBox vbox3= new VBox();
-        vbox3.setSpacing(15);
+        vbox3.setSpacing(29.2);
         vbox3.setPadding(new Insets(5,5,5,5));
         vbox3.setAlignment(Pos.CENTER);
         vbox3.getChildren().addAll(new Label("Credit"));
@@ -352,7 +358,7 @@ public class Degree extends Application{
         
         // corequisite
          VBox vbox5= new VBox();
-         vbox5.setSpacing(15);
+         vbox5.setSpacing(29.2);
          vbox5.setPadding(new Insets(5,5,5,5));
          vbox5.setAlignment(Pos.CENTER);
          vbox5.getChildren().addAll(new Label("Corequisite"));
@@ -363,7 +369,7 @@ public class Degree extends Application{
 
         //prerequisite 
         VBox vbox4= new VBox();
-        vbox4.setSpacing(15);
+        vbox4.setSpacing(29.2);
         vbox4.setPadding(new Insets(5,5,5,5));
         vbox4.setAlignment(Pos.CENTER);
         vbox4.getChildren().addAll(new Label("Prerequisite "));
@@ -376,7 +382,7 @@ public class Degree extends Application{
 
          //checkbox
         VBox vbox6= new VBox();
-        vbox6.setSpacing(10);
+        vbox6.setSpacing(28.5);
         vbox6.setPadding(new Insets(5,5,5,5));
         vbox6.setAlignment(Pos.CENTER);
         vbox6.getChildren().add(new Label("Taken Courses"));
@@ -386,75 +392,657 @@ public class Degree extends Application{
         vbox6.getChildren().addAll(box31,box32,box33,box34,box35,box36,box37,box38,box39,box40);
         vbox6.getChildren().addAll(box41,box42,box43,box44);
         FinishedCourse finish= new FinishedCourse();
+        finish.getFinishedCourse(title);
+        //ArrayList <String> array=new ArrayList<>();
+       // array.add(title);
         // Event for checkbox
         box1.setOnAction(e ->{
             //grade1.setDisable(false);
             //term1.setDisable(false);
-            //finish.getFinishedCourse(student1.getCourseArray().get(0).getCourseCode());
-        }); 
+            name=student1.getCourseArray().get(0).getCourseCode();
+        });
+        term1.setOnAction(c ->{String gradeScore1=term1.getValue();
+            name=name+","+gradeScore1;
+
+        });
         grade1.setOnAction(m ->{String gradeScore=grade1.getValue();
-            finish.getFinishedCourse(gradeScore);
+            name=name+","+gradeScore;
+            finish.getFinishedCourse(name);
         });
-        term1.setOnAction(m ->{String gradeScore1=term1.getValue();
-            finish.getFinishedCourse(gradeScore1);
+        name="";
+        box2.setOnAction(e ->{
+            //grade1.setDisable(false);
+            //term1.setDisable(false);
+            name=student1.getCourseArray().get(1).getCourseCode();
         });
+        term2.setOnAction(c ->{String gradeScore1=term1.getValue();
+            name=name+","+gradeScore1;
 
+        });
+        grade2.setOnAction(m ->{String gradeScore=grade1.getValue();
+            name=name+","+gradeScore;
+            finish.getFinishedCourse(name);
+        }); 
+        name="";
+        box3.setOnAction(e ->{
+            //grade1.setDisable(false);
+            //term1.setDisable(false);
+            name=student1.getCourseArray().get(2).getCourseCode();
+        });
+        term3.setOnAction(c ->{String gradeScore1=term1.getValue();
+            name=name+","+gradeScore1;
+
+        });
+        grade3.setOnAction(m ->{String gradeScore=grade1.getValue();
+            name=name+","+gradeScore;
+            finish.getFinishedCourse(name);
+        }); 
+        name="";
+        box4.setOnAction(e ->{
+            //grade1.setDisable(false);
+            //term1.setDisable(false);
+            name=student1.getCourseArray().get(3).getCourseCode();
+        });
+        term4.setOnAction(c ->{String gradeScore1=term1.getValue();
+            name=name+","+gradeScore1;
+
+        });
+        grade4.setOnAction(m ->{String gradeScore=grade1.getValue();
+            name=name+","+gradeScore;
+            finish.getFinishedCourse(name);
+        }); 
+        name="";
+        box5.setOnAction(e ->{
+            //grade1.setDisable(false);
+            //term1.setDisable(false);
+            name=student1.getCourseArray().get(4).getCourseCode();
+        });
+        term5.setOnAction(c ->{String gradeScore1=term1.getValue();
+            name=name+","+gradeScore1;
+
+        });
+        grade5.setOnAction(m ->{String gradeScore=grade1.getValue();
+            name=name+","+gradeScore;
+            finish.getFinishedCourse(name);
+        }); 
+        name="";
+        box6.setOnAction(e ->{
+            //grade1.setDisable(false);
+            //term1.setDisable(false);
+            name=student1.getCourseArray().get(5).getCourseCode();
+        });
+        term6.setOnAction(c ->{String gradeScore1=term1.getValue();
+            name=name+","+gradeScore1;
+
+        });
+        grade6.setOnAction(m ->{String gradeScore=grade1.getValue();
+            name=name+","+gradeScore;
+            finish.getFinishedCourse(name);
+        }); 
+        name="";
+        box7.setOnAction(e ->{
+            //grade1.setDisable(false);
+            //term1.setDisable(false);
+            name=student1.getCourseArray().get(6).getCourseCode();
+        });
+        term7.setOnAction(c ->{String gradeScore1=term1.getValue();
+            name=name+","+gradeScore1;
+
+        });
+        grade7.setOnAction(m ->{String gradeScore=grade1.getValue();
+            name=name+","+gradeScore;
+            finish.getFinishedCourse(name);
+        }); 
+        name="";
+        box8.setOnAction(e ->{
+            //grade1.setDisable(false);
+            //term1.setDisable(false);
+            name=student1.getCourseArray().get(7).getCourseCode();
+        });
+        term8.setOnAction(c ->{String gradeScore1=term1.getValue();
+            name=name+","+gradeScore1;
+
+        });
+        grade8.setOnAction(m ->{String gradeScore=grade1.getValue();
+            name=name+","+gradeScore;
+            //finish.getFinishedCourse(name);
+        }); 
+        name="";
+        box9.setOnAction(e ->{
+            //grade1.setDisable(false);
+            //term1.setDisable(false);
+            name=student1.getCourseArray().get(8).getCourseCode();
+        });
+        term9.setOnAction(c ->{String gradeScore1=term1.getValue();
+            name=name+","+gradeScore1;
+
+        });
+        grade9.setOnAction(m ->{String gradeScore=grade1.getValue();
+            name=name+","+gradeScore;
+            finish.getFinishedCourse(name);
+        }); 
+        name="";
+        box10.setOnAction(e ->{
+            //grade1.setDisable(false);
+            //term1.setDisable(false);
+            name=student1.getCourseArray().get(9).getCourseCode();
+        });
+        term10.setOnAction(c ->{String gradeScore1=term1.getValue();
+            name=name+","+gradeScore1;
+
+        });
+        grade10.setOnAction(m ->{String gradeScore=grade1.getValue();
+            name=name+","+gradeScore;
+            finish.getFinishedCourse(name);
+        }); 
+        name="";
+        box11.setOnAction(e ->{
+            //grade1.setDisable(false);
+            //term1.setDisable(false);
+            name=student1.getCourseArray().get(10).getCourseCode();
+        });
+        term11.setOnAction(c ->{String gradeScore1=term1.getValue();
+            name=name+","+gradeScore1;
+
+        });
+        grade11.setOnAction(m ->{String gradeScore=grade1.getValue();
+            name=name+","+gradeScore;
+            finish.getFinishedCourse(name);
+        }); 
+        name="";
+        box12.setOnAction(e ->{
+            //grade1.setDisable(false);
+            //term1.setDisable(false);
+            name=student1.getCourseArray().get(11).getCourseCode();
+        });
+        term12.setOnAction(c ->{String gradeScore1=term1.getValue();
+            name=name+","+gradeScore1;
+
+        });
+        grade12.setOnAction(m ->{String gradeScore=grade1.getValue();
+            name=name+","+gradeScore;
+            finish.getFinishedCourse(name);
+        }); 
+        name="";
+        box13.setOnAction(e ->{
+            //grade1.setDisable(false);
+            //term1.setDisable(false);
+            name=student1.getCourseArray().get(12).getCourseCode();
+        });
+        term13.setOnAction(c ->{String gradeScore1=term1.getValue();
+            name=name+","+gradeScore1;
+
+        });
+        grade13.setOnAction(m ->{String gradeScore=grade1.getValue();
+            name=name+","+gradeScore;
+            finish.getFinishedCourse(name);
+        }); 
+        name="";
+        box14.setOnAction(e ->{
+            //grade1.setDisable(false);
+            //term1.setDisable(false);
+            name=student1.getCourseArray().get(13).getCourseCode();
+        });
+        term14.setOnAction(c ->{String gradeScore1=term1.getValue();
+            name=name+","+gradeScore1;
+
+        });
+        grade14.setOnAction(m ->{String gradeScore=grade1.getValue();
+            name=name+","+gradeScore;
+            finish.getFinishedCourse(name);
+        }); 
+        name="";
+        box15.setOnAction(e ->{
+            //grade1.setDisable(false);
+            //term1.setDisable(false);
+            name=student1.getCourseArray().get(14).getCourseCode();
+        });
+        term15.setOnAction(c ->{String gradeScore1=term1.getValue();
+            name=name+","+gradeScore1;
+
+        });
+        grade15.setOnAction(m ->{String gradeScore=grade1.getValue();
+            name=name+","+gradeScore;
+            finish.getFinishedCourse(name);
+        }); 
+        name="";
+        box16.setOnAction(e ->{
+            //grade1.setDisable(false);
+            //term1.setDisable(false);
+            name=student1.getCourseArray().get(15).getCourseCode();
+        });
+        term16.setOnAction(c ->{String gradeScore1=term1.getValue();
+            name=name+","+gradeScore1;
+
+        });
+        grade16.setOnAction(m ->{String gradeScore=grade1.getValue();
+            name=name+","+gradeScore;
+           finish.getFinishedCourse(name);
+        }); 
+        name="";
+        box17.setOnAction(e ->{
+            //grade1.setDisable(false);
+            //term1.setDisable(false);
+            name=student1.getCourseArray().get(16).getCourseCode();
+        });
+        term17.setOnAction(c ->{String gradeScore1=term1.getValue();
+            name=name+","+gradeScore1;
+
+        });
+        grade17.setOnAction(m ->{String gradeScore=grade1.getValue();
+            name=name+","+gradeScore;
+           finish.getFinishedCourse(name);
+        }); 
+        name="";
+        box18.setOnAction(e ->{
+            //grade1.setDisable(false);
+            //term1.setDisable(false);
+            name=student1.getCourseArray().get(17).getCourseCode();
+        });
+        term18.setOnAction(c ->{String gradeScore1=term1.getValue();
+            name=name+","+gradeScore1;
+
+        });
+        grade18.setOnAction(m ->{String gradeScore=grade1.getValue();
+            name=name+","+gradeScore;
+            finish.getFinishedCourse(name);
+        }); 
+        name="";
+        box19.setOnAction(e ->{
+            //grade1.setDisable(false);
+            //term1.setDisable(false);
+            name=student1.getCourseArray().get(18).getCourseCode();
+        });
+        term19.setOnAction(c ->{String gradeScore1=term1.getValue();
+            name=name+","+gradeScore1;
+
+        });
+        grade19.setOnAction(m ->{String gradeScore=grade1.getValue();
+            name=name+","+gradeScore;
+            finish.getFinishedCourse(name);
+        }); 
+        name="";
+        box20.setOnAction(e ->{
+            //grade1.setDisable(false);
+            //term1.setDisable(false);
+            name=student1.getCourseArray().get(19).getCourseCode();
+        });
+        term20.setOnAction(c ->{String gradeScore1=term1.getValue();
+            name=name+","+gradeScore1;
+
+        });
+        grade20.setOnAction(m ->{String gradeScore=grade1.getValue();
+            name=name+","+gradeScore;
+            finish.getFinishedCourse(name);
+        }); 
+        name="";
+        box21.setOnAction(e ->{
+            //grade1.setDisable(false);
+            //term1.setDisable(false);
+            name=student1.getCourseArray().get(20).getCourseCode();
+        });
+        term21.setOnAction(c ->{String gradeScore1=term1.getValue();
+            name=name+","+gradeScore1;
+
+        });
+        grade21.setOnAction(m ->{String gradeScore=grade1.getValue();
+            name=name+","+gradeScore;
+            finish.getFinishedCourse(name);
+        }); 
+        name="";
+        box22.setOnAction(e ->{
+            //grade1.setDisable(false);
+            //term1.setDisable(false);
+            name=student1.getCourseArray().get(21).getCourseCode();
+        });
+        term22.setOnAction(c ->{String gradeScore1=term1.getValue();
+            name=name+","+gradeScore1;
+
+        });
+        grade22.setOnAction(m ->{String gradeScore=grade1.getValue();
+            name=name+","+gradeScore;
+            finish.getFinishedCourse(name);
+        }); 
+        name="";
+        box23.setOnAction(e ->{
+            //grade1.setDisable(false);
+            //term1.setDisable(false);
+            name=student1.getCourseArray().get(22).getCourseCode();
+        });
+        term23.setOnAction(c ->{String gradeScore1=term1.getValue();
+            name=name+","+gradeScore1;
+
+        });
+        grade23.setOnAction(m ->{String gradeScore=grade1.getValue();
+            name=name+","+gradeScore;
+            finish.getFinishedCourse(name);
+        }); 
+        name="";
+        box24.setOnAction(e ->{
+            //grade1.setDisable(false);
+            //term1.setDisable(false);
+            name=student1.getCourseArray().get(23).getCourseCode();
+        });
+        term24.setOnAction(c ->{String gradeScore1=term1.getValue();
+            name=name+","+gradeScore1;
+
+        });
+        grade24.setOnAction(m ->{String gradeScore=grade1.getValue();
+            name=name+","+gradeScore;
+            finish.getFinishedCourse(name);
+        }); 
+        name="";
+        box25.setOnAction(e ->{
+            //grade1.setDisable(false);
+            //term1.setDisable(false);
+            name=student1.getCourseArray().get(24).getCourseCode();
+        });
+        term25.setOnAction(c ->{String gradeScore1=term1.getValue();
+            name=name+","+gradeScore1;
+
+        });
+        grade25.setOnAction(m ->{String gradeScore=grade1.getValue();
+            name=name+","+gradeScore;
+            finish.getFinishedCourse(name);
+        }); 
+        name="";
+        box26.setOnAction(e ->{
+            //grade1.setDisable(false);
+            //term1.setDisable(false);
+            name=student1.getCourseArray().get(25).getCourseCode();
+        });
+        term26.setOnAction(c ->{String gradeScore1=term1.getValue();
+            name=name+","+gradeScore1;
+
+        });
+        grade26.setOnAction(m ->{String gradeScore=grade1.getValue();
+            name=name+","+gradeScore;
+            finish.getFinishedCourse(name);
+        }); 
+        name="";
+        box27.setOnAction(e ->{
+            //grade1.setDisable(false);
+            //term1.setDisable(false);
+            name=student1.getCourseArray().get(26).getCourseCode();
+        });
+        term27.setOnAction(c ->{String gradeScore1=term1.getValue();
+            name=name+","+gradeScore1;
+
+        });
+        grade27.setOnAction(m ->{String gradeScore=grade1.getValue();
+            name=name+","+gradeScore;
+            finish.getFinishedCourse(name);
+        }); 
+        name="";
+        box28.setOnAction(e ->{
+            //grade1.setDisable(false);
+            //term1.setDisable(false);
+            name=student1.getCourseArray().get(27).getCourseCode();
+        });
+        term28.setOnAction(c ->{String gradeScore1=term1.getValue();
+            name=name+","+gradeScore1;
+
+        });
+        grade28.setOnAction(m ->{String gradeScore=grade1.getValue();
+            name=name+","+gradeScore;
+            finish.getFinishedCourse(name);
+        }); 
+        name="";
+        box29.setOnAction(e ->{
+            //grade1.setDisable(false);
+            //term1.setDisable(false);
+            name=student1.getCourseArray().get(28).getCourseCode();
+        });
+        term29.setOnAction(c ->{String gradeScore1=term1.getValue();
+            name=name+","+gradeScore1;
+
+        });
+        grade29.setOnAction(m ->{String gradeScore=grade1.getValue();
+            name=name+","+gradeScore;
+            finish.getFinishedCourse(name);
+        }); 
+        name="";
+        box30.setOnAction(e ->{
+            //grade1.setDisable(false);
+            //term1.setDisable(false);
+            name=student1.getCourseArray().get(29).getCourseCode();
+        });
+        term30.setOnAction(c ->{String gradeScore1=term1.getValue();
+            name=name+","+gradeScore1;
+
+        });
+        grade30.setOnAction(m ->{String gradeScore=grade1.getValue();
+            name=name+","+gradeScore;
+            finish.getFinishedCourse(name);
+        }); 
+        name="";
+        box31.setOnAction(e ->{
+            //grade1.setDisable(false);
+            //term1.setDisable(false);
+            name=student1.getCourseArray().get(30).getCourseCode();
+        });
+        term31.setOnAction(c ->{String gradeScore1=term1.getValue();
+            name=name+","+gradeScore1;
+
+        });
+        grade31.setOnAction(m ->{String gradeScore=grade1.getValue();
+            name=name+","+gradeScore;
+            finish.getFinishedCourse(name);
+        }); 
+        name="";
+        box32.setOnAction(e ->{
+            //grade1.setDisable(false);
+            //term1.setDisable(false);
+            name=student1.getCourseArray().get(31).getCourseCode();
+        });
+        term32.setOnAction(c ->{String gradeScore1=term1.getValue();
+            name=name+","+gradeScore1;
+
+        });
+        grade32.setOnAction(m ->{String gradeScore=grade1.getValue();
+            name=name+","+gradeScore;
+            finish.getFinishedCourse(name);
+        }); 
+        name="";
+        box33.setOnAction(e ->{
+            //grade1.setDisable(false);
+            //term1.setDisable(false);
+            name=student1.getCourseArray().get(32).getCourseCode();
+        });
+        term33.setOnAction(c ->{String gradeScore1=term1.getValue();
+            name=name+","+gradeScore1;
+
+        });
+        grade33.setOnAction(m ->{String gradeScore=grade1.getValue();
+            name=name+","+gradeScore;
+            finish.getFinishedCourse(name);
+        }); 
+        name="";
+        box34.setOnAction(e ->{
+            //grade1.setDisable(false);
+            //term1.setDisable(false);
+            name=student1.getCourseArray().get(33).getCourseCode();
+        });
+        term34.setOnAction(c ->{String gradeScore1=term1.getValue();
+            name=name+","+gradeScore1;
+
+        });
+        grade34.setOnAction(m ->{String gradeScore=grade1.getValue();
+            name=name+","+gradeScore;
+            finish.getFinishedCourse(name);
+        }); 
+        name="";
+        box35.setOnAction(e ->{
+            //grade1.setDisable(false);
+            //term1.setDisable(false);
+            name=student1.getCourseArray().get(34).getCourseCode();
+        });
+        term35.setOnAction(c ->{String gradeScore1=term1.getValue();
+            name=name+","+gradeScore1;
+
+        });
+        grade35.setOnAction(m ->{String gradeScore=grade1.getValue();
+            name=name+","+gradeScore;
+            finish.getFinishedCourse(name);
+        }); 
+        name="";
+        box36.setOnAction(e ->{
+            //grade1.setDisable(false);
+            //term1.setDisable(false);
+            name=student1.getCourseArray().get(35).getCourseCode();
+        });
+        term36.setOnAction(c ->{String gradeScore1=term1.getValue();
+            name=name+","+gradeScore1;
+
+        });
+        grade36.setOnAction(m ->{String gradeScore=grade1.getValue();
+            name=name+","+gradeScore;
+            finish.getFinishedCourse(name);
+        }); 
+        name="";
+        box37.setOnAction(e ->{
+            //grade1.setDisable(false);
+            //term1.setDisable(false);
+            name=student1.getCourseArray().get(36).getCourseCode();
+        });
+        term37.setOnAction(c ->{String gradeScore1=term1.getValue();
+            name=name+","+gradeScore1;
+
+        });
+        grade37.setOnAction(m ->{String gradeScore=grade1.getValue();
+            name=name+","+gradeScore;
+            finish.getFinishedCourse(name);
+        }); 
+        name="";
+        box38.setOnAction(e ->{
+            //grade1.setDisable(false);
+            //term1.setDisable(false);
+            name=student1.getCourseArray().get(37).getCourseCode();
+        });
+        term38.setOnAction(c ->{String gradeScore1=term1.getValue();
+            name=name+","+gradeScore1;
+
+        });
+        grade38.setOnAction(m ->{String gradeScore=grade1.getValue();
+            name=name+","+gradeScore;
+            finish.getFinishedCourse(name);
+        }); 
+        name="";
+        box39.setOnAction(e ->{
+            //grade1.setDisable(false);
+            //term1.setDisable(false);
+            name=student1.getCourseArray().get(38).getCourseCode();
+        });
+        term39.setOnAction(c ->{String gradeScore1=term1.getValue();
+            name=name+","+gradeScore1;
+
+        });
+        grade39.setOnAction(m ->{String gradeScore=grade1.getValue();
+            name=name+","+gradeScore;
+            finish.getFinishedCourse(name);
+        }); 
+        name="";
+        box40.setOnAction(e ->{
+            //grade1.setDisable(false);
+            //term1.setDisable(false);
+            name=student1.getCourseArray().get(39).getCourseCode();
+        });
+        term40.setOnAction(c ->{String gradeScore1=term1.getValue();
+            name=name+","+gradeScore1;
+
+        });
+        grade40.setOnAction(m ->{String gradeScore=grade1.getValue();
+            name=name+","+gradeScore;
+            finish.getFinishedCourse(name);
+        }); 
+        name="";
+        box41.setOnAction(e ->{
+            //grade1.setDisable(false);
+            //term1.setDisable(false);
+            name=student1.getCourseArray().get(40).getCourseCode();
+        });
+        term41.setOnAction(c ->{String gradeScore1=term1.getValue();
+            name=name+","+gradeScore1;
+
+        });
+        grade41.setOnAction(m ->{String gradeScore=grade1.getValue();
+            name=name+","+gradeScore;
+            finish.getFinishedCourse(name);
+        });
+        name="";    
+        box42.setOnAction(e ->{
+            //grade1.setDisable(false);
+            //term1.setDisable(false);
+            name=student1.getCourseArray().get(41).getCourseCode();
+        });
+        term42.setOnAction(c ->{String gradeScore1=term1.getValue();
+            name=name+","+gradeScore1;
+
+        });
+        grade42.setOnAction(m ->{String gradeScore=grade1.getValue();
+            name=name+","+gradeScore;
+            finish.getFinishedCourse(name);
+        });
+        name="";
+        box43.setOnAction(e ->{
+            //grade1.setDisable(false);
+            //term1.setDisable(false);
+            name=student1.getCourseArray().get(42).getCourseCode();
+        });
+        term43.setOnAction(c ->{String gradeScore1=term1.getValue();
+            name=name+","+gradeScore1;
+
+        });
+        grade43.setOnAction(m ->{String gradeScore=grade1.getValue();
+            name=name+","+gradeScore;
+            finish.getFinishedCourse(name);
+        });
+        name="";
+        box44.setOnAction(e ->{
+            //grade1.setDisable(false);
+            //term1.setDisable(false);
+            name=student1.getCourseArray().get(43).getCourseCode();
+        });
+        term44.setOnAction(c ->{String gradeScore1=term1.getValue();
+            name=name+","+gradeScore1;
+
+        });
+        grade44.setOnAction(m ->{String gradeScore=grade1.getValue();
+            name=name+","+gradeScore;
+            finish.getFinishedCourse(name);
+        });
+///////////////////////////////////////////////////////////////////////////
          //checkbox grades
-         VBox vbox7= new VBox();
-         vbox7.setSpacing(10);
-         vbox7.setPadding(new Insets(5,5,5,5));
-         vbox7.setAlignment(Pos.CENTER);
-         vbox7.getChildren().addAll(new Label("Grades"));
-         vbox7.getChildren().addAll(grade1,grade2,grade3,grade4,grade5,grade6,grade7,grade8,grade9,grade10);
-         vbox7.getChildren().addAll(grade11,grade12,grade13,grade14,grade15,grade16,grade17,grade18,grade19,grade20);
-         vbox7.getChildren().addAll(grade21,grade22,grade23,grade24,grade25,grade26,grade27,grade28,grade29,grade30);
-         vbox7.getChildren().addAll(grade31,grade32,grade33,grade34,grade35,grade36,grade37,grade38,grade39,grade40);
-         vbox7.getChildren().addAll(grade41,grade42,grade43,grade44);
-         //for(int i=0;i<student1.getNumberOfCourses();i++){
-           // vbox7.getChildren().add(grades);
-       //}
-
-      
-         // events for comboBox
-          
-   
-        
-   
-        //// Grades for the course 
-         //String[] years= {"222","221","213","212","211","203","202","201"}; 
-         //ComboBox<String> terms = new ComboBox<>();
-
-      
-        
-         //terms.getItems().addAll(years);
-
-         //checkbox term
          VBox vbox8= new VBox();
-         vbox8.setSpacing(10);
+         vbox8.setSpacing(20);
          vbox8.setPadding(new Insets(5,5,5,5));
          vbox8.setAlignment(Pos.CENTER);
-         vbox8.getChildren().addAll(new Label("Term"));
-         vbox8.getChildren().addAll(term1,term2,term3,term4,term5,term6,term7,term8,term9,term10);
-         vbox8.getChildren().addAll(term11,term12,term13,term14,term15,term16,term17,term18,term19,term20);
-         vbox8.getChildren().addAll(term21,term22,term23,term24,term25,term26,term27,term28,term29,term30);
-         vbox8.getChildren().addAll(term31,term32,term33,term34,term35,term36,term37,term38,term39,term40);
-         vbox8.getChildren().addAll(term41,term42,term43,term44);
-        // for(int i=0;i<student1.getNumberOfCourses();i++){
-         //   vbox8.getChildren().add(terms);
-       // }
+         vbox8.getChildren().addAll(new Label("Grades"));
+         vbox8.getChildren().addAll(grade1,grade2,grade3,grade4,grade5,grade6,grade7,grade8,grade9,grade10);
+         vbox8.getChildren().addAll(grade11,grade12,grade13,grade14,grade15,grade16,grade17,grade18,grade19,grade20);
+         vbox8.getChildren().addAll(grade21,grade22,grade23,grade24,grade25,grade26,grade27,grade28,grade29,grade30);
+         vbox8.getChildren().addAll(grade31,grade32,grade33,grade34,grade35,grade36,grade37,grade38,grade39,grade40);
+         vbox8.getChildren().addAll(grade41,grade42,grade43,grade44);
+         
+
+      
         
-        
-        
-        
-         // events for comboBox
-          //terms.getItems().addAll(years);
           
    
-          //grades.setOnAction(e-> {}
-         // );
-   
-        //
+       
 
+         //checkbox term
+         VBox vbox7= new VBox();
+         vbox7.setSpacing(20);
+         vbox7.setPadding(new Insets(5,5,5,5));
+         vbox7.setAlignment(Pos.CENTER);
+         vbox7.getChildren().addAll(new Label("Term"));
+         vbox7.getChildren().addAll(term1,term2,term3,term4,term5,term6,term7,term8,term9,term10);
+         vbox7.getChildren().addAll(term11,term12,term13,term14,term15,term16,term17,term18,term19,term20);
+         vbox7.getChildren().addAll(term21,term22,term23,term24,term25,term26,term27,term28,term29,term30);
+         vbox7.getChildren().addAll(term31,term32,term33,term34,term35,term36,term37,term38,term39,term40);
+         vbox7.getChildren().addAll(term41,term42,term43,term44);
+        
 
         HBox parts= new HBox();
         parts.setSpacing(200);
@@ -462,26 +1050,14 @@ public class Degree extends Application{
         parts.setAlignment(Pos.CENTER);
         parts.getChildren().addAll(vbox2,vbox3,vbox4,vbox5,vbox6,vbox7,vbox8);
 
-
         ScrollPane  scrollPane= new ScrollPane(parts);
-        
-   
     
-    // event for checkbox taken
-    //taken.setOnAction(e ->{ grades.setDisable(false) ;terms.setDisable(false);
-        
-        //FinishedCourse course1=new FinishedCourse("mamdouh","211","a");  
-        //course1.getFinishedCourse.add(course1.toString());
-
-   // });
-
         // hbox for button
         HBox buttonClick= new HBox();
         buttonClick.setSpacing(100);
         buttonClick.setPadding(new Insets(5,5,5,5));
         buttonClick.setAlignment(Pos.CENTER);
         buttonClick.getChildren().addAll(b6,b7,b8);
-    
         
         VBox main= new  VBox();
         main.setSpacing(300);
@@ -491,8 +1067,6 @@ public class Degree extends Application{
 
         BorderPane.setAlignment(label, Pos.CENTER);
         Scene scene2=new Scene(main,300,500);
-
-
 
         primaryStage.setTitle("Degree Plan");
         primaryStage.setScene(scene2);
