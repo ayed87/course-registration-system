@@ -313,94 +313,7 @@ public class Degree extends Application{
 
 
      //make the comboxs on if the checkbox turn on
-     grade1.setDisable(true);
-     grade2.setDisable(true);
-     grade3.setDisable(true);
-     grade4.setDisable(true); 
-     grade5.setDisable(true);
-     grade6.setDisable(true);
-     grade7.setDisable(true);
-     grade8.setDisable(true);
-     grade9.setDisable(true);
-     grade10.setDisable(true);
-     grade11.setDisable(true);
-     grade12.setDisable(true);
-     grade13.setDisable(true);
-     grade14.setDisable(true); 
-     grade15.setDisable(true);
-     grade16.setDisable(true);
-     grade17.setDisable(true);
-     grade18.setDisable(true);
-     grade19.setDisable(true);
-     grade20.setDisable(true);
-     grade21.setDisable(true);
-     grade22.setDisable(true);
-     grade23.setDisable(true);
-     grade24.setDisable(true); 
-     grade25.setDisable(true);
-     grade26.setDisable(true);
-     grade27.setDisable(true);
-     grade28.setDisable(true);
-     grade29.setDisable(true);
-     grade30.setDisable(true);
-     grade31.setDisable(true);
-     grade32.setDisable(true);
-     grade33.setDisable(true);
-     grade34.setDisable(true); 
-     grade35.setDisable(true);
-     grade36.setDisable(true);
-     grade37.setDisable(true);
-     grade38.setDisable(true);
-     grade39.setDisable(true);
-     grade40.setDisable(true);
-     grade41.setDisable(true);
-     grade42.setDisable(true);
-     grade43.setDisable(true);
-     grade44.setDisable(true);
-     term1.setDisable(true);
-     term2.setDisable(true);
-     term3.setDisable(true);
-     term4.setDisable(true);
-     term5.setDisable(true);
-     term6.setDisable(true);
-     term7.setDisable(true);
-     term8.setDisable(true);
-     term9.setDisable(true);
-     term10.setDisable(true);
-     term11.setDisable(true);
-     term12.setDisable(true);
-     term13.setDisable(true);
-     term14.setDisable(true);
-     term15.setDisable(true);
-     term16.setDisable(true);
-     term17.setDisable(true);
-     term18.setDisable(true);
-     term19.setDisable(true);
-     term20.setDisable(true);
-     term21.setDisable(true);
-     term22.setDisable(true);
-     term23.setDisable(true);
-     term24.setDisable(true);
-     term25.setDisable(true);
-     term26.setDisable(true);
-     term27.setDisable(true);
-     term28.setDisable(true);
-     term29.setDisable(true);
-     term30.setDisable(true);
-     term31.setDisable(true);
-     term32.setDisable(true);
-     term33.setDisable(true);
-     term34.setDisable(true);
-     term35.setDisable(true);
-     term36.setDisable(true);
-     term37.setDisable(true);
-     term38.setDisable(true);
-     term39.setDisable(true);
-     term40.setDisable(true);
-     term41.setDisable(true);
-     term42.setDisable(true);
-     term43.setDisable(true);
-     term44.setDisable(true);
+     
      ///////////////////////
        
        
@@ -473,22 +386,18 @@ public class Degree extends Application{
         vbox6.getChildren().addAll(box31,box32,box33,box34,box35,box36,box37,box38,box39,box40);
         vbox6.getChildren().addAll(box41,box42,box43,box44);
         FinishedCourse finish= new FinishedCourse();
-        grade1.getValue();
         // Event for checkbox
         box1.setOnAction(e ->{
-            grade1.setDisable(false);
-            term1.setDisable(false);
-            finish.getFinishedCourse(student1.getCourseArray().get(0).getCourseCode());
-            grade1.setOnAction(m ->{String gradeScore=grade1.getValue();
-               finish.getFinishedCourse(gradeScore);
-            });
-            term1.setOnAction(m ->{String gradeScore1=term1.getValue();
-                finish.getFinishedCourse(gradeScore1);
-            });
-             
-
-            }); 
-
+            //grade1.setDisable(false);
+            //term1.setDisable(false);
+            //finish.getFinishedCourse(student1.getCourseArray().get(0).getCourseCode());
+        }); 
+        grade1.setOnAction(m ->{String gradeScore=grade1.getValue();
+            finish.getFinishedCourse(gradeScore);
+        });
+        term1.setOnAction(m ->{String gradeScore1=term1.getValue();
+            finish.getFinishedCourse(gradeScore1);
+        });
 
          //checkbox grades
          VBox vbox7= new VBox();
