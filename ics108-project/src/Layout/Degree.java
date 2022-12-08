@@ -355,7 +355,7 @@ public class Degree extends Application{
             String string=Integer.toString(number);
             vbox3.getChildren().add(new Label(string));
         }
-        
+        //
         // corequisite
          VBox vbox5= new VBox();
          vbox5.setSpacing(29.2);
