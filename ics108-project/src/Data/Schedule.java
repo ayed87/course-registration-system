@@ -5,6 +5,7 @@ import java.util.Arrays;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
@@ -14,6 +15,7 @@ public class Schedule {
     ObservableList<Section> registeredSections =  FXCollections.observableArrayList();
     ObservableList<Section>  basketSections;
     int registeredCredits;
+    Pane weekDaysPane;
     
     
     
@@ -22,6 +24,18 @@ public class Schedule {
     //   this.basketSections = basketSections;
 
     // }
+
+    // our mission here is to save the pane that was contin the sections;
+
+    public void setWeekDaysPane(Pane weekDaysPane) {
+        this.weekDaysPane = weekDaysPane;
+    }
+
+    public Pane getWeekDaysPane() {
+        return weekDaysPane;
+    }
+
+
     public void setBasketSections(ObservableList<Section> basketSections) {
         this.basketSections = basketSections;
     }

@@ -17,22 +17,21 @@ import javafx.scene.Node;
 public class FinishedCourse extends Course {
 
     private String takenSemester; 
-    private String grade ;
-    private Object getFinishedCourse;
+    private String grade;
     private String statement="";
 
 
-    public FinishedCourse(){
-        grade="A";
-    }
-    public FinishedCourse(String[] courseInformation){
+    public FinishedCourse(Course course,String term,String grade){
 
-        super(courseInformation[0]); 
-        this.takenSemester = courseInformation[1]; 
-        this.grade = courseInformation[2];
+        super(course.retrunFinshedCourseinfo()); 
+
+        this.takenSemester = term; 
+        this.grade = grade;
+        
 
               
-
+    }
+    public FinishedCourse( String term, String grade){
 
 
     }

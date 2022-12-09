@@ -52,6 +52,9 @@ public class Student {
     catch(IOException e){System.out.println(e);}
 
     }
+    public void addFinshedCourse(FinishedCourse finishedCourse){
+        finishedCourses.add(finishedCourse);
+    }
     // ayed's temporary method
     public void addCourse(Section section){
         basket.add(section);
@@ -79,23 +82,23 @@ public class Student {
  
      }
 
-     public void readAllFinishedCourses(BufferedReader buff){ 
+    //  public void readAllFinishedCourses(BufferedReader buff){ 
 
-        try{
-         buff.readLine(); // no need for first line
-         String line = "";
+    //     try{
+    //      buff.readLine(); // no need for first line
+    //      String line = "";
  
-         while((line = buff.readLine()) != null ){ 
+    //      while((line = buff.readLine()) != null ){ 
  
-             String[] lineList =line.split(",");
-             FinishedCourse finishedCourse = new FinishedCourse(lineList); 
-             finishedCourses.add(finishedCourse);
-         }
+    //          String[] lineList =line.split(",");
+    //          FinishedCourse finishedCourse = new FinishedCourse(lineList); 
+    //          finishedCourses.add(finishedCourse);
+    //      }
  
-     }
-     catch(IOException e){System.out.println(e);}
+    //  }
+    //  catch(IOException e){System.out.println(e);}
  
-     }
+    //  }
 
 
     public int getNumberOfSections(){ 

@@ -25,6 +25,15 @@ public class Course {
 
        
     }
+    public String[] retrunFinshedCourseinfo(){
+        String[] infoArray = new String[5];
+        infoArray[0] = getCourseCode();
+        infoArray[1] = Integer.toString(getCredit());
+        infoArray[2] = Arrays.toString(getPrerequisite());
+        infoArray[3] = Arrays.toString(getCorequisite());
+        infoArray[4] = getDepartment();
+        return infoArray;
+    }
 
     public Course(String courseCode){ 
 
