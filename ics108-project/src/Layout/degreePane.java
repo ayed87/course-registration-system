@@ -64,7 +64,7 @@ public class degreePane extends Application{
         
         saveButton.setMinSize(100, 20);
         saveButton.setOnAction(e->{
-            student.
+            
         });
         backButton.setMinSize(100, 20);
         saveChartButton.setMinSize(100, 20);
