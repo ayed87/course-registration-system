@@ -70,6 +70,8 @@ public class Student {
         return canBeTakSections;
     }
 
+   
+
 
     public void readAllCourse(BufferedReader buff){ 
 
@@ -107,6 +109,12 @@ public class Student {
  
      }
 
+     public void updateFinishedCourses(BufferedReader buff){ 
+
+        finishedCourses.removeAll(finishedCourses); 
+        readAllFinishedCourses(buff);
+     }
+
 
     public int getNumberOfSections(){ 
         return allSections.size();
@@ -122,6 +130,8 @@ public class Student {
     public int getNumberOfFinishedCourse(){ 
         return finishedCourses.size();
     }
+
+
 
     
     // A method to find the courses that its prerequisite is satisfied, and its corequisite are taken or can be taken know
@@ -269,6 +279,22 @@ public void findCanBeTakenSections(){
        
         
     }
+}
+
+public void updateCanBeTakenCourses(){ 
+
+    canBeTakenCourses.removeAll(canBeTakenCourses);
+    findCanBeTakenCourses();
+}
+
+public void updateCanBeTakenSections(){ 
+
+    canBeTakSections.removeAll(canBeTakSections);
+    findCanBeTakenSections();
+}
+
+public ArrayList<Course> getCanBeTakenCourses(){ 
+    return canBeTakenCourses;
 }
 
 

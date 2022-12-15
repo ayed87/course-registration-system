@@ -93,17 +93,12 @@ public class MainLayout extends Application {
             student.readAllCourse(degreePlanReader);
             student.readAllFinishedCourses(finishedCoursesReader);
 
-            System.out.println(student.getCourseArray().toString());
+            
 
             
 
         }
-        catch(NullPointerException e){
-
-        }
-        // catch(ClassNotFoundException e){
-        //   System.out.println(e);
-        // }
+        
 
         catch(FileNotFoundException e){System.out.println(e);}
         
@@ -212,6 +207,27 @@ public class MainLayout extends Application {
                     output.println(finishedCourse);
                 }
                 output.close();
+                 
+                  FileReader finishedCourses = new FileReader("FinishedCourses.csv");
+
+                  BufferedReader finishedCoursesReader = new BufferedReader(finishedCourses);
+      
+                  student.updateFinishedCourses(finishedCoursesReader);
+
+                  student.updateCanBeTakenCourses();
+                  student.updateCanBeTakenSections();
+      
+                  
+      
+                  
+      
+              
+
+                
+
+                           
+              
+                
             }
             catch(FileNotFoundException ex){
                 System.out.println(ex);
@@ -262,8 +278,9 @@ public class MainLayout extends Application {
         
 
 
-        //basket stage
+        //basket stage Code
 
+        // finding Can be taken courses and sections
         student.findCanBeTakenCourses();
         student.findCanBeTakenSections();
         
@@ -289,7 +306,7 @@ public class MainLayout extends Application {
           hBox.setAlignment(Pos.CENTER);
           borderPane.setBottom(hBox);
   
-          // button functionality
+         
   
   
           // Choice boxes to select department and courses
@@ -302,7 +319,7 @@ public class MainLayout extends Application {
          ComboBox<String> coursesChoice = new ComboBox<>();
   
         
-        // events for comboBox
+        // events for comboBoxes
          departmentChoice.getItems().addAll(student.getDepartments());
          
   
@@ -321,16 +338,18 @@ public class MainLayout extends Application {
         
       
          
-         // actions for basket
+         
          coursesChoice.setOnAction(e-> {
   
   
+          // sections basket 
           student.findShownSections(departmentChoice.getValue(),coursesChoice.getValue());
           ListView<Section> sectionListView = new ListView<Section>(student.getShownSections());
           ListView<Section> basketListView = new ListView<Section>(student.getBasket()) ;
   
           sectionListView.setOnMouseClicked( new EventHandler <MouseEvent>() {
   
+            // basket sections selections and updating 
               public void handle(MouseEvent e){ 
   
                   student.clickOnSectionList(sectionListView);
@@ -342,6 +361,7 @@ public class MainLayout extends Application {
               
           });
   
+
           basketListView.setOnMouseClicked(new EventHandler<MouseEvent>() {
   
               public void handle(MouseEvent e){ 
@@ -351,9 +371,18 @@ public class MainLayout extends Application {
               }
               
           });
+
+          // layout for the baskets 
           VBox sectionAndBasket = new VBox(); 
-           sectionAndBasket.getChildren().addAll(sectionListView,basketListView); 
-           sectionAndBasket.setSpacing(10);
+
+          Label sectionsLabel = new Label("Available Sections List");
+          sectionsLabel.setFont(new Font("Arial", 20));
+          Label sectionTaken = new Label("Choosen Sections");
+          sectionTaken.setFont(new Font("Arial", 20));
+           sectionAndBasket.getChildren().addAll(sectionsLabel ,sectionListView,sectionTaken, basketListView); 
+           sectionAndBasket.setSpacing(20);
+           sectionAndBasket.setAlignment(Pos.CENTER);
+          
    
           borderPane.setCenter(sectionAndBasket);
   
@@ -364,15 +393,6 @@ public class MainLayout extends Application {
         
   
          
-          
-  
-         
-  
-  
-  
-  
-  
-  
           departmentChoice.setPrefSize(100,10);
           coursesChoice.setPrefSize(100, 10);
   
@@ -393,6 +413,8 @@ public class MainLayout extends Application {
           HBox coursesSelectionBox = new HBox(); 
   
           coursesSelectionBox.getChildren().addAll(departmentBox,courseBox);
+
+          coursesSelectionBox.setPadding(new Insets(15));
   
   
           // title
@@ -606,7 +628,10 @@ public class MainLayout extends Application {
 
     degreePlanBackButton.setOnAction(e->{ 
 
+      
         primaryStage.setScene(mainMenu);
+
+        
     });
 
     //saving schudel 
