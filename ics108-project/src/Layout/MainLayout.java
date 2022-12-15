@@ -32,6 +32,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.Border;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
@@ -40,6 +41,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
+import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -47,6 +49,8 @@ import java.io.ObjectOutputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import javax.swing.tree.ExpandVetoException;
 
 import org.controlsfx.control.Notifications;
 
@@ -70,17 +74,7 @@ public class MainLayout extends Application {
 
 
         try{
-            // FileInputStream fileInputStream = new FileInputStream("savedScedule.dat");
-            // ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
-            // Schedule oldSchedule = (Schedule) objectInputStream.readObject();
 
-            // if(schedule.getRegisteredSections()!= null){
-            //   schedule.loadOldObject(oldSchedule);
-            //   for(Section section: schedule.getRegisteredSections()){
-            //     addCourseToPane(section);
-            //   }
-            //   objectInputStream.close();
-            // }
 
 
             // reading files and creating objects for sections, courses in degree plan, finished courses
@@ -112,6 +106,8 @@ public class MainLayout extends Application {
         // }
 
         catch(FileNotFoundException e){System.out.println(e);}
+        
+
 
         // main menu Stage
 
@@ -120,16 +116,28 @@ public class MainLayout extends Application {
         Button savedScheduleButton = new Button("Saved Schedule");
         Button newScheduleButton = new Button("New Schedule");
         Button exitButton= new Button("Exist");
+        
+
+        degreePlanButton.setPrefSize(150, 80);
+        savedScheduleButton.setPrefSize(150, 80);
+        newScheduleButton.setPrefSize(150, 80);
+        exitButton.setPrefSize(150, 80);
         exitButton.setStyle(Styles.backButtonStyle());
+        degreePlanButton.setStyle(Styles.buttonsStyle());
+        savedScheduleButton.setStyle(Styles.buttonsStyle());
+        newScheduleButton.setStyle(Styles.buttonsStyle());
+      
     
 
        degreePlanButton.setTextFill(Color.WHITE);
        savedScheduleButton.setTextFill(Color.WHITE);
        newScheduleButton.setTextFill(Color.WHITE);
       //  exitButton.setTextFill(Color.WHITE);
-       degreePlanButton.setStyle("-fx-background-color: Green;");
-       savedScheduleButton.setStyle("-fx-background-color: Green;");
-       newScheduleButton.setStyle("-fx-background-color: Green;");
+
+      // we will use some of the part
+      //  degreePlanButton.setStyle("-fx-background-color: Green;");
+      //  savedScheduleButton.setStyle("-fx-background-color: Green;");
+      //  newScheduleButton.setStyle("-fx-background-color: Green;");
       
         
         
@@ -152,20 +160,16 @@ public class MainLayout extends Application {
         vbox2.getChildren().add(exitButton);
 
         // Top hbox
-        ImageView imageView1= new ImageView();
-        Image flowChartImage = new Image("https://en.wikipedia.org/wiki/King_Fahd_University_of_Petroleum_and_Minerals#/media/File:KFUPM_seal.png");
-        imageView1.setImage(flowChartImage);
-        HBox hbox= new HBox();
-        hbox.setSpacing(10);
-        hbox.setPadding(new Insets(5,5,5,5));
-        hbox.setAlignment(Pos.CENTER);
-        //hbox.getChildren().addAll(text,imageView1);
-        hbox.getChildren().add(text);
 
-        BorderPane mainMenuPane= new  BorderPane();
-        mainMenuPane.setTop(hbox);
-        mainMenuPane.setLeft(vbox1);
-        mainMenuPane.setRight(vbox2);
+
+
+
+        HBox mainMenuPane = new HBox();
+        mainMenuPane.setStyle(Styles.mainStyleDark());
+        mainMenuPane.setAlignment(Pos.TOP_CENTER);
+        BorderPane.setAlignment(mainMenuPane, Pos.CENTER);
+        mainMenuPane.getChildren().addAll(vbox1,vbox2);
+
 
          
 
@@ -174,7 +178,6 @@ public class MainLayout extends Application {
         // To close the window
       
 
-        BorderPane.setAlignment(text, Pos.CENTER);
         
 
         Scene mainMenu = new Scene(mainMenuPane ,1540,800);
@@ -185,48 +188,7 @@ public class MainLayout extends Application {
         primaryStage.show();
 
 
-        // new Schedule stage 
 
-        Button newScheduleNext = new Button("Next");
-        newScheduleButton.setStyle(Styles.nextButtonStyle());
-        Button newScheduleBack = new Button("Back");
-        newScheduleBack.setStyle(Styles.backButtonStyle());
-        HBox item= new HBox();
-        item.setSpacing(50);
-        item.setPadding(new Insets(5,5,5,5));
-        item.setAlignment(Pos.CENTER);
-
-        TextField name = new TextField();
-        item.getChildren().addAll(new Label("Enter your name Schedule :"),name);
-
-         
-        
-
-        HBox item1= new HBox();
-        item1.setSpacing(100);
-        item1.setPadding(new Insets(5,5,5,5));
-        item1.setAlignment(Pos.CENTER);
-        item1.getChildren().addAll(newScheduleNext,newScheduleBack);
-        
-        VBox item2= new VBox();
-        item2.setSpacing(100);
-        item2.setPadding(new Insets(5,5,5,5));
-        item2.setAlignment(Pos.CENTER);
-        item2.getChildren().addAll(item,item1);
-        
-
-        //event for name
-        name.setOnAction(e->{
-             
-            //scheduleName = name.getText();
-            //come back
-        });
-
-
-        Scene newScheduleScene = new Scene(item2,1540,800);
-
-        // saved schedule
-        ///
 
         // degree plan
         Button degreePlanSaveButton = new Button("Save");
@@ -260,13 +222,7 @@ public class MainLayout extends Application {
         
         degreePlanBackButton.setMinSize(100, 20);
         Text label =new Text("Degree plan");
-        label.setFont(new Font("Arial", 50));
-
-
-
-   
-   
-        
+        label.setFont(new Font("Arial", 30));        
 
      
 
@@ -275,6 +231,18 @@ public class MainLayout extends Application {
         
         
         // hbox for button
+
+        HBox topDiscrption = new HBox(123);
+        topDiscrption.setAlignment(Pos.CENTER);
+        topDiscrption.getChildren().addAll(
+          new Text("course name"),
+          new Text("cridits"),
+          new Text("pre requiset"),
+          new Text("core requiset"),
+          new Text("status"),
+          new Text("term"),
+          new Text("grade")
+        );
      
         HBox bottomButtonsPane= new HBox();
         bottomButtonsPane.setSpacing(100);
@@ -283,10 +251,11 @@ public class MainLayout extends Application {
         bottomButtonsPane.getChildren().addAll(degreePlanSaveButton,degreePlanBackButton);
         
         VBox dgreePlanVbox = new  VBox();
-        dgreePlanVbox.setSpacing(50);
+        dgreePlanVbox.setStyle(Styles.mainStyleDark());
+        dgreePlanVbox.setSpacing(30);
         dgreePlanVbox.setPadding(new Insets(5,5,5,5));
         dgreePlanVbox.setAlignment(Pos.CENTER);
-        dgreePlanVbox.getChildren().addAll(label,showPlanelListView,bottomButtonsPane);
+        dgreePlanVbox.getChildren().addAll(label,topDiscrption,showPlanelListView,bottomButtonsPane);
 
 
         Scene degreePlanScene = new Scene(dgreePlanVbox,1540,800);
@@ -303,6 +272,7 @@ public class MainLayout extends Application {
    
           // Pane used 
           BorderPane borderPane = new BorderPane();
+          borderPane.setStyle(Styles.mainStyle());
   
   
           // Buttons to move between scenes
@@ -429,7 +399,7 @@ public class MainLayout extends Application {
           coursesSelectionBox.setSpacing(100);
           Label header = new Label("Sections' Basket"); 
           header.setFont(new Font("Arial", 30));
-          header.setStyle(Styles.green());
+          // header.setStyle(Styles.green());
   
          
   
@@ -464,7 +434,6 @@ public class MainLayout extends Application {
             
            
            
-           schedule.setBasketSections(student.getBasket());
            
            Button saveScheduleButton = new Button("Save Schedule");
            saveScheduleButton.setStyle(Styles.saveButtonStyle());
@@ -554,38 +523,44 @@ public class MainLayout extends Application {
     // if
 
     confirmButton.setOnAction(e -> {
-      System.out.println("pressed");
-      int selctedCourseIndix = listView.getSelectionModel().getSelectedIndex();
-      Section selectedSection = student.getBasket().get(selctedCourseIndix);
-      System.out.println(selectedSection);
-      if(!schedule.checkExistence(selectedSection)){
-        
-        if(schedule.checkConflict(selectedSection)){
-          schedule.addCourse(selectedSection);
-          student.removeCourse(selectedSection);
-          addCourseToPane(selectedSection);
-          listView.getItems().removeAll(listView.getSelectionModel().getSelectedItem
-          ());
-  
-  
+      try{
+        System.out.println("pressed");
+        int selctedCourseIndix = listView.getSelectionModel().getSelectedIndex();
+        Section selectedSection = student.getBasket().get(selctedCourseIndix);
+        System.out.println(selectedSection);
+        if(!schedule.checkExistence(selectedSection)){
+          
+          if(schedule.checkConflict(selectedSection)){
+            schedule.addCourse(selectedSection);
+            schedule.removeCourseFromBasket(selectedSection);
+            addCourseToPane(selectedSection);
+            listView.getItems().removeAll(listView.getSelectionModel().getSelectedItem
+            ());
+    
+    
+          }
+          else{
+            // System.out.println("there is a conflict problem");
+             Notifications.create()
+                  .title("Error")
+                  .text("There is a conflict")
+                  .showWarning();
+    
+    
+       
+          }
         }
         else{
-          // System.out.println("there is a conflict problem");
-           Notifications.create()
-                .title("Error")
-                .text("There is a conflict")
-                .showWarning();
-  
-  
-     
+          Notifications.create()
+          .title("Error")
+          .text("the course you want to add already exists")
+          .showWarning();
         }
+      }catch(Exception ex){
+        System.out.println(ex);
+        
       }
-      else{
-        Notifications.create()
-        .title("Error")
-        .text("the course you want to add already exists")
-        .showWarning();
-      }
+
 
 
 
@@ -611,7 +586,7 @@ public class MainLayout extends Application {
     
     
     BorderPane planStageBorderPane = new BorderPane();
-    planStageBorderPane.setStyle("-fx-background-color:  #E8F1F1;");
+    planStageBorderPane.setStyle(Styles.mainStyleDark());
     planStageBorderPane.setPadding(new Insets(15));
 
     planStageBorderPane.setCenter(scheduleArea);
@@ -637,7 +612,11 @@ public class MainLayout extends Application {
     //saving schudel 
     saveScheduleButton.setOnAction(e->{
       try{
-        System.out.println("ha ha");
+        System.out.println("file was saved");
+        Notifications.create()
+        .title("")
+        .text("file was saved")
+        .showWarning();
         FileOutputStream outputStream = new FileOutputStream("savedScedule.dat");
         ObjectOutputStream objectOutputStream = new ObjectOutputStream(outputStream);
 
@@ -646,7 +625,7 @@ public class MainLayout extends Application {
         objectOutputStream.close();
       }
       catch(IOException ex){
-        System.out.println(ex.getMessage());
+        System.out.println(ex);
       }
 
     });
@@ -663,24 +642,42 @@ public class MainLayout extends Application {
     });
 
     savedScheduleButton.setOnAction(e->{
-        primaryStage.setScene(planScene);
+      try{
+        FileInputStream fileInputStream = new FileInputStream("savedScedule.dat");
+        ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
+        Schedule oldSchedule = (Schedule) objectInputStream.readObject();
+
+        if(schedule.getRegisteredSections()!= null){
+          schedule.loadOldObject(oldSchedule);
+          for(Section section: schedule.getRegisteredSections()){
+            addCourseToPane(section);
+          }
+          objectInputStream.close();
+          Notifications.create()
+          .title("")
+          .text("secdule is loaded ")
+          .showWarning();
+        }
+        // you need to up date the vbox again
+        selectedCourses = schedule.createVboxSections();
+        listView.setItems(selectedCourses);
+        listView.getItems().clear();
+      }
+      catch(IOException ex){
+
+
+      }
+      catch(ClassNotFoundException ex){
+
+      }
+
 
     });
 
     exitButton.setOnAction(actionEvent -> primaryStage.close());
+
 // want to remove
-    newScheduleNext.setOnAction(e->{
-      System.out.println("f");
 
-        primaryStage.setScene(basketScene);
-    });
-
-// want re remove
-    newScheduleBack.setOnAction(e->{
-
-
-        primaryStage.setScene(mainMenu);
-    });
 
     basketPreviousButton.setOnAction(e->{
 
@@ -720,29 +717,59 @@ public class MainLayout extends Application {
     ObservableList<HBox> finalResult = FXCollections.observableArrayList();
 
     for(Course course: student.getCourseArray()){
-        HBox hBox = new HBox(80);
+        HBox hBox = new HBox(100);
+        hBox.setStyle(Styles.mainStyle());
+        // hBox.setStyle(Styles.blue());
+        hBox.setPrefHeight(90);
         // hBox.setPrefSize(70,70);
-        hBox.setAlignment(Pos.CENTER);
-        Label textName = new Label(course.getCourseCode());
-        textName.setAlignment(Pos.CENTER);
-        textName.prefWidth(500);
+        hBox.setAlignment(Pos.BASELINE_CENTER);
+        Text textName = new Text(course.getCourseCode());
+        // textName.setStyle(Styles.blue());
+        Pane paneText = new Pane();
+        paneText.setPrefSize(90, 90);
+
+
+        // textName.setAlignment(Pos.CENTER_LEFT);
+        // textName.setMaxWidth(40);
+        paneText.getChildren().add(textName);
         Label Textcridit = new Label(Integer.toString(course.getCredit()));
-        Textcridit.prefWidth(500);
-        Textcridit.setAlignment(Pos.CENTER);
+        Textcridit.setMaxWidth(40);
+        // Textcridit.setAlignment(Pos.CENTER);
+        VBox textpreRequest = new VBox();
+        textpreRequest.setStyle(Styles.mainStyle());
+        textpreRequest.setPrefSize(90, 90);
 
-        Label textpreRequest = new Label(Arrays.toString(course.getPrerequisite()));
-        textpreRequest.prefWidth(500);
 
-        textpreRequest.setAlignment(Pos.CENTER);
+        // textpreRequest.setAlignment(Pos.CENTER);
+        for(String pre :course.getPrerequisite()){
+          Text text = new Text(pre);
+          textpreRequest.getChildren().add(text);
+        }
+        textpreRequest.setMaxWidth(180);
+        
+        
 
-        Label TextCorerequisite = new Label(Arrays.toString(course.getCorequisite()));
-        textpreRequest.prefWidth(500);
+        // textpreRequest.setAlignment(Pos.CENTER);
+        VBox textCorerequisite = new VBox();
+        textCorerequisite.setStyle(Styles.mainStyle());
+        textCorerequisite.setPrefSize(90, 90);
 
-        TextCorerequisite.setAlignment(Pos.CENTER);
+
+        // textpreRequest.setAlignment(Pos.CENTER);
+        for(String pre :course.getCorequisite()){
+          Text text = new Text(pre);
+          textCorerequisite.getChildren().add(text);
+        }
+        textCorerequisite.setMaxWidth(180);
+
+        
+
+        // TextCorerequisite.setAlignment(Pos.CENTER);
 
         Button StatusButton = new Button("Not taken");
         String[] grade= {"+A","A","+B","B","+C","C","+D","D","F"}; 
         ComboBox<String> grades = new ComboBox<>();
+        // grades.setPrefSize(90, 90);
 
         grades.getItems().addAll(grade);
 
@@ -750,6 +777,8 @@ public class MainLayout extends Application {
         String[] years= {"222","221","213","212","211","203","202","201"}; 
 
         ComboBox<String> terms = new ComboBox<>();
+        // terms.setPrefSize(90, 90);
+
         terms.getItems().addAll(years);
         
 
@@ -823,7 +852,7 @@ public class MainLayout extends Application {
 
         // course: MATH101   Credits : 4 
 
-        hBox.getChildren().addAll(textName,Textcridit,textpreRequest,TextCorerequisite,StatusButton,terms,grades);
+        hBox.getChildren().addAll(paneText,Textcridit,textpreRequest,textCorerequisite,StatusButton,terms,grades);
         finalResult.add(hBox);
 
 
@@ -1140,12 +1169,12 @@ public static Label createLabel(String text, String style,double size){
 
   }
   /// to read all the old data
-  // public static void readWeekdaysPane(Schedule schedule){
-  //   for(Section section: schedule.getRegisteredSections()){
-  //     addCourseToPane(section);
-  //   }
+  public static void readWeekdaysPane(Schedule schedule){
+    for(Section section: schedule.getRegisteredSections()){
+      addCourseToPane(section);
+    }
 
-  // }
+  }
   
   
   
