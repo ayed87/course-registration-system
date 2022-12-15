@@ -1,7 +1,10 @@
 package Data;
 
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedList;
@@ -12,6 +15,7 @@ import org.w3c.dom.events.Event;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
+import javafx.print.Printer;
 import javafx.scene.control.ListView;
 
 
@@ -26,7 +30,7 @@ public class Student {
     private ArrayList<Section> canBeTakSections = new ArrayList<>();
     private ObservableList<Section> shownSections ;
     private ObservableList<Section> basket = FXCollections.observableArrayList();
-    private int finishedCredits; // fot ayed
+    
     
 
 
@@ -47,6 +51,27 @@ public class Student {
     catch(IOException e){System.out.println(e);}
 
     }
+    public void addFinshedCourse(FinishedCourse finishedCourse){
+        finishedCourses.add(finishedCourse);
+    }
+    public void removeFinshedCourse(FinishedCourse finishedCourse){
+        finishedCourses.remove(finishedCourse);
+    }
+    // ayed's temporary method
+    public void addCourse(Section section){
+        basket.add(section);
+
+    } 
+    public void removeCourse(Section section){
+        basket.remove(section);
+    }
+
+    public ArrayList<Section> getCanBeTakSections() {
+        return canBeTakSections;
+    }
+
+   
+
 
     public void readAllCourse(BufferedReader buff){ 
 
@@ -84,9 +109,18 @@ public class Student {
  
      }
 
+     public void updateFinishedCourses(BufferedReader buff){ 
+
+        finishedCourses.removeAll(finishedCourses); 
+        readAllFinishedCourses(buff);
+     }
+
 
     public int getNumberOfSections(){ 
         return allSections.size();
+    }
+    public ArrayList<FinishedCourse> getFinishedCourses() {
+        return finishedCourses;
     }
 
     public int getNumberOfCourses(){ 
@@ -97,10 +131,7 @@ public class Student {
         return finishedCourses.size();
     }
 
-    public ArrayList<FinishedCourse> getFinishedCourses(){
 
-        return finishedCourses;
-    }
 
     
     // A method to find the courses that its prerequisite is satisfied, and its corequisite are taken or can be taken know
@@ -248,6 +279,22 @@ public void findCanBeTakenSections(){
        
         
     }
+}
+
+public void updateCanBeTakenCourses(){ 
+
+    canBeTakenCourses.removeAll(canBeTakenCourses);
+    findCanBeTakenCourses();
+}
+
+public void updateCanBeTakenSections(){ 
+
+    canBeTakSections.removeAll(canBeTakSections);
+    findCanBeTakenSections();
+}
+
+public ArrayList<Course> getCanBeTakenCourses(){ 
+    return canBeTakenCourses;
 }
 
 
@@ -402,7 +449,17 @@ public void clickOnBasketList(ListView<Section> listView){
     shownSections.add(listView.getSelectionModel().getSelectedItem());
     basket.remove(listView.getSelectionModel().getSelectedItem());
 }
+// Mamdouh only  downward :)
+public ArrayList<Course> getCourseArray(){
+    return allCourses;
 }
+
+
+}
+
+//public void writeFinishedCourses(BufferedReader fini)
+
+
 
 
 

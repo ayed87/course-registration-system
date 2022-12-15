@@ -13,7 +13,9 @@ public class Course {
     private String department;
    
 
-
+    public Course(){
+        courseCode="Ics";
+    }
     public Course(String[] courseInformation){
 
         this.courseCode = courseInformation[0];
@@ -22,6 +24,15 @@ public class Course {
         this.corequisite = courseInformation[3].split(";"); 
 
        
+    }
+    public String[] retrunFinshedCourseinfo(){
+        String[] infoArray = new String[5];
+        infoArray[0] = getCourseCode();
+        infoArray[1] = Integer.toString(getCredit());
+        infoArray[2] = Arrays.toString(getPrerequisite());
+        infoArray[3] = Arrays.toString(getCorequisite());
+        infoArray[4] = getDepartment();
+        return infoArray;
     }
 
     public Course(String courseCode){ 
@@ -50,8 +61,11 @@ public class Course {
     public String getDepartment(){ 
         return department;
     }
-  
-    
+    //mamdouh
+    public int getCredit(){ 
+        return credits;
+    }
+
     
 
      

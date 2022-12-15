@@ -60,9 +60,15 @@ public class BasketStage extends Application {
             student.readAllCourse(degreePlanReader);
             student.readAllFinishedCourses(finishedCoursesReader);
 
+<<<<<<< HEAD
             for(int i=0 ; i< student.getNumberOfFinishedCourse(); i++){ 
 
                 System.out.println(student.getFinishedCourses().get(i));
+=======
+            for(int i=0 ; i< student.getNumberOfFinishedCourse() ; i++){ 
+
+                System.out.println(student.getFinishedCourses().get(i).getCourseCode());
+>>>>>>> 5b68e67824b902385428a04356d9444baef5e087
             }
 
         }
@@ -72,6 +78,7 @@ public class BasketStage extends Application {
        
       student.findCanBeTakenCourses();
       student.findCanBeTakenSections();
+      
       
      
  
@@ -213,9 +220,21 @@ public class BasketStage extends Application {
 
 
         // courses select list, need more improvement
-        
+        ScrollPane listScroll = new ScrollPane();
+        listScroll.setVbarPolicy(ScrollBarPolicy.ALWAYS);
+
+        ObservableList<String> books = FXCollections.observableArrayList(" Section 1   ICS108  UTR  7:00 - 7:50");
+        ListView<String> sectionListView = new ListView<String>(books);
+
+        listScroll.setContent(sectionListView);
+
+       
+        listScroll.setFitToWidth(true);
+       
 
         
+
+        
         
 
 
@@ -223,9 +242,9 @@ public class BasketStage extends Application {
         
 
 
-        Scene scene1 = new Scene(borderPane,1000,500);
+         Scene basketScene = new Scene(borderPane,1000,500);
 
-        primaryStage.setScene(scene1);
+        primaryStage.setScene(basketScene);
         primaryStage.show();
 
 

@@ -27,22 +27,75 @@ import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.Background;
 import javafx.scene.layout.Border;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import java.io.IOException;
+import java.nio.file.FileStore;
 import java.time.temporal.WeekFields;
 import java.util.ArrayList;
+import java.util.Random;
+
+import javax.management.Notification;
+
+import org.controlsfx.control.Notifications;
 
 import Data.Schedule;
+import Data.Section;
+import Data.Student;
 import javafx.util.Duration;
 
 public class PlanStage extends Application {
-  int x = 0;
-  int y = 0;
+  // Section[] sections = new Section[2];
+  static Pane weekDaysPane;
+  static ListView<VBox> listView;
+  static ObservableList<VBox> selectedCourses;
+  static Schedule schedule = new Schedule();
+
+
   public void start(Stage primaryStage) {
-    // Schedule schedule = new Schedule();
+
+    //Student  list  have to be here 
+    Student student = new Student();
+    
+    String[] s1 = {"ICS 202-01","LEC","20502","Data Structures and Algorithms","HUSNI AL-MUHTASEB","UTR","0800-0850","22-125","Open","Closed"};
+    String[] s2 = {"PHYS101-70","LAB","22041","General Physics I","None","W","0800-1040","None","Closed","Closed"};
+
+    String[] s3 = {"ICS 108-06","LAB","22867","Object-Oriented Programming","RASHAD OTHMAN","MW","1530-1645","22-335","Closed","Open"
+
+  };
+
+    String[] s4 = {"ICS 104-04","LEC","22795","Introduction to Programming in Python and C","S ARAFAT","MW","0900-0950","24-120","Closed","Closed"
+    };
+    String[] s5 = {"PHYS102-01","REC","20086","General Physics II","RADITYA BOMANTARA","W","0800-0850","59-1005","Open","Closed"
+    };
+    String[] s6 = {"ICS 104-01","LEC","22785","Introduction to Programming in Python and C","M BALAH","UT","0800-0850","24-120","Closed","Open"
+    };
+    String[] s7 = {"ICS 104-60","LAB","22822","Introduction to Programming in Python and C","None","W","0800-1040","23-077","Closed","Closed"
+    };
+
+
+    Section sec6 = new Section(s1);
+  
+    Section sec2 = new Section(s2);
+    Section sec3 = new Section(s3);
+    Section sec4 = new Section(s4);
+    Section sec5 = new Section(s5);
+    Section sec1 = new Section(s6);
+    Section sec7 = new Section(s7);
+
+    student.addCourse(sec1);
+    student.addCourse(sec2);
+    student.addCourse(sec3);
+    student.addCourse(sec4);
+    student.addCourse(sec5);
+    student.addCourse(sec6);
+    student.addCourse(sec7);
+    
+    schedule.setBasketSections(student.getBasket());
+
     // buttons
     
     Button saveScheduleButton = new Button("Save Schedule");
@@ -87,126 +140,77 @@ public class PlanStage extends Application {
 
     );
     scheduleArea.setLeft(left);
-    Pane newPane = new Pane();
-    Label aLabel = new Label();
-    aLabel.setStyle(Styles.green());
-    aLabel.setPrefSize(160, 100);
-    aLabel.setLayoutX(0);
-    aLabel.setLayoutY(55);
-    newPane.getChildren().addAll(aLabel);
-    // newPane.getChildren().add(createCourseLabel());
-
-    // newPane.getChildren().addAll(aLabel);
+    weekDaysPane = new Pane();
+    VBox sample = createRigestedCoursePane(sec7);
+    sample.setLayoutY(110+55+55+55+55+30);
+    weekDaysPane.getChildren().addAll(sample);
 
 
-
-
-    GridPane weekDaysArea = new GridPane();
-    weekDaysArea.setPadding(new Insets(20,20,20,20));
-    weekDaysArea.setStyle(Styles.green());
-    weekDaysArea.setMinSize(0, 0);
-    // weekDaysArea.setAlignment(Pos.TOP_CENTER);
-    weekDaysArea.setGridLinesVisible(false);
-
-
-    // weekDaysArea.setHgap(8);
-    // weekDaysArea.setVgap(10);
-
-    // first Row
-
-    // weekDaysArea.addRow(
-    //   0,
-    //   createTimeLabel("")
-
-    //   , createLabel("Sun ",Styles.white(),15)
-    //   , createLabel("Mom",Styles.white(),15)
-    //   , createLabel("Tue",Styles.white(),15)
-    //   , createLabel("Wed",Styles.white(),15)
-    //   , createLabel("Fri",Styles.white(),15)
-    //   , createLabel("Sat",Styles.white(),15)
-
-    // );
-    // First column
-
-    // weekDaysArea.addColumn(
-    //   0,
-    //   createTimeLabel("7:00 AM"),
-    //   createTimeLabel(" 8:00 AM"),
-    //   createTimeLabel("9:00 AM"),
-    //   createTimeLabel("10:00 AM"),
-    //   createTimeLabel("11:00 AM"),
-    //   createTimeLabel("12:00 PM"),
-    //   createTimeLabel("1:00 PM"),
-    //   createTimeLabel("2:00 PM"),
-    //   createTimeLabel("3:00 PM"),
-    //   createTimeLabel("4:00 PM"),
-    //   createTimeLabel("5:00 PM")
-      
-
-    // );
-    // weekDaysArea.add(createTimeLabel(""), 1, 2);
-
-    // weekDaysArea.add(createCourseLabel(), 2, 3);
-    
-
-    // choused coruses side
-
-    scheduleArea.setCenter(newPane);
+    scheduleArea.setCenter(weekDaysPane);
     
     VBox selectedCoursesArea = new VBox(5);
     selectedCoursesArea.setPadding(new Insets(15));
     selectedCoursesArea.setPrefWidth(245);
     selectedCoursesArea.setStyle("-fx-background-color: white;");
     Label selectedCoursesText = createLabel("Selected Courses", Styles.white(),15);
-
-    ArrayList<VBox> arrayList = new ArrayList<VBox>();
-    for(int i =0; i<5; i++){
-      arrayList.add(i, createCourseLabel());
-    }
-    ObservableList<VBox> selectedCourses = FXCollections.observableArrayList(arrayList);
+    
+    selectedCourses = schedule.createVboxSections();
 
 
 
-    ListView<VBox> listView = new ListView<VBox>(selectedCourses);
-    listView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+    listView = new ListView<VBox>(selectedCourses);
+    // listView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
     
     Button confirmButton = new Button("confirm");
+    // if
+
     confirmButton.setOnAction(e -> {
       System.out.println("pressed");
       int selctedCourseIndix = listView.getSelectionModel().getSelectedIndex();
-      VBox selectedCourse = arrayList.get(selctedCourseIndix);
-      // schedule.addSecion(selectedCourse);
-      arrayList.remove(selctedCourseIndix);
-      HBox slected = createRigestedCourseLabel();
+      Section selectedSection = student.getBasket().get(selctedCourseIndix);
+      System.out.println(selectedSection);
+      if(!schedule.checkExistence(selectedSection)){
+        
+        if(schedule.checkConflict(selectedSection)){
+          schedule.addRigesterdCourse(selectedSection);
+          student.removeCourse(selectedSection);
+          addCourseToPane(selectedSection);
+          listView.getItems().removeAll(listView.getSelectionModel().getSelectedItem
+          ());
+  
+  
+        }
+        else{
+          // System.out.println("there is a conflict problem");
+           Notifications.create()
+                .title("Error")
+                .text("There is a conflict")
+                .showWarning();
+  
+  
+     
+        }
+      }
+      else{
+        Notifications.create()
+        .title("Error")
+        .text("the course you want to add is already existant")
+        .showWarning();
+      }
 
-      slected.setLayoutX(x);
-      slected.setLayoutY(y);
+
+
+
+
+
 
       // 170 for each day
       // 55 for each hour
 
-      newPane.getChildren().add(slected);
-      x += 170;
-      y += 55;
-      listView.getItems().removeAll(listView.getSelectionModel().getSelectedItem
-      ());
-
-
-
-
-
-      // if
-      // schedule.setRegisteredSections(listView.getSelectionModel().getSelectedItems());
 
       
       
-      // if(schedule.checkConflict()){
-      //   System.out.println("there is a conflict");
-      // }
-      // else{
-      //   System.out.println("there is no confilict");
-        
-      // }
+
 
 
 
@@ -269,38 +273,298 @@ public class PlanStage extends Application {
     return theLable;
 
   }
-  public static VBox createCourseLabel(){
+  public static VBox createCourseLabel(Section section){
     VBox theLable = new VBox();
 
     theLable.setStyle("-fx-background-color: lightgreen;");
-    Text courseNameAndSection = new Text("ics108-section1");
-    Text time = new Text("7:00");
-    Text day = new Text("to day");
+    Text courseNameAndSection = new Text(section.getCourseName()+"@");
+    Text codText = new Text(section.getSectionCode());
+
+    Text locationText = new Text(section.getLocation());
+    Text timeText = new Text(section.getTime());
+    Text dayText = new Text(section.getDay());
     // theLable.setTextFill(Paint.valueOf("black"));
     theLable.setPrefSize(150,90);
     // theLable.setFont(new Font("Arial", 17));
     // theLable.setAlignment(Pos.TOP_CENTER);
-    theLable.getChildren().addAll(courseNameAndSection,time,day);
+    theLable.getChildren().addAll(courseNameAndSection,codText,locationText,timeText,dayText);
 
     return theLable;
 
   }
-  public static HBox createRigestedCourseLabel(){
-    HBox theLable = new HBox();
 
-    theLable.setStyle("-fx-background-color: lightpink;");
-    Text courseNameAndSection = new Text("ics108-section1");
-    Text time = new Text("7:00");
-    Text day = new Text("Sunday");
-    // theLable.setTextFill(Paint.valueOf("black"));
-    theLable.setPrefSize(160,50);
-    // theLable.setFont(new Font("Arial", 17));
-    // theLable.setAlignment(Pos.TOP_CENTER);
-    theLable.getChildren().addAll(courseNameAndSection,time,day);
+  public static VBox createRigestedCoursePane(Section section){
+    VBox theLable = new VBox();
 
+    // {"#ed9121","blue","#702963","#7fff00","#ff7f50"}
+    // adding random color
+    String[] colors = {"white","white","white","white","white"};
+    Random random = new Random();
+    int pickColor = random.nextInt(colors.length);
+    theLable.setStyle("-fx-background-color: "+colors[pickColor]+";");
+
+    
+
+    Text courseNameAndSection = new Text(section.getSectionCode()+"@"+section.getLocation());
+    Text instructorText = new Text(section.getInstructor());
+
+    theLable.getChildren().addAll(courseNameAndSection,instructorText);
+
+    int hight = (section.getLectureDuration()*50)/55;
+    theLable.setPrefSize(160,hight);
+    
+    theLable.setLayoutY(section.setStartPostion());
     return theLable;
 
   }
+
+  public static void addCourseToPane(Section section){
+    // here we want to check what should we 
+    // if the type of day was UTR
+    if(section.getDay().equals("UTR")){
+      VBox first,second,third;
+      first = createRigestedCoursePane(section);
+      second = createRigestedCoursePane(section);
+      third = createRigestedCoursePane(section);
+      // the function of buttons.. 
+      Button removeButton1 = createRemoveButton(e->{
+        weekDaysPane.getChildren().removeAll(first,second,third);
+        schedule.removeCourse(section);
+        schedule.retrunToBasket(section);
+        selectedCourses = schedule.createVboxSections();
+        listView.setItems(selectedCourses);
+        
+
+
+        
+        
+        
+      });
+      first.getChildren().add(removeButton1);
+
+      Button removeButton2 = createRemoveButton(e->{
+        weekDaysPane.getChildren().removeAll(first,second,third);
+        schedule.removeCourse(section);
+        schedule.retrunToBasket(section);
+        selectedCourses = schedule.createVboxSections();
+        listView.setItems(selectedCourses);
+        
+
+        
+      });
+
+      second.getChildren().add(removeButton2);
+      second.setLayoutX(2*170);
+
+      Button removeButton3 = createRemoveButton(e->{
+        weekDaysPane.getChildren().addAll(first,second,third);
+        schedule.removeCourse(section);
+        schedule.retrunToBasket(section);
+        selectedCourses = schedule.createVboxSections();
+        listView.setItems(selectedCourses);
+        
+      });
+
+      third.getChildren().add(removeButton3);
+      third.setLayoutX(4*170);
+
+      
+
+      weekDaysPane.getChildren().addAll(first,second,third);
+    }
+
+
+
+
+
+
+    // if the day was MW we have to care about 2 Vbox
+    else if (section.getDay().equals("MW")){
+      VBox first, second;
+      first = createRigestedCoursePane(section);  
+      first.setLayoutX(170);      
+      second = createRigestedCoursePane(section);
+      second.setLayoutX(170*3);
+      Button removeButton1 = createRemoveButton(e -> {
+        System.out.println("got pressed form ayed");
+        weekDaysPane.getChildren().removeAll(first,second);
+        schedule.removeCourse(section);
+        schedule.retrunToBasket(section);
+        selectedCourses = schedule.createVboxSections();
+        listView.setItems(selectedCourses);
+        
+      });
+
+      Button removeButton2 = createRemoveButton(e -> {
+        System.out.println("got pressed form ayed");
+        weekDaysPane.getChildren().removeAll(first,second);
+        schedule.removeCourse(section);
+        schedule.retrunToBasket(section);
+        selectedCourses = schedule.createVboxSections();
+        listView.setItems(selectedCourses);
+        
+      });
+
+  
+
+
+      first.getChildren().add(removeButton1);
+      second.getChildren().add(removeButton2);
+
+      weekDaysPane.getChildren().addAll(first,second);
+
+
+
+
+    }
+    else if(section.getDay().equals("UT")){
+      VBox first  = createRigestedCoursePane(section);
+      VBox second = createRigestedCoursePane(section);
+      Button removeButton1 = createRemoveButton(e->{
+        schedule.removeCourse(section);
+        schedule.retrunToBasket(section);
+        selectedCourses = schedule.createVboxSections();
+        listView.setItems(selectedCourses);
+
+        weekDaysPane.getChildren().removeAll(first,second);
+      });
+      first.getChildren().add(removeButton1);
+
+      Button removeButton2 = createRemoveButton(e->{
+        schedule.removeCourse(section);
+        schedule.retrunToBasket(section);
+        selectedCourses = schedule.createVboxSections();
+        listView.setItems(selectedCourses);
+        weekDaysPane.getChildren().removeAll(first,second);
+      });
+      second.getChildren().add(removeButton2);
+
+
+      second.setLayoutX(170*2);
+      weekDaysPane.getChildren().addAll(first,second);
+    }
+
+
+
+
+    else if( section.getDay().equals("U")){
+      VBox first = createRigestedCoursePane(section);
+      Button removButton = createRemoveButton(e-> {
+        System.out.println("got pressed form ayed");
+        schedule.removeCourse(section);
+        schedule.retrunToBasket(section);
+        selectedCourses = schedule.createVboxSections();
+        listView.setItems(selectedCourses);
+        weekDaysPane.getChildren().removeAll(first);
+      });
+
+      first.getChildren().add(removButton);
+
+      
+      weekDaysPane.getChildren().addAll(first);
+
+      
+    }
+    else if( section.getDay().equals("M")){
+      VBox first = createRigestedCoursePane(section);
+      Button removButton = createRemoveButton(e-> {
+        schedule.removeCourse(section);
+        schedule.retrunToBasket(section);
+        selectedCourses = schedule.createVboxSections();
+        listView.setItems(selectedCourses);
+        System.out.println("got pressed form ayed");
+
+        weekDaysPane.getChildren().removeAll(first);
+      });
+      first.getChildren().add(removButton);
+
+      
+      first.setLayoutX(170);
+
+      weekDaysPane.getChildren().addAll(first);
+
+      
+    }
+    else if( section.getDay().equals("T")){
+      VBox first = createRigestedCoursePane(section);
+      Button removButton = createRemoveButton(e-> {
+        schedule.removeCourse(section);
+        schedule.retrunToBasket(section);
+        selectedCourses = schedule.createVboxSections();
+        listView.setItems(selectedCourses);
+        System.out.println("got pressed form ayed");
+        weekDaysPane.getChildren().removeAll(first);
+        section.toString();
+      });
+      first.getChildren().add(removButton);
+
+      
+      first.setLayoutX(170*2);
+      weekDaysPane.getChildren().addAll(first);
+
+      
+    }
+    else if( section.getDay().equals("W")){
+      VBox first = createRigestedCoursePane(section);
+      Button removButton = createRemoveButton(e-> {
+        schedule.removeCourse(section);
+        schedule.retrunToBasket(section);
+        selectedCourses = schedule.createVboxSections();
+        listView.setItems(selectedCourses);
+        System.out.println("got pressed form ayed");
+        weekDaysPane.getChildren().removeAll(first);
+        section.toString();
+      });
+      first.getChildren().add(removButton);
+
+      
+      first.setLayoutX(170*3);
+      weekDaysPane.getChildren().addAll(first);
+
+      
+    }
+    else if( section.getDay().equals("R")){
+      VBox first = createRigestedCoursePane(section);
+      Button removButton = createRemoveButton(e-> {
+        schedule.removeCourse(section);
+        schedule.retrunToBasket(section);
+        selectedCourses = schedule.createVboxSections();
+        listView.setItems(selectedCourses);
+        System.out.println("got pressed form ayed");
+        weekDaysPane.getChildren().removeAll(first);
+        section.toString();
+      });
+      first.getChildren().add(removButton);
+
+      
+      first.setLayoutX(170*4);
+      weekDaysPane.getChildren().addAll(first);
+
+      
+    }
+    
+
+
+  }
+  
+  
+  
+  
+  
+  public static Button createRemoveButton(EventHandler<ActionEvent> onPress){
+    Button removButton = new Button();
+    removButton.setGraphic(new ImageView(new Image("/resources/deleteButton.png", 10, 10, true, true)));
+    removButton.setBackground(null);
+    removButton.setMinSize(15, 7);
+    removButton.setMaxSize(15, 7);
+
+    removButton.setOnAction(onPress); 
+
+    return removButton;
+    
+  }
+
+  
 
 
   

@@ -1,4 +1,14 @@
-.button { 
+/* .button { 
     -fx-background-color: red; 
     -fx-text-fill: white; 
- }
+ } */
+
+
+ .exit-button {
+    -fx-pref-height: 15px;
+    -fx-pref-width: 23px;
+    -fx-background-color: red; 
+    -fx-background-color: #7C2D12;
+
+
+}
