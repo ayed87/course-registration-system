@@ -16,11 +16,11 @@ import javafx.scene.text.Text;
 
 public class Schedule implements Serializable {
 
-    String term;
-    ArrayList<Section> registeredSections = new ArrayList<>();
-    ArrayList<Section> basketSections = new ArrayList<>();
+    private String term;
+    private ArrayList<Section> registeredSections = new ArrayList<>();
+    private ArrayList<Section> basketSections = new ArrayList<>();
     // int registeredCredits;
-    Pane weekDaysPane;
+    private Pane weekDaysPane;
     
     
     
@@ -103,11 +103,7 @@ public class Schedule implements Serializable {
       }
       public boolean checkConflict(Section section){
         // frist chck the similarity
-        // for(Section eachSection : registeredSections){
-        //     if(eachSection.getCourseCode().equals(section.getCourseCode())){
-        //         return false;
-        //     }
-        // }
+
         for(Section eachSection: registeredSections){
             if(eachSection.getDay().equals(section.getDay())|| section.getDay().contains(eachSection.getDay()) || eachSection.getDay().contains(section.getDay())){
                 Section[] sections = new Section[2];
@@ -117,7 +113,7 @@ public class Schedule implements Serializable {
                 if(sections[0].readEndTime()>sections[1].readStartTime()){
                     return false;
                 }
-                // else if()
+
             }  
         }
         return true;
@@ -142,63 +138,14 @@ public class Schedule implements Serializable {
         Text locationText = new Text(section.getLocation());
         Text timeText = new Text(section.getTime());
         Text dayText = new Text(section.getDay());
-        // theLable.setTextFill(Paint.valueOf("black"));
         theLable.setPrefSize(150,90);
-        // theLable.setFont(new Font("Arial", 17));
-        // theLable.setAlignment(Pos.TOP_CENTER);
+
         theLable.getChildren().addAll(courseNameAndSection,codText,locationText,timeText,dayText);
     
         return theLable;
     
       }
       
-
-
-
-      public static void main(String[] args) {
-        ObservableList<Integer> numbers =  FXCollections.observableArrayList();
-
-        for(int n: numbers){System.out.println(n);}
-    //     // String n = "0800-0850";
-    //     // System.out.println(readStartTime(n));
-    String[] s1 = {"ICS 202-01","LEC","20502","Data Structures and Algorithms","HUSNI AL-MUHTASEB","UTR","0800-0850","22-125","Open","Closed"};
-    String[] s2 = {"PHYS101-70","LAB","22041","General Physics I","None","W","0800-1040","None","Closed","Closed"};
-
-    String[] s3 = {"ICS 108-06","LAB","22867","Object-Oriented Programming","RASHAD OTHMAN","MW","1530-1645","22-335","Closed","Open"
-
-  };
-
-    String[] s4 = {"ICS 104-04","LEC","22795","Introduction to Programming in Python and C","S ARAFAT","MW","0900-0950","24-120","Closed","Closed"
-    };
-    String[] s5 = {"PHYS102-01","REC","20086","General Physics II","RADITYA BOMANTARA","W","0800-0850","59-1005","Open","Closed"
-    };
-    String[] s6 = {"ICS 104-01","LEC","22785","Introduction to Programming in Python and C","M BALAH","UT","0800-0850","24-120","Closed","Open"
-    };
-    // Schedule schedule = new Schedule();
-
-    Section sec1 = new Section(s1);
-    Section sec2 = new Section(s2);
-    Section sec3 = new Section(s3);
-    Section sec4 = new Section(s4);
-    Section sec5 = new Section(s5);
-    Section sec6 = new Section(s6);
-    // schedule.addCourse(sec6);
-    // schedule.addCourse(sec5);
-    // schedule.addCourse(sections3);
-    // schedule.addCourse();
-    System.out.println(sec6);
-    System.out.println(sec5);
-    System.out.println(sec1);
-    System.out.println(sec1.readEndTime());
-    System.out.println(sec1.readStartTime());
-    // System.out.println(schedule.checkConflict(sec1));
-    // System.out.println("UTR".contains("U"));
-
-  
-
-
-
-      }
 
       public void clear(){ 
 
@@ -211,69 +158,6 @@ public class Schedule implements Serializable {
 }
 
 
-    // a method to count the time in minutes...
-    // public static int readTime(Section section){
-    //     String timeString = section.getTime();
-    //     String[] timeList = timeString.split("-");
-    //     String time1 = timeList[0]; 
-    //     String time2 = timeList[1]; 
-
-    //     if(time1.charAt(0) == '0'){
-    //         time1 = time1.substring(1);
-    //     }
-    //     if(time2.charAt(0) == '0'){
-    //         time2 = time2.substring(1);
-    //     }
-
-    //     int number1 = Integer.parseInt(time1);
-    //     int number2 = Integer.parseInt(time2);
-
-    //     int hourAndMinute = number2-number1;
-    //     // as far as i know the least time is 50 minute
-    //     if(hourAndMinute>50){
-    //         String StringResult = Integer.toString(hourAndMinute);
-    //         int hour = Integer.parseInt(StringResult.substring(0,1));
-    //         int minutes = Integer.parseInt(StringResult.substring(1));
-    //         int hourToMinutes = hour*60;
-    //         return minutes+hourToMinutes;
-
-
-    //     }
-    //     else{
-    //         return hourAndMinute;
-
-    //     }
-
-        
-    
-    
-    //   }
-
-
-    // public static int readStartTime(Section section){
-        
-    //     String array = section.getTime();
-    //     String[] timeList = array.split("-");
-    //     String timeString = timeList[0]; 
-        
-    //     if(timeString.charAt(0) == '0'){
-    //         timeString = timeString.substring(1);
-    //         int hour = Integer.parseInt(timeString.substring(0,1));
-    //         int minutes = Integer.parseInt(timeString.substring(2));
-    //         int finalResult = (minutes+hour*60)-425;
-    //         if(finalResult==0){
-    //             return 0;
-    //         }
-    //         else{
-    //             return finalResult;
-    //         }
-    //     }
-    //     else{
-    //         int hour = Integer.parseInt(timeString.substring(0,2));
-    //         int minutes = Integer.parseInt(timeString.substring(2));
-    //         return (minutes+ hour*60)-425;
-    //     }
 
 
 
-    //   }
