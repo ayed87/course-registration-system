@@ -749,29 +749,25 @@ public class MainLayout extends Application {
     for(Course course: student.getCourseArray()){
         HBox hBox = new HBox(100);
         hBox.setStyle(Styles.mainStyle());
-        // hBox.setStyle(Styles.blue());
         hBox.setPrefHeight(90);
-        // hBox.setPrefSize(70,70);
         hBox.setAlignment(Pos.BASELINE_CENTER);
         Text textName = new Text(course.getCourseCode());
-        // textName.setStyle(Styles.blue());
-        // we add this pane so that we can fixe the size of the text
+
         Pane paneText = new Pane();
         paneText.setPrefSize(90, 90);
 
 
-        // textName.setAlignment(Pos.CENTER_LEFT);
-        // textName.setMaxWidth(40);
+
         paneText.getChildren().add(textName);
         Label Textcridit = new Label(Integer.toString(course.getCredit()));
         Textcridit.setMaxWidth(40);
-        // Textcridit.setAlignment(Pos.CENTER);
+        
         VBox preRequestVbox = new VBox();
         preRequestVbox.setStyle(Styles.mainStyle());
         preRequestVbox.setPrefSize(90, 90);
 
 
-        // textpreRequest.setAlignment(Pos.CENTER);
+        
         for(String pre :course.getPrerequisite()){
           Text text = new Text(pre);
           preRequestVbox.getChildren().add(text);
@@ -780,13 +776,13 @@ public class MainLayout extends Application {
         
         
 
-        // textpreRequest.setAlignment(Pos.CENTER);
+        
         VBox CorerequisiteVbox = new VBox();
         CorerequisiteVbox.setStyle(Styles.mainStyle());
         CorerequisiteVbox.setPrefSize(90, 90);
 
 
-        // textpreRequest.setAlignment(Pos.CENTER);
+
         for(String pre :course.getCorequisite()){
           Text text = new Text(pre);
           CorerequisiteVbox.getChildren().add(text);
@@ -795,12 +791,12 @@ public class MainLayout extends Application {
 
         
 
-        // TextCorerequisite.setAlignment(Pos.CENTER);
+
 
         Button StatusButton = new Button("Not taken");
         String[] grade= {"+A","A","+B","B","+C","C","+D","D","F"}; 
         ComboBox<String> grades = new ComboBox<>();
-        // grades.setPrefSize(90, 90);
+        
 
         grades.getItems().addAll(grade);
 
@@ -808,7 +804,7 @@ public class MainLayout extends Application {
         String[] years= {"222","221","213","212","211","203","202","201"}; 
 
         ComboBox<String> terms = new ComboBox<>();
-        // terms.setPrefSize(90, 90);
+        
 
         terms.getItems().addAll(years);
         
