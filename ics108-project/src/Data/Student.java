@@ -97,6 +97,11 @@ public class Student {
         return finishedCourses.size();
     }
 
+    public ArrayList<FinishedCourse> getFinishedCourses(){
+
+        return finishedCourses;
+    }
+
     
     // A method to find the courses that its prerequisite is satisfied, and its corequisite are taken or can be taken know
     // for example,COE203 can be taken only when COE202 is finished or can be taken now 

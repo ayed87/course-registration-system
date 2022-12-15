@@ -60,6 +60,11 @@ public class BasketStage extends Application {
             student.readAllCourse(degreePlanReader);
             student.readAllFinishedCourses(finishedCoursesReader);
 
+            for(int i=0 ; i< student.getNumberOfFinishedCourse(); i++){ 
+
+                System.out.println(student.getFinishedCourses().get(i));
+            }
+
         }
 
         catch(FileNotFoundException e){System.out.println(e);}
