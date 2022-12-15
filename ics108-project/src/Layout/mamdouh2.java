@@ -22,10 +22,11 @@ import javafx.scene.Parent;
 // stage for new Schedule
 public class mamdouh2 extends Application {
     
-    Button b1 = new Button("Next");
-    Button b2 = new Button("Back");
+   
     @Override  
     public void start(Stage primaryStage){
+        Button newScheduleNext = new Button("Next");
+        Button newScheduleBack = new Button("Back");
        HBox item= new HBox();
        item.setSpacing(50);
        item.setPadding(new Insets(5,5,5,5));
@@ -35,20 +36,13 @@ public class mamdouh2 extends Application {
         item.getChildren().addAll(new Label("Enter your name Schedule :"),name);
 
          
-        //gride.add(new Label("Enter your name Schedule :"),0,0);
-        //gride.add(name,1,0);
-        //gride.add(new Label("Enter your id :"),0,1);
-       // gride.add(new TextField(),1,1);
-        //gride.add(new Label("Enter the name of your schedule"),0,2);
-       // gride.add(new TextField(),1,2);
-        //gride.add(b1,0,5);
-        //gride.add(b2,2,5);
+        
 
        HBox item1= new HBox();
        item1.setSpacing(100);
        item1.setPadding(new Insets(5,5,5,5));
        item1.setAlignment(Pos.CENTER);
-       item1.getChildren().addAll(b1,b2);
+       item1.getChildren().addAll(newScheduleNext,newScheduleBack);
         
         VBox item2= new VBox();
         item2.setSpacing(100);

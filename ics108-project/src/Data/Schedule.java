@@ -1,7 +1,12 @@
 package Data;
 
+import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
+import org.controlsfx.control.PlusMinusSlider.PlusMinusEvent;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -9,21 +14,38 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
-public class Schedule {
+public class Schedule implements Serializable {
 
     String term;
-    ObservableList<Section> registeredSections =  FXCollections.observableArrayList();
-    ObservableList<Section>  basketSections;
-    int registeredCredits;
+    ArrayList<Section> registeredSections = new ArrayList<>();
+    ArrayList<Section> basketSections = new ArrayList<>();
+    // int registeredCredits;
     Pane weekDaysPane;
     
     
     
-    // public Schedule(ObservableList<Section> basketSections){
+    public Schedule(ObservableList<Section> basketSections){
 
-    //   this.basketSections = basketSections;
+      this.basketSections = (ArrayList<Section>) basketSections.stream().collect(Collectors.toList());
 
-    // }
+    }
+    public Schedule(){}
+
+    public ArrayList<Section> getBasketSections() {
+        return basketSections;
+    }
+    public void saveWeekPane(Pane pane){
+      weekDaysPane = pane;
+    }
+    public void loadOldObject(Schedule schedule){
+      this.registeredSections = schedule.getRegisteredSections();
+      this.basketSections = schedule.getBasketSections();
+
+
+    }
+
+    
+  
 
     // our mission here is to save the pane that was contin the sections;
 
@@ -34,23 +56,39 @@ public class Schedule {
     public Pane getWeekDaysPane() {
         return weekDaysPane;
     }
+ 
+    public ArrayList<Section> getRegisteredSections() {
+        return registeredSections;
+    }
 
 
     public void setBasketSections(ObservableList<Section> basketSections) {
-        this.basketSections = basketSections;
+        this.basketSections = (ArrayList<Section>) basketSections.stream().collect(Collectors.toList());;
+    }
+
+    public void addToBasket(Section section){ 
+      basketSections.add(section);
+    }
+
+    public void removeFromBasket(Section section){ 
+      basketSections.remove(section);
     }
 
     
-      public void addCourse(Section section){
+      public void addRigesterdCourse(Section section){
         registeredSections.add(section);
+        
       }
 
       public void removeCourse(Section section){
-        registeredSections.remove(registeredSections.indexOf(section));
+        registeredSections.remove(section);
       }
       public void retrunToBasket(Section section){
         basketSections.add(section);
       }
+      public void removeCourseFromBasket(Section section){
+        basketSections.remove(section);
+    }
 
       // we need a method to check the conflict and the similirty ..
       public boolean checkExistence(Section section){
@@ -85,6 +123,7 @@ public class Schedule {
         return true;
       }
       public ObservableList<VBox> createVboxSections(){
+
         ObservableList<VBox> arrayList = FXCollections.observableArrayList();
         for(int i =0; i<basketSections.size(); i++){
           arrayList.add(createCourseLabel(basketSections.get(i)));
@@ -96,7 +135,7 @@ public class Schedule {
       public static VBox createCourseLabel(Section section){
         VBox theLable = new VBox();
     
-        theLable.setStyle("-fx-background-color: lightgreen;");
+        theLable.setStyle("-fx-background-color: #d9dfdf ;");
         Text courseNameAndSection = new Text(section.getCourseName()+"@");
         Text codText = new Text(section.getSectionCode());
     
@@ -159,6 +198,12 @@ public class Schedule {
 
 
 
+      }
+
+      public void clear(){ 
+
+      registeredSections.removeAll(registeredSections);
+      basketSections.removeAll(basketSections);
       }
 
     

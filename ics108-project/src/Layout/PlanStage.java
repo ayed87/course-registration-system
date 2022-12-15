@@ -141,6 +141,9 @@ public class PlanStage extends Application {
     );
     scheduleArea.setLeft(left);
     weekDaysPane = new Pane();
+    VBox sample = createRigestedCoursePane(sec7);
+    sample.setLayoutY(110+55+55+55+55+30);
+    weekDaysPane.getChildren().addAll(sample);
 
 
     scheduleArea.setCenter(weekDaysPane);
@@ -169,7 +172,7 @@ public class PlanStage extends Application {
       if(!schedule.checkExistence(selectedSection)){
         
         if(schedule.checkConflict(selectedSection)){
-          schedule.addCourse(selectedSection);
+          schedule.addRigesterdCourse(selectedSection);
           student.removeCourse(selectedSection);
           addCourseToPane(selectedSection);
           listView.getItems().removeAll(listView.getSelectionModel().getSelectedItem

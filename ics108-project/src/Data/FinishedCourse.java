@@ -18,30 +18,22 @@ public class FinishedCourse extends Course {
 
     private String takenSemester; 
     private String grade;
-    private String statement="";
+   
 
 
-    public FinishedCourse(Course course,String term,String grade){
+    public FinishedCourse(String[] courseInformation){
 
-        super(course.retrunFinshedCourseinfo()); 
+        super(courseInformation[0]); 
 
-        this.takenSemester = term; 
-        this.grade = grade;
+        this.takenSemester = courseInformation[1]; 
+        this.grade =  courseInformation[2];
+    }
         
 
               
-    }
-    public FinishedCourse( String term, String grade){
-
-
-    }
+    
     // mamdouh downward 
-    public FinishedCourse(String nameCourse,String term,String grade){
-        super(nameCourse);
-        this.takenSemester = term; 
-        this.grade = grade;
-
-    }
+   
     public String setDisplay(String grade){
         return grade;
 
@@ -50,15 +42,7 @@ public class FinishedCourse extends Course {
         return getCourseCode() +","+ takenSemester +","+ grade;
 
     }
-    //public String addStatement(String word){
-       // if(word.contains(";"))
-           //statement=statement+word;
-          // return getFinishedCourse (word);
-
-        //if(statement.substring(statement.length()-1)!=";") 
-        //   return getFinishedCourse (statement);
-       // return statement;  
-   // }
+  
 
     public static void getFinishedCourse (String l) {
         try{
@@ -74,5 +58,15 @@ public class FinishedCourse extends Course {
    
          
      }
+
+    
+
+    public String getTakenSemester() {
+        return takenSemester;
+    }
+
+    public String getGrade() {
+        return grade;
+    }
     
 }

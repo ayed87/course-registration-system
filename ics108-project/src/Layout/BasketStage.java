@@ -60,6 +60,11 @@ public class BasketStage extends Application {
             student.readAllCourse(degreePlanReader);
             student.readAllFinishedCourses(finishedCoursesReader);
 
+            for(int i=0 ; i< student.getNumberOfFinishedCourse() ; i++){ 
+
+                System.out.println(student.getFinishedCourses().get(i).getCourseCode());
+            }
+
         }
 
         catch(FileNotFoundException e){System.out.println(e);}
@@ -67,6 +72,7 @@ public class BasketStage extends Application {
        
       student.findCanBeTakenCourses();
       student.findCanBeTakenSections();
+      
       
      
  
@@ -230,9 +236,9 @@ public class BasketStage extends Application {
         
 
 
-        Scene scene1 = new Scene(borderPane,1000,500);
+         Scene basketScene = new Scene(borderPane,1000,500);
 
-        primaryStage.setScene(scene1);
+        primaryStage.setScene(basketScene);
         primaryStage.show();
 
 

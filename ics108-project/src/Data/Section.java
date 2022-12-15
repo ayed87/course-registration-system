@@ -1,6 +1,8 @@
 package Data;
 
-public class Section implements Comparable<Section> {
+import java.io.Serializable;
+
+public class Section implements Comparable<Section>, Serializable {
 
     private String sectionCode;  // course code and section number
     private String type;
@@ -46,6 +48,7 @@ public class Section implements Comparable<Section> {
      
         
     }
+    // we will use this to catch the conflict
     @Override
     public int compareTo(Section theOtherSection) {
         if(readStartTime()<theOtherSection.readStartTime()){
@@ -98,7 +101,7 @@ public class Section implements Comparable<Section> {
     }
 
     // it will set section in the rihgt place in weekPane
-    public int setStartPostion(){
+    public double setStartPostion(){
         
         String array = getTime();
         String[] timeList = array.split("-");
@@ -108,7 +111,7 @@ public class Section implements Comparable<Section> {
             timeString = timeString.substring(1);
             int hour = Integer.parseInt(timeString.substring(0,1));
             int minutes = Integer.parseInt(timeString.substring(1));
-            int finalResult = (minutes+hour*60)-425;
+            double finalResult = (((minutes/(double) 60)+(hour-7))*(55));
             if(finalResult==0){
                 return 0;
             }
@@ -119,7 +122,7 @@ public class Section implements Comparable<Section> {
         else{
             int hour = Integer.parseInt(timeString.substring(0,2));
             int minutes = Integer.parseInt(timeString.substring(2));
-            return (minutes+ hour*60)-425;
+            return ((minutes/( double) 60)+(hour-7))*(55);
         }
     }
 
@@ -166,7 +169,7 @@ public class Section implements Comparable<Section> {
 
     public String toString(){ 
 
-        return sectionCode +"   "+ type +"   "+ crn +"   "+ courseName +"   " +instructor +"   "+ day +"   "+ time +"   " + location+"   "+ 
+        return "Course Name: " + sectionCode +"   "+ type +"   "+ crn +"   "+ courseName +"   " +instructor +"   "+ day +"   "+ time +"   " + location+"   "+ 
         status +"   "+ waitlist ;
     }
 
@@ -202,7 +205,7 @@ public class Section implements Comparable<Section> {
         return type;
     }
     public static void main(String[] args) {
-        String[] info1 = {"ICS 104-01","LEC","22785","Introduction to Programming in Python and C","M BALAH","UT","0800-0850","24-120","Closed","Open"};
+        String[] info1 = {"ICS 104-01","LEC","22785","Introduction to Programming in Python and C","M BALAH","UT","0815-0850","24-120","Closed","Open"};
     String[] info2 = {"PHYS101-70","LAB","22041","General Physics I","None","W","0800-1040","None","Closed","Closed"};
     String[] info3 = {"ICS 108-01","LEC","22849","Object-Oriented Programming","MUSTAFA ALTURKI","MW","0800-0915","22-339","Closed","Closed"
     };
@@ -211,8 +214,8 @@ public class Section implements Comparable<Section> {
     Section sections1 = new Section(info1);
     Section sections2 = new Section(info2);
     Section sections3 = new Section(info3);
-    System.out.println(sections1.readEndTime());
-    System.out.println(sections1.readStartTime());
+    // System.out.println(sections1.readEndTime());
+    System.out.println(sections1.setStartPostion());
     }
 
     

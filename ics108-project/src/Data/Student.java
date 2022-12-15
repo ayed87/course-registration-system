@@ -30,7 +30,6 @@ public class Student {
     private ArrayList<Section> canBeTakSections = new ArrayList<>();
     private ObservableList<Section> shownSections ;
     private ObservableList<Section> basket = FXCollections.observableArrayList();
-    private int finishedCredits; // fot ayed
     
     
 
@@ -55,6 +54,9 @@ public class Student {
     public void addFinshedCourse(FinishedCourse finishedCourse){
         finishedCourses.add(finishedCourse);
     }
+    public void removeFinshedCourse(FinishedCourse finishedCourse){
+        finishedCourses.remove(finishedCourse);
+    }
     // ayed's temporary method
     public void addCourse(Section section){
         basket.add(section);
@@ -63,6 +65,11 @@ public class Student {
     public void removeCourse(Section section){
         basket.remove(section);
     }
+
+    public ArrayList<Section> getCanBeTakSections() {
+        return canBeTakSections;
+    }
+
 
     public void readAllCourse(BufferedReader buff){ 
 
@@ -82,27 +89,30 @@ public class Student {
  
      }
 
-    //  public void readAllFinishedCourses(BufferedReader buff){ 
+     public void readAllFinishedCourses(BufferedReader buff){ 
 
-    //     try{
-    //      buff.readLine(); // no need for first line
-    //      String line = "";
+        try{
+         buff.readLine(); // no need for first line
+         String line = "";
  
-    //      while((line = buff.readLine()) != null ){ 
+         while((line = buff.readLine()) != null ){ 
  
-    //          String[] lineList =line.split(",");
-    //          FinishedCourse finishedCourse = new FinishedCourse(lineList); 
-    //          finishedCourses.add(finishedCourse);
-    //      }
+             String[] lineList =line.split(",");
+             FinishedCourse finishedCourse = new FinishedCourse(lineList); 
+             finishedCourses.add(finishedCourse);
+         }
  
-    //  }
-    //  catch(IOException e){System.out.println(e);}
+     }
+     catch(IOException e){System.out.println(e);}
  
-    //  }
+     }
 
 
     public int getNumberOfSections(){ 
         return allSections.size();
+    }
+    public ArrayList<FinishedCourse> getFinishedCourses() {
+        return finishedCourses;
     }
 
     public int getNumberOfCourses(){ 
@@ -418,7 +428,12 @@ public ArrayList<Course> getCourseArray(){
     return allCourses;
 }
 
+
 }
+
+//public void writeFinishedCourses(BufferedReader fini)
+
+
 
 
 

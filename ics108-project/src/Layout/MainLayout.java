@@ -145,7 +145,7 @@ public class MainLayout extends Application {
         text.setText("Course offering");
         // Left side vbox
         VBox vbox1= new VBox();
-        vbox1.setSpacing(10);
+        vbox1.setSpacing(100);
         vbox1.setPadding(new Insets(5,5,5,5));
         vbox1.setAlignment(Pos.CENTER);
         vbox1.getChildren().add(degreePlanButton);
@@ -153,7 +153,7 @@ public class MainLayout extends Application {
 
         // Right side vbox 
         VBox vbox2= new VBox();
-        vbox2.setSpacing(10);
+        vbox2.setSpacing(100);
         vbox2.setPadding(new Insets(5,5,5,5));
         vbox2.setAlignment(Pos.CENTER);
         vbox2.getChildren().add(savedScheduleButton);
@@ -164,7 +164,7 @@ public class MainLayout extends Application {
 
 
 
-        HBox mainMenuPane = new HBox();
+        HBox mainMenuPane = new HBox(100);
         mainMenuPane.setStyle(Styles.mainStyleDark());
         mainMenuPane.setAlignment(Pos.TOP_CENTER);
         BorderPane.setAlignment(mainMenuPane, Pos.CENTER);
@@ -526,12 +526,12 @@ public class MainLayout extends Application {
       try{
         System.out.println("pressed");
         int selctedCourseIndix = listView.getSelectionModel().getSelectedIndex();
-        Section selectedSection = student.getBasket().get(selctedCourseIndix);
+        Section selectedSection = schedule.getBasketSections().get(selctedCourseIndix);
         System.out.println(selectedSection);
         if(!schedule.checkExistence(selectedSection)){
           
           if(schedule.checkConflict(selectedSection)){
-            schedule.addCourse(selectedSection);
+            schedule.addRigesterdCourse(selectedSection);
             schedule.removeCourseFromBasket(selectedSection);
             addCourseToPane(selectedSection);
             listView.getItems().removeAll(listView.getSelectionModel().getSelectedItem
@@ -637,6 +637,9 @@ public class MainLayout extends Application {
       // schedule.setRegisteredSections(observableList);
       // weekDaysPane.getChildren().removeAll();
 
+      schedule.clear();
+      weekDaysPane.getChildren().clear();
+
 
         primaryStage.setScene(basketScene);
     });
@@ -662,6 +665,8 @@ public class MainLayout extends Application {
         selectedCourses = schedule.createVboxSections();
         listView.setItems(selectedCourses);
         listView.getItems().clear();
+
+        primaryStage.setScene(planScene);
       }
       catch(IOException ex){
 
@@ -916,7 +921,10 @@ public static Label createLabel(String text, String style,double size){
     theLable.getChildren().addAll(courseNameAndSection,instructorText);
 
     int hight = (section.getLectureDuration()*50)/55;
-    theLable.setPrefSize(160,hight);
+    theLable.setMaxHeight(hight);
+    theLable.setMaxWidth(160);
+
+
     
     theLable.setLayoutY(section.setStartPostion());
     return theLable;

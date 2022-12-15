@@ -27,16 +27,17 @@ import javafx.scene.Parent;
 
 
 public class mamdouh extends Application {
-    Button b1 = new Button("Degree Plan");
-    Button b2 = new Button("Saved Schedule");
-    Button b3 = new Button("New Schedule");
-    Button b4= new Button("Exist");
     
     
 
 
      
     public void start(Stage primaryStage) {
+    Button b1 = new Button("Degree Plan");
+    Button b2 = new Button("Saved Schedule");
+    Button b3 = new Button("New Schedule");
+    Button b4= new Button("Exist");
+    
 
        b1.setTextFill(Color.WHITE);
        b2.setTextFill(Color.WHITE);
