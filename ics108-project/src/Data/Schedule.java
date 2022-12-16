@@ -47,7 +47,6 @@ public class Schedule implements Serializable {
     
   
 
-    // our mission here is to save the pane that was contin the sections;
 
     public void setWeekDaysPane(Pane weekDaysPane) {
         this.weekDaysPane = weekDaysPane;
@@ -75,7 +74,7 @@ public class Schedule implements Serializable {
     }
 
     
-      public void addRigesterdCourse(Section section){
+      public void addRigesterdSection(Section section){
         registeredSections.add(section);
         
       }
@@ -86,7 +85,7 @@ public class Schedule implements Serializable {
       public void retrunToBasket(Section section){
         basketSections.add(section);
       }
-      public void removeCourseFromBasket(Section section){
+      public void removeSectionFromBasket(Section section){
         basketSections.remove(section);
     }
 
@@ -127,7 +126,7 @@ public class Schedule implements Serializable {
         
         return arrayList;
       }
-      
+      // it will create a vbox that will be used in plane scene
       public static VBox createCourseLabel(Section section){
         VBox theLable = new VBox();
     

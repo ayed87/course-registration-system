@@ -62,7 +62,6 @@ public class Section implements Comparable<Section>, Serializable {
         }
     }
 
-    //ayed's updates: i moved 2 methods form Schedule class to Section class to be more clear
 
     public int getLectureDuration(){
 
@@ -126,7 +125,6 @@ public class Section implements Comparable<Section>, Serializable {
         }
     }
 
-    //ayed's update: i added here new methods
 
     public int readStartTime(){
         String timeString = getTime();
@@ -182,7 +180,6 @@ public class Section implements Comparable<Section>, Serializable {
     }
 
 
-    //ayed: i added other geters
     public String getCourseName() {
         return courseName;
     }
@@ -204,19 +201,7 @@ public class Section implements Comparable<Section>, Serializable {
     public String getType() {
         return type;
     }
-    public static void main(String[] args) {
-        String[] info1 = {"ICS 104-01","LEC","22785","Introduction to Programming in Python and C","M BALAH","UT","0815-0850","24-120","Closed","Open"};
-    String[] info2 = {"PHYS101-70","LAB","22041","General Physics I","None","W","0800-1040","None","Closed","Closed"};
-    String[] info3 = {"ICS 108-01","LEC","22849","Object-Oriented Programming","MUSTAFA ALTURKI","MW","0800-0915","22-339","Closed","Closed"
-    };
-    // Schedule schedule = new Schedule();
 
-    Section sections1 = new Section(info1);
-    Section sections2 = new Section(info2);
-    Section sections3 = new Section(info3);
-    // System.out.println(sections1.readEndTime());
-    System.out.println(sections1.setStartPostion());
-    }
 
     
 

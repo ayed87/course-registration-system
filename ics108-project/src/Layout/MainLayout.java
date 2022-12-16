@@ -127,12 +127,7 @@ public class MainLayout extends Application {
        degreePlanButton.setTextFill(Color.WHITE);
        savedScheduleButton.setTextFill(Color.WHITE);
        newScheduleButton.setTextFill(Color.WHITE);
-      //  exitButton.setTextFill(Color.WHITE);
 
-      // we will use some of the part
-      //  degreePlanButton.setStyle("-fx-background-color: Green;");
-      //  savedScheduleButton.setStyle("-fx-background-color: Green;");
-      //  newScheduleButton.setStyle("-fx-background-color: Green;");
       
         
         
@@ -177,7 +172,6 @@ public class MainLayout extends Application {
 
         Scene mainMenu = new Scene(mainMenuPane ,1540,800);
         mainMenu.getWindow();
-        // primaryStage.setFullScreen(true);
 
         primaryStage.setScene(mainMenu);
         primaryStage.show();
@@ -199,7 +193,7 @@ public class MainLayout extends Application {
         degreePlanSaveButton.setOnAction(e->{
             try{
 
-           
+           // writing in FinishedCourses file
                 File file =new File("FinishedCourses.csv");
                 PrintWriter output=new PrintWriter(file);
                 output.println("Course , term , grade");
@@ -438,7 +432,7 @@ public class MainLayout extends Application {
             
            
            
-           
+           // plane scene buttons 
            Button saveScheduleButton = new Button("Save Schedule");
            saveScheduleButton.setStyle(Styles.saveButtonStyle());
            Button planBackButton = new Button("go back");
@@ -446,6 +440,7 @@ public class MainLayout extends Application {
            planBackButton.setOnAction(e->{
             primaryStage.setScene(basketScene);
            });
+           // this is the main pane in this scene
            BorderPane scheduleArea = new BorderPane();
            
            
@@ -455,9 +450,9 @@ public class MainLayout extends Application {
 
            HBox top = new HBox(8);
            top.setAlignment(Pos.CENTER_RIGHT);
-    
+    // days hobx
         top.getChildren().addAll(
-      // createCourseLabel(),
+
        createLabel("Sun ",Styles.daysStyle(),15)
       , createLabel("Mom",Styles.daysStyle(),15)
       , createLabel("Tue",Styles.daysStyle(),15)
@@ -472,7 +467,7 @@ public class MainLayout extends Application {
     scheduleArea.setTop(top);
     VBox left = new VBox(5);
     left.setPrefHeight(20);
-    
+    // time vbox
     left.getChildren().addAll(
       createTimeLabel("7:00 AM"),
       createTimeLabel(" 8:00 AM"),
@@ -489,25 +484,17 @@ public class MainLayout extends Application {
     );
     scheduleArea.setLeft(left);
     
-    // weekDaysPane = new Pane();
+
     weekDaysPane.setStyle("-fx-background-color: #D7F4F4;");
     weekDaysPane.setMaxHeight(601);
     
-
-
-    // weekDaysPane.setStyle(Styles.blue());
-    // weekDaysPane.setMaxHeight(601);
-    VBox sizedBox = new VBox();
-    Pane emptyPane = new Pane();
-
-    sizedBox.getChildren().addAll(weekDaysPane,emptyPane);
 
     scheduleArea.setCenter(weekDaysPane);
     scheduleArea.setAlignment(weekDaysPane, Pos.TOP_CENTER);
     
 
     
-    
+  // the area on the right
     VBox selectedCoursesArea = new VBox(5);
     selectedCoursesArea.setPadding(new Insets(15));
     selectedCoursesArea.setPrefWidth(245);
@@ -520,23 +507,22 @@ public class MainLayout extends Application {
 
 
     listView = new ListView<VBox>(selectedCourses);
-    // listView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+
     
     Button confirmButton = new Button("confirm");
     confirmButton.setStyle(Styles.saveButtonStyle());
-    // if
 
+// this buttion will move the the sections to rigtesterd sections and also add it the weekdayspane 
     confirmButton.setOnAction(e -> {
       try{
-        System.out.println("pressed");
         int selctedCourseIndix = listView.getSelectionModel().getSelectedIndex();
         Section selectedSection = schedule.getBasketSections().get(selctedCourseIndix);
         System.out.println(selectedSection);
         if(!schedule.checkExistence(selectedSection)){
           
           if(schedule.checkConflict(selectedSection)){
-            schedule.addRigesterdCourse(selectedSection);
-            schedule.removeCourseFromBasket(selectedSection);
+            schedule.addRigesterdSection(selectedSection);
+            schedule.removeSectionFromBasket(selectedSection);
             addCourseToPane(selectedSection);
             listView.getItems().removeAll(listView.getSelectionModel().getSelectedItem
             ());
@@ -544,7 +530,7 @@ public class MainLayout extends Application {
     
           }
           else{
-            // System.out.println("there is a conflict problem");
+            // a nofivications that will if this condtion happend
              Notifications.create()
                   .title("Error")
                   .text("There is a conflict")
@@ -568,8 +554,7 @@ public class MainLayout extends Application {
 
 
 
-      // 170 for each day
-      // 55 for each hour
+  
 
 
 
@@ -594,7 +579,6 @@ public class MainLayout extends Application {
     planStageBorderPane.setPadding(new Insets(15));
 
     planStageBorderPane.setCenter(scheduleArea);
-    // planStageBorderPane.setAlignment(weekDaysPane, Pos.TOP_CENTER);
     planStageBorderPane.setRight(selectedCoursesArea);
     planStageBorderPane.setBottom(bottomButtonArea);
     Scene planScene = new Scene(planStageBorderPane, 1540, 800);
@@ -616,7 +600,7 @@ public class MainLayout extends Application {
         
     });
 
-    //saving schudel 
+    //saving secdule 
     saveScheduleButton.setOnAction(e->{
       try{
         System.out.println("file was saved");
@@ -638,11 +622,7 @@ public class MainLayout extends Application {
     });
 
     
-
     newScheduleButton.setOnAction(e->{
-      // ObservableList<Section> observableList = FXCollections.observableArrayList();
-      // schedule.setRegisteredSections(observableList);
-      // weekDaysPane.getChildren().removeAll();
 
       schedule.clear();
       weekDaysPane.getChildren().clear();
@@ -653,6 +633,7 @@ public class MainLayout extends Application {
 
     savedScheduleButton.setOnAction(e->{
       try{
+        // reading oldschdule data 
         FileInputStream fileInputStream = new FileInputStream("savedScedule.dat");
         ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
         Schedule oldSchedule = (Schedule) objectInputStream.readObject();
@@ -688,7 +669,6 @@ public class MainLayout extends Application {
 
     exitButton.setOnAction(actionEvent -> primaryStage.close());
 
-// want to remove
 
 
     basketPreviousButton.setOnAction(e->{
@@ -724,7 +704,7 @@ public class MainLayout extends Application {
    public static void main(String[] args) {
     launch(args);
    }
-
+// this medhods will be used in dgree scene and it will show the courses for the ovreall plane
    public static ObservableList<HBox> createCourseBox (Student student){
     ObservableList<HBox> finalResult = FXCollections.observableArrayList();
 
@@ -815,7 +795,6 @@ public class MainLayout extends Application {
         
         
         
-        //checkBox.setDisable(!(grades.getSelectionModel().getSelectedItem()!=null &&terms.getSelectionModel().getSelectedItem()!=null));
         StatusButton.setOnAction(e->{
 
             if(StatusButton.getText().equals("Not taken")){
@@ -858,7 +837,6 @@ public class MainLayout extends Application {
         });
         
 
-        // course: MATH101   Credits : 4 
 
         hBox.getChildren().addAll(paneText,Textcridit,preRequestVbox,CorerequisiteVbox,StatusButton,terms,grades);
         finalResult.add(hBox);
@@ -891,32 +869,13 @@ public static Label createLabel(String text, String style,double size){
 
   }
 
-  public static VBox createCourseLabel(Section section){
-    VBox theLable = new VBox();
 
-    theLable.setStyle("-fx-background-color: lightgreen;");
-    Text courseNameAndSection = new Text(section.getCourseName()+"@");
-    Text codText = new Text(section.getSectionCode());
-
-    Text locationText = new Text(section.getLocation());
-    Text timeText = new Text(section.getTime());
-    Text dayText = new Text(section.getDay());
-    // theLable.setTextFill(Paint.valueOf("black"));
-    theLable.setPrefSize(150,90);
-    // theLable.setFont(new Font("Arial", 17));
-    // theLable.setAlignment(Pos.TOP_CENTER);
-    theLable.getChildren().addAll(courseNameAndSection,codText,locationText,timeText,dayText);
-
-    return theLable;
-
-  }
-
+// it will make the a vbox that will be showed by using the otehr medhod below
   public static VBox createRigestedCoursePane(Section section){
     VBox theLable = new VBox();
 
     Label courseNameAndSection = new Label(section.getSectionCode()+"@"+section.getLocation());
     Label instructorText = new Label(section.getInstructor());
-
     courseNameAndSection.setStyle("-fx-text-fill: white;");
     instructorText.setStyle("-fx-text-fill: white; ");
 
@@ -926,7 +885,6 @@ public static Label createLabel(String text, String style,double size){
 
     int hight = (section.getLectureDuration()*50)/55;
     theLable.setPrefSize(160,hight);
-    // theLable.setMaxWidth(160);
 
 
     
@@ -934,12 +892,12 @@ public static Label createLabel(String text, String style,double size){
     return theLable;
 
   }
-
+// it will add the rigested section to weekdaysPane using the method above
   public static void addCourseToPane(Section section){
 
+ 
+
     String chosedColor = Styles.pickColor();
-    // here we want to check what should we 
-    // if the type of day was UTR
     if(section.getDay().equals("UTR")){
       VBox first,second,third;
       first = createRigestedCoursePane(section);
@@ -1001,7 +959,6 @@ public static Label createLabel(String text, String style,double size){
 
 
 
-    // if the day was MW we have to care about 2 Vbox
     else if (section.getDay().equals("MW")){
       VBox first, second;
       first = createRigestedCoursePane(section);  
@@ -1012,7 +969,6 @@ public static Label createLabel(String text, String style,double size){
       second.setStyle(chosedColor);
 
       Button removeButton1 = createRemoveButton(e -> {
-        System.out.println("got pressed form ayed");
         weekDaysPane.getChildren().removeAll(first,second);
         schedule.removeCourse(section);
         schedule.retrunToBasket(section);
@@ -1022,7 +978,6 @@ public static Label createLabel(String text, String style,double size){
       });
 
       Button removeButton2 = createRemoveButton(e -> {
-        System.out.println("got pressed form ayed");
         weekDaysPane.getChildren().removeAll(first,second);
         schedule.removeCourse(section);
         schedule.retrunToBasket(section);
@@ -1080,7 +1035,6 @@ public static Label createLabel(String text, String style,double size){
       VBox first = createRigestedCoursePane(section);
       first.setStyle(chosedColor);
       Button removButton = createRemoveButton(e-> {
-        System.out.println("got pressed form ayed");
         schedule.removeCourse(section);
         schedule.retrunToBasket(section);
         selectedCourses = schedule.createVboxSections();
@@ -1103,7 +1057,6 @@ public static Label createLabel(String text, String style,double size){
         schedule.retrunToBasket(section);
         selectedCourses = schedule.createVboxSections();
         listView.setItems(selectedCourses);
-        System.out.println("got pressed form ayed");
 
         weekDaysPane.getChildren().removeAll(first);
       });
@@ -1124,7 +1077,6 @@ public static Label createLabel(String text, String style,double size){
         schedule.retrunToBasket(section);
         selectedCourses = schedule.createVboxSections();
         listView.setItems(selectedCourses);
-        System.out.println("got pressed form ayed");
         weekDaysPane.getChildren().removeAll(first);
         section.toString();
       });
@@ -1144,7 +1096,6 @@ public static Label createLabel(String text, String style,double size){
         schedule.retrunToBasket(section);
         selectedCourses = schedule.createVboxSections();
         listView.setItems(selectedCourses);
-        System.out.println("got pressed form ayed");
         weekDaysPane.getChildren().removeAll(first);
         section.toString();
       });
@@ -1164,7 +1115,6 @@ public static Label createLabel(String text, String style,double size){
         schedule.retrunToBasket(section);
         selectedCourses = schedule.createVboxSections();
         listView.setItems(selectedCourses);
-        System.out.println("got pressed form ayed");
         weekDaysPane.getChildren().removeAll(first);
         section.toString();
       });
@@ -1191,7 +1141,7 @@ public static Label createLabel(String text, String style,double size){
   
   
   
-  
+  // to remove sections form rigsted sections
   public static Button createRemoveButton(EventHandler<ActionEvent> onPress){
     Button removButton = new Button();
     removButton.setGraphic(new ImageView(new Image("/resources/del.png", 10, 10, true, true)));
