@@ -18,7 +18,7 @@ public class Section implements Comparable<Section>, Serializable {
     private String courseCode;
 
 
-   // zyad
+ 
     public Section(String[] sectionInformation){
 
         this.sectionCode = sectionInformation[0]; 

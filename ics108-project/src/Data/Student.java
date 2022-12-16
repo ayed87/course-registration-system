@@ -34,6 +34,8 @@ public class Student {
     
 
 
+
+    // readin the file and creating objects for sections 
     public void readAllSections(BufferedReader buff){ 
 
        try{
@@ -51,17 +53,15 @@ public class Student {
     catch(IOException e){System.out.println(e);}
 
     }
+
+    
     public void addFinshedCourse(FinishedCourse finishedCourse){
         finishedCourses.add(finishedCourse);
     }
     public void removeFinshedCourse(FinishedCourse finishedCourse){
         finishedCourses.remove(finishedCourse);
     }
-    // ayed's temporary method
-    public void addCourse(Section section){
-        basket.add(section);
-
-    } 
+     
     public void removeCourse(Section section){
         basket.remove(section);
     }
@@ -72,7 +72,7 @@ public class Student {
 
    
 
-
+// reading the file and creating objects for  courses
     public void readAllCourse(BufferedReader buff){ 
 
         try{
@@ -91,6 +91,7 @@ public class Student {
  
      }
 
+     // reading the file and creating objects for finished courses
      public void readAllFinishedCourses(BufferedReader buff){ 
 
         try{
@@ -109,6 +110,7 @@ public class Student {
  
      }
 
+     // updating the finished courses 
      public void updateFinishedCourses(BufferedReader buff){ 
 
         finishedCourses.removeAll(finishedCourses); 
@@ -264,6 +266,7 @@ public class Student {
        
 }
 
+// to find the section the students can be taken 
 public void findCanBeTakenSections(){ 
 
     for(int i=0 ; i< allSections.size(); i++){ 
@@ -281,12 +284,14 @@ public void findCanBeTakenSections(){
     }
 }
 
+// to update can be taken courses
 public void updateCanBeTakenCourses(){ 
 
     canBeTakenCourses.removeAll(canBeTakenCourses);
     findCanBeTakenCourses();
 }
 
+// to update can be taken sections
 public void updateCanBeTakenSections(){ 
 
     canBeTakSections.removeAll(canBeTakSections);
@@ -299,6 +304,7 @@ public ArrayList<Course> getCanBeTakenCourses(){
 
 
 
+// to get the departments name from can be taken caourses
 public String[] getDepartments(){ 
 
     ArrayList<String> departments = new ArrayList<>(); 
@@ -326,6 +332,7 @@ public String[] getDepartments(){
 
 }
 
+// to get the courses name from can be taken caourses based on department selection
 public String[] getCoursesForDepartment(String department){
 
     ArrayList<String> departmentCourses = new ArrayList<>();
@@ -377,6 +384,7 @@ else{
 }
 
 
+// to get the sections that can be shown based on the deoartment and course selection
 public void findShownSections(String department, String course){ 
 
      ArrayList<Section> selectedSections= new ArrayList<>(); 
@@ -435,6 +443,7 @@ public ObservableList<Section> getBasket(){
     return basket;
 }
 
+// a method for the event in the list view of available sections 
 public void clickOnSectionList(ListView<Section> listView){
 
     basket.add(listView.getSelectionModel().getSelectedItem());
@@ -444,12 +453,13 @@ public void clickOnSectionList(ListView<Section> listView){
 
 }
 
+// a method for the event in the list view of taken sections 
 public void clickOnBasketList(ListView<Section> listView){ 
 
     shownSections.add(listView.getSelectionModel().getSelectedItem());
     basket.remove(listView.getSelectionModel().getSelectedItem());
 }
-// Mamdouh only  downward :)
+// to get all courses
 public ArrayList<Course> getCourseArray(){
     return allCourses;
 }
@@ -457,7 +467,6 @@ public ArrayList<Course> getCourseArray(){
 
 }
 
-//public void writeFinishedCourses(BufferedReader fini)
 
 
 

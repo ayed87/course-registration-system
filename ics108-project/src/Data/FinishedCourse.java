@@ -32,33 +32,12 @@ public class FinishedCourse extends Course {
 
               
     
-    // mamdouh downward 
-   
-    public String setDisplay(String grade){
-        return grade;
-
-    }
+    
     public String toString(){ 
         return getCourseCode() +","+ takenSemester +","+ grade;
 
     }
   
-
-    public static void getFinishedCourse (String l) {
-        try{
-         File file =new File("FinishedCourses.csv");
-         PrintWriter output=new PrintWriter(file);
-            output.println(l);
-            output.close();
-      
-     }
-     catch(FileNotFoundException e){
-         System.out.print(e);
-     }
-   
-         
-     }
-
     
 
     public String getTakenSemester() {
