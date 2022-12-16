@@ -1,9 +1,7 @@
 package Layout;
-// this class is for clors and designs
-
 import java.util.Random;
+// this class is for colors and designs
 
-import javafx.scene.control.skin.ChoiceBoxSkin;
 
 public class Styles {
     static String[] courseColors = {
@@ -43,7 +41,7 @@ public class Styles {
                 
                 """;
     }
-    // to picck a color for sections that are rigesterd
+    // to pick a color for sections that are rigesterd
     public static String pickColor(){
         Random random = new Random();
         int chosedColorindex = random.nextInt(courseColors.length-1);
@@ -91,10 +89,7 @@ public class Styles {
                 """;
     }
 
-    public static void main(String[] args) {
-
-        System.out.println(pickColor());
-    }
+ 
 } 
 
 

@@ -133,7 +133,7 @@ public class MainLayout extends Application {
         
         Label text= new Label();
         text.setText("Course offering");
-        // Left side vbox
+
         VBox vbox1= new VBox();
         vbox1.setSpacing(100);
         vbox1.setPadding(new Insets(5,5,5,5));
@@ -141,7 +141,6 @@ public class MainLayout extends Application {
         vbox1.getChildren().add(degreePlanButton);
         vbox1.getChildren().add(newScheduleButton);
 
-        // Right side vbox 
         VBox vbox2= new VBox();
         vbox2.setSpacing(100);
         vbox2.setPadding(new Insets(5,5,5,5));
@@ -149,7 +148,6 @@ public class MainLayout extends Application {
         vbox2.getChildren().add(savedScheduleButton);
         vbox2.getChildren().add(exitButton);
 
-        // Top hbox
 
 
 
@@ -165,7 +163,6 @@ public class MainLayout extends Application {
 
         
         
-        // To close the window
       
 
         
@@ -240,18 +237,18 @@ public class MainLayout extends Application {
         ListView<HBox> showPlanelListView = new ListView<>(createCourseBox(student));
         
         
-        // hbox for button
+        // hbox for disctiption
 
-        HBox topDiscrption = new HBox(123);
+        HBox topDiscrption = new HBox(81);
         topDiscrption.setAlignment(Pos.CENTER);
         topDiscrption.getChildren().addAll(
-          new Text("Course Name"),
-          new Text("Credits"),
-          new Text("Prerequiset"),
-          new Text("Corequiset"),
-          new Text("Status"),
-          new Text("Term"),
-          new Text("Grade")
+          createDgreeLable("Course Name",90),
+          createDgreeLable("Credits",60),
+          createDgreeLable("Prerequiset",90),
+          createDgreeLable("Corequiset",100),
+          createDgreeLable("Status",100),
+          createDgreeLable("Term",100),
+          createDgreeLable("Grade",100)
         );
      
         HBox bottomButtonsPane= new HBox();
@@ -725,6 +722,7 @@ public class MainLayout extends Application {
         Textcridit.setMaxWidth(40);
         
         VBox preRequestVbox = new VBox();
+
         preRequestVbox.setStyle(Styles.mainStyle());
         preRequestVbox.setPrefSize(90, 90);
 
@@ -740,6 +738,7 @@ public class MainLayout extends Application {
 
         
         VBox CorerequisiteVbox = new VBox();
+        
         CorerequisiteVbox.setStyle(Styles.mainStyle());
         CorerequisiteVbox.setPrefSize(90, 90);
 
@@ -857,7 +856,19 @@ public static Label createLabel(String text, String style,double size){
     return theLable;
 
   }
-  // to show times in different box
+  // this medhod will be used in degree scene to make a discription in the above
+  public static VBox createDgreeLable(String text, double width){
+    VBox vBox = new VBox();
+    Label theLabel = new Label(text);
+    theLabel.setStyle("-fx-background-color: #113E3E; -fx-text-fill: white;");
+    vBox.setPrefSize(width,70);
+    vBox.setAlignment(Pos.CENTER);
+    vBox.getChildren().add(theLabel);
+
+    return vBox;
+
+  }
+  // this medhod will be used in plane scene to create a a lable to show the time
   public static Label createTimeLabel(String text){
     Label theLable = new Label(text);
     theLable.setStyle("-fx-background-color: #113E3E; -fx-text-fill: white;");
@@ -1130,7 +1141,7 @@ public static Label createLabel(String text, String style,double size){
 
 
   }
-  /// to read all the old data
+  /// to read all the old data that was in week pane and load it again
   public static void readWeekdaysPane(Schedule schedule){
     for(Section section: schedule.getRegisteredSections()){
       addCourseToPane(section);
