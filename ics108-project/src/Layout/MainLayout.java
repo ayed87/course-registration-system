@@ -288,8 +288,8 @@ public class MainLayout extends Application {
        
    
           // Pane used 
-          BorderPane borderPane = new BorderPane();
-          borderPane.setStyle(Styles.mainStyle());
+          BorderPane basketPane = new BorderPane();
+          basketPane.setStyle(Styles.mainStyle());
   
   
           // Buttons to move between scenes
@@ -304,7 +304,7 @@ public class MainLayout extends Application {
           hBox.getChildren().addAll(basketPreviousButton,basketNextButton); 
           hBox.setSpacing(100);
           hBox.setAlignment(Pos.CENTER);
-          borderPane.setBottom(hBox);
+          basketPane.setBottom(hBox);
   
          
   
@@ -325,8 +325,8 @@ public class MainLayout extends Application {
   
          departmentChoice.setOnAction(e-> {
   
-      coursesChoice.getItems().removeAll(coursesChoice.getItems());
-      coursesChoice.getItems().addAll(student.getCoursesForDepartment(departmentChoice.getValue()));
+        coursesChoice.getItems().removeAll(coursesChoice.getItems());
+        coursesChoice.getItems().addAll(student.getCoursesForDepartment(departmentChoice.getValue()));
          });
   
           
@@ -384,7 +384,7 @@ public class MainLayout extends Application {
            sectionAndBasket.setAlignment(Pos.CENTER);
           
    
-          borderPane.setCenter(sectionAndBasket);
+          basketPane.setCenter(sectionAndBasket);
   
           
          });
@@ -393,6 +393,7 @@ public class MainLayout extends Application {
         
   
          
+         // layout adjusting for basket window 
           departmentChoice.setPrefSize(100,10);
           coursesChoice.setPrefSize(100, 10);
   
@@ -421,36 +422,17 @@ public class MainLayout extends Application {
           coursesSelectionBox.setSpacing(100);
           Label header = new Label("Sections' Basket"); 
           header.setFont(new Font("Arial", 30));
-          // header.setStyle(Styles.green());
-  
-         
-  
           
-  
-          
-  
-          // title 
+   
           VBox topPart = new VBox(); 
           topPart.getChildren().addAll(header,coursesSelectionBox);
           topPart.setAlignment(Pos.CENTER);
           topPart.setSpacing(40);
-          borderPane.setTop(topPart);
-  
-  
-          // courses select list, need more improvement
-          ScrollPane listScroll = new ScrollPane();
-          listScroll.setVbarPolicy(ScrollBarPolicy.ALWAYS);
-  
-          ObservableList<String> books = FXCollections.observableArrayList(" Section 1   ICS108  UTR  7:00 - 7:50");
-          ListView<String> sectionListView = new ListView<String>(books);
-  
-          listScroll.setContent(sectionListView);
-  
-         
-          listScroll.setFitToWidth(true);
-         
+          basketPane.setTop(topPart);     
 
-           Scene basketScene = new Scene(borderPane,1540,800);
+           Scene basketScene = new Scene(basketPane,1540,800);
+
+
 
            // plan stage 
             
