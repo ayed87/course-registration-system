@@ -251,13 +251,13 @@ public class MainLayout extends Application {
         HBox topDiscrption = new HBox(123);
         topDiscrption.setAlignment(Pos.CENTER);
         topDiscrption.getChildren().addAll(
-          new Text("course name"),
-          new Text("cridits"),
-          new Text("pre requiset"),
-          new Text("core requiset"),
-          new Text("status"),
-          new Text("term"),
-          new Text("grade")
+          new Text("Course Name"),
+          new Text("Credits"),
+          new Text("Prerequiset"),
+          new Text("Corequiset"),
+          new Text("Status"),
+          new Text("Term"),
+          new Text("Grade")
         );
      
         HBox bottomButtonsPane= new HBox();
@@ -731,57 +731,54 @@ public class MainLayout extends Application {
     for(Course course: student.getCourseArray()){
         HBox hBox = new HBox(100);
         hBox.setStyle(Styles.mainStyle());
-        // hBox.setStyle(Styles.blue());
         hBox.setPrefHeight(90);
-        // hBox.setPrefSize(70,70);
         hBox.setAlignment(Pos.BASELINE_CENTER);
         Text textName = new Text(course.getCourseCode());
-        // textName.setStyle(Styles.blue());
+
         Pane paneText = new Pane();
         paneText.setPrefSize(90, 90);
 
 
-        // textName.setAlignment(Pos.CENTER_LEFT);
-        // textName.setMaxWidth(40);
+
         paneText.getChildren().add(textName);
         Label Textcridit = new Label(Integer.toString(course.getCredit()));
         Textcridit.setMaxWidth(40);
-        // Textcridit.setAlignment(Pos.CENTER);
-        VBox textpreRequest = new VBox();
-        textpreRequest.setStyle(Styles.mainStyle());
-        textpreRequest.setPrefSize(90, 90);
+        
+        VBox preRequestVbox = new VBox();
+        preRequestVbox.setStyle(Styles.mainStyle());
+        preRequestVbox.setPrefSize(90, 90);
 
 
-        // textpreRequest.setAlignment(Pos.CENTER);
+        
         for(String pre :course.getPrerequisite()){
           Text text = new Text(pre);
-          textpreRequest.getChildren().add(text);
+          preRequestVbox.getChildren().add(text);
         }
-        textpreRequest.setMaxWidth(180);
+        preRequestVbox.setMaxWidth(180);
         
         
 
-        // textpreRequest.setAlignment(Pos.CENTER);
-        VBox textCorerequisite = new VBox();
-        textCorerequisite.setStyle(Styles.mainStyle());
-        textCorerequisite.setPrefSize(90, 90);
+        
+        VBox CorerequisiteVbox = new VBox();
+        CorerequisiteVbox.setStyle(Styles.mainStyle());
+        CorerequisiteVbox.setPrefSize(90, 90);
 
 
-        // textpreRequest.setAlignment(Pos.CENTER);
+
         for(String pre :course.getCorequisite()){
           Text text = new Text(pre);
-          textCorerequisite.getChildren().add(text);
+          CorerequisiteVbox.getChildren().add(text);
         }
-        textCorerequisite.setMaxWidth(180);
+        CorerequisiteVbox.setMaxWidth(180);
 
         
 
-        // TextCorerequisite.setAlignment(Pos.CENTER);
+
 
         Button StatusButton = new Button("Not taken");
         String[] grade= {"+A","A","+B","B","+C","C","+D","D","F"}; 
         ComboBox<String> grades = new ComboBox<>();
-        // grades.setPrefSize(90, 90);
+        
 
         grades.getItems().addAll(grade);
 
@@ -789,7 +786,7 @@ public class MainLayout extends Application {
         String[] years= {"222","221","213","212","211","203","202","201"}; 
 
         ComboBox<String> terms = new ComboBox<>();
-        // terms.setPrefSize(90, 90);
+        
 
         terms.getItems().addAll(years);
         
@@ -797,8 +794,7 @@ public class MainLayout extends Application {
         for(int i= 0 ; i< student.getFinishedCourses().size(); i++ ){ 
 
 
-            //System.out.println(course.getCourseCode().equals(student.getFinishedCourses().get(i).getCourseCode()));
-
+            // to check the taken courses from the file.
 
             if(course.getCourseCode().equals(student.getFinishedCourses().get(i).getCourseCode())){
                 System.out.println(course.getCourseCode());
@@ -839,8 +835,8 @@ public class MainLayout extends Application {
                 for(int i= 0 ; i< student.getFinishedCourses().size(); i++ ){ 
 
 
-                    //System.out.println(course.getCourseCode().equals(student.getFinishedCourses().get(i).getCourseCode()));
-    
+                    // to update the file and make the file empty
+                    
     
                     if(course.getCourseCode().equals(student.getFinishedCourses().get(i).getCourseCode())){
     
@@ -864,7 +860,7 @@ public class MainLayout extends Application {
 
         // course: MATH101   Credits : 4 
 
-        hBox.getChildren().addAll(paneText,Textcridit,textpreRequest,textCorerequisite,StatusButton,terms,grades);
+        hBox.getChildren().addAll(paneText,Textcridit,preRequestVbox,CorerequisiteVbox,StatusButton,terms,grades);
         finalResult.add(hBox);
 
 
@@ -916,20 +912,19 @@ public static Label createLabel(String text, String style,double size){
   public static VBox createRigestedCoursePane(Section section){
     VBox theLable = new VBox();
 
+    Label courseNameAndSection = new Label(section.getSectionCode()+"@"+section.getLocation());
+    Label instructorText = new Label(section.getInstructor());
+
+    courseNameAndSection.setStyle("-fx-text-fill: white;");
+    instructorText.setStyle("-fx-text-fill: white; ");
 
 
-    
-
-    Text courseNameAndSection = new Text(section.getSectionCode()+"@"+section.getLocation());
-    Text instructorText = new Text(section.getInstructor());
-    courseNameAndSection.setFill(Paint.valueOf("white"));;
-    instructorText.setFill(Paint.valueOf("white"));
 
     theLable.getChildren().addAll(courseNameAndSection,instructorText);
 
     int hight = (section.getLectureDuration()*50)/55;
-    theLable.setMaxHeight(hight);
-    theLable.setMaxWidth(160);
+    theLable.setPrefSize(160,hight);
+    // theLable.setMaxWidth(160);
 
 
     

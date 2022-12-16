@@ -1,4 +1,5 @@
 package Layout;
+// this class is for clors and designs
 
 import java.util.Random;
 
@@ -42,6 +43,7 @@ public class Styles {
                 
                 """;
     }
+    // to picck a color for sections that are rigesterd
     public static String pickColor(){
         Random random = new Random();
         int chosedColorindex = random.nextInt(courseColors.length-1);
@@ -96,10 +98,4 @@ public class Styles {
 } 
 
 
-// #1C1917
-// #14532D
-// #0C4A6E
-// #581C87
-// #831843
-// #713F12
-// #7F1D1D
+
