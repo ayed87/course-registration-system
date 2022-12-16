@@ -885,6 +885,7 @@ public class MainLayout extends Application {
     }
     return finalResult;
 }
+// a medhod that will create a lable we will use in palneScene
 public static Label createLabel(String text, String style,double size){
     Label theLable = new Label(text);
     theLable.setStyle(style);
@@ -896,10 +897,10 @@ public static Label createLabel(String text, String style,double size){
     return theLable;
 
   }
+  // to show times in different box
   public static Label createTimeLabel(String text){
     Label theLable = new Label(text);
     theLable.setStyle("-fx-background-color: #113E3E; -fx-text-fill: white;");
-    // theLable.setTextFill(Paint.valueOf("black"));
     theLable.setPrefSize(80,50);
     theLable.setFont(new Font("Arial", 17));
     theLable.setAlignment(Pos.TOP_CENTER);
@@ -907,6 +908,7 @@ public static Label createLabel(String text, String style,double size){
     return theLable;
 
   }
+
   public static VBox createCourseLabel(Section section){
     VBox theLable = new VBox();
 
